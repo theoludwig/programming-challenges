@@ -1,0 +1,18 @@
+[
+  {
+    "input": [4],
+    "output": false
+  },
+  {
+    "input": [19],
+    "output": true
+  },
+  {
+    "input": [97],
+    "output": true
+  },
+  {
+    "input": [54],
+    "output": false
+  }
+]
