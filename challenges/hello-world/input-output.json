@@ -1,0 +1,14 @@
+[
+  {
+    "input": ["world"],
+    "output": "Hello world!"
+  },
+  {
+    "input": ["everyone"],
+    "output": "Hello everyone!"
+  },
+  {
+    "input": ["Divlo"],
+    "output": "Hello Divlo!"
+  }
+]
