@@ -100,7 +100,7 @@ import copyDirPromise from './utils/copyDirPromise'
   await replaceInFile({
     files: [readmePath],
     from: /{{ solutionInfo }}/g,
-    to: 'Programming language : ' + programmingLanguage.name + '\n' + createdByString
+    to: 'Programming language : ' + programmingLanguage.name + '\n\n' + createdByString
   })
 
   console.log(`
