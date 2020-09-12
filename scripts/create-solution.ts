@@ -96,7 +96,7 @@ import copyDirPromise from './utils/copyDirPromise'
   })
 
   // Replace {{ solutionInfo }} in README.md
-  const createdByString = `Created${(userGitHub !== '') ? ` by [@${userGitHub}](https://github.com/${userGitHub})` : ''} at ${date.format(new Date(), 'D MMMM Y', true)}.`
+  const createdByString = `Created${(userGitHub !== '') ? ` by [@${userGitHub}](https://github.com/${userGitHub})` : ''} on ${date.format(new Date(), 'D MMMM Y', true)}.`
   await replaceInFile({
     files: [readmePath],
     from: /{{ solutionInfo }}/g,

@@ -74,7 +74,7 @@ import date from 'date-and-time'
   await replaceInFile({
     files: [readmePath],
     from: /{{ challengeInfo }}/g,
-    to: `Created${(userGitHub !== '') ? ` by [@${userGitHub}](https://github.com/${userGitHub})` : ''} at ${date.format(new Date(), 'D MMMM Y', true)}.`
+    to: `Created${(userGitHub !== '') ? ` by [@${userGitHub}](https://github.com/${userGitHub})` : ''} on ${date.format(new Date(), 'D MMMM Y', true)}.`
   })
 
   console.log(`
