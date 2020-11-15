@@ -33,7 +33,7 @@ To easily create **new challenges instructions, solutions and test** your code, 
 
 - Node.js >= 12
 
-Then you need to run `npm install` in the root folder to install needed packages, you can now use one of these commands : 
+Then you need to run `npm install` in the root folder to install needed packages, you can now use one of these commands :
 
 - ### `npm run create-challenge`
 

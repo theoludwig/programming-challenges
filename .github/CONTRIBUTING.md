@@ -4,7 +4,7 @@
 
 - [Submit a challenge instructions](challenge-instructions)
 - [Share a solution for an already existing challenge](solution-for-an-already-existing-challenge)
-- [Add a language available for testing the code](language-available-for-testing-the-code) 
+- [Add a language available for testing the code](language-available-for-testing-the-code)
 - [Correct a spelling error](spelling-error)
 
 ## Challenge instructions
@@ -18,20 +18,23 @@ You should have a new folder called the name of your challenge in [challenges](.
 - `README.md` : explain what the solution function should do (the instructions).
 - `input-output.json` : An array of possible input/output. This file allows you to test solutions.
 
-    Example of file :
-    ```json 
-    [
-        {
-            "input": ["arg"],
-            "output": "Hello world arg!"
-        },
-        {
-            "input": ["Divlo"],
-            "output": "Hello world Divlo!"
-        }
-    ]
-    ```
-    Each object has a "input" key, an array where each item is an argument passed to the solution function when it's executed. The "output" key is the expected output with the given input.
+  Example of file :
+
+  ```json
+  [
+    {
+      "input": ["arg"],
+      "output": "Hello world arg!"
+    },
+    {
+      "input": ["Divlo"],
+      "output": "Hello world Divlo!"
+    }
+  ]
+  ```
+
+  Each object has a "input" key, an array where each item is an argument passed to the solution function when it's executed. The "output" key is the expected output with the given input.
+
 - `solutions` folder where there are all solutions for this specific challenge.
 
 ## Solution for an already existing challenge
@@ -50,56 +53,55 @@ Before to add a new language, you should understand :
 
 [/scripts/languages-wrapper](../scripts/languages-wrapper) folder contains all the files needed to execute solutions. Each programming challenge has a execute file, this execute file will be copied in the `temp` folder with the solution file.
 
-Steps to add a new language : 
+Steps to add a new language :
 
 1. Code the execute file in the appropriate language
 
-    Algorithm of the execute file : 
+   Algorithm of the execute file :
 
-    - Import the solution function (same  directory, ignore errors)
-    - Read the `./input.json` files and convert it as JSON (not plain text string)
-    - Execute the solution function imported with the inputs as arguments
-    - Create and write a new file called `./output.json`, with the output result of the solution function
+   - Import the solution function (same directory, ignore errors)
+   - Read the `./input.json` files and convert it as JSON (not plain text string)
+   - Execute the solution function imported with the inputs as arguments
+   - Create and write a new file called `./output.json`, with the output result of the solution function
 
-    Example in javascript with node.js ([execute.js](../scripts/languages-wrapper/execute.js)) : 
-    ```javascript 
-    const path = require('path')
-    const fs = require('fs').promises
-    const solution = require('./solution')
+   Example in javascript with node.js ([execute.js](../scripts/languages-wrapper/execute.js)) :
 
-    const inputPath = path.join(__dirname, 'input.json')
-    const outputPath = path.join(__dirname, 'output.json')
+   ```javascript
+   const path = require('path')
+   const fs = require('fs').promises
+   const solution = require('./solution')
 
-    const main = async () => {
-        const inputFile = await fs.readFile(inputPath)
-        const inputJSON = JSON.parse(inputFile)
+   const inputPath = path.join(__dirname, 'input.json')
+   const outputPath = path.join(__dirname, 'output.json')
 
-        const result = solution.apply(null, inputJSON)
-        await fs.writeFile(outputPath, JSON.stringify(result))
-    }
+   const main = async () => {
+     const inputFile = await fs.readFile(inputPath)
+     const inputJSON = JSON.parse(inputFile)
 
-    main()
-    ```
+     const result = solution.apply(null, inputJSON)
+     await fs.writeFile(outputPath, JSON.stringify(result))
+   }
 
-1. Add the language in the `_languages.json` file as a new object of the array. Example for JavaScript : 
-    ```json 
-    {
-        "name": "JavaScript",
-        "extension": ".js",
-        "launch": "node"
-    }
-    ```
+   main()
+   ```
+
+1. Add the language in the `_languages.json` file as a new object of the array. Example for JavaScript :
+   ```json
+   {
+     "name": "JavaScript",
+     "extension": ".js",
+     "launch": "node"
+   }
+   ```
 1. Create a new solution file with the default basic boilerplate code in `/scripts/languages-wrapper/templates`. Example : `solution.js`:
-    ```js
-    function solution () {
-    
-    }
 
-    module.exports = solution
-    ```
+   ```js
+   function solution () {}
+
+   module.exports = solution
+   ```
+
 1. Add the language in the language available in [README.md](../README.md) file.
-
-
 
 ## Spelling error
 
