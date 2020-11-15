@@ -9,8 +9,12 @@ const main = async () => {
   const inputFile = await fs.readFile(inputPath)
   const inputJSON = JSON.parse(inputFile)
 
-  const result = solution.apply(null, inputJSON)
-  await fs.writeFile(outputPath, JSON.stringify(result))
+  try {
+    const result = solution.apply(null, inputJSON)
+    await fs.writeFile(outputPath, JSON.stringify(result))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 main()

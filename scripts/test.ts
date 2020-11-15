@@ -8,13 +8,23 @@ import deleteAllFilesExceptOne from './utils/deleteAllFilesExceptOne'
 import emoji from 'node-emoji'
 import prettyMilliseconds from 'pretty-ms'
 import { table } from 'table'
+
+const handleStderror = async (
+  stderr: string,
+  tempPath: string
+): Promise<void> => {
+  console.log(chalk.bgRedBright.black('Error occurred in your solution :'))
+  console.log(stderr)
+  await deleteAllFilesExceptOne(tempPath, '.gitignore')
+  process.exit(0)
+}
 ;(async () => {
   const fs = fsWithCallbacks.promises
   const exec = util.promisify(childProcess.exec)
   const args = process.argv.slice(2)
   const [challengeName, solutionName] = args
 
-  if (!challengeName || !solutionName) {
+  if (challengeName == null || solutionName == null) {
     console.log(`
       Please specify the challenge and solution name:
           ${chalk.cyan(`npm run test [challenge-name] [solution-name]`)}
@@ -55,7 +65,7 @@ import { table } from 'table'
 
   // Determinate the language to execute
   const solutionFilesName = await fs.readdir(solutionFolderPath)
-  let solutionFilePath
+  let solutionFilePath = null
   for (const solutionFileName of solutionFilesName) {
     const fileName = solutionFileName
       .split('.')
@@ -66,7 +76,7 @@ import { table } from 'table'
       break
     }
   }
-  if (!solutionFilePath) {
+  if (solutionFilePath == null) {
     console.log(`The ${chalk.red('solution')} file was not found.`)
     process.exit(0)
   }
@@ -79,7 +89,7 @@ import { table } from 'table'
   const languageToExecute = languages.find(
     language => language.extension === extensionSolution
   )
-  if (!languageToExecute) {
+  if (languageToExecute == null) {
     console.log(`Sadly, this ${chalk.red('language')} is not supported yet.`)
     process.exit(0)
   }
@@ -131,11 +141,14 @@ import { table } from 'table'
 
     // Execute script (create output.json)
     try {
-      await exec(`${languageToExecute.launch} ${executeLanguageTempPath}`)
+      const { stderr } = await exec(
+        `${languageToExecute.launch} ${executeLanguageTempPath}`
+      )
+      if (stderr.length !== 0) {
+        await handleStderror(stderr, tempPath)
+      }
     } catch (error) {
-      console.log(chalk.bgRedBright.black(error.stderr))
-      await deleteAllFilesExceptOne(tempPath, '.gitignore')
-      process.exit(0)
+      await handleStderror(error.stderr, tempPath)
     }
 
     // Read output.json
