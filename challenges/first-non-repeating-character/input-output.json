@@ -1,0 +1,34 @@
+[
+  {
+    "input": ["a"],
+    "output": "a"
+  },
+  {
+    "input": ["stress"],
+    "output": "t"
+  },
+  {
+    "input": ["moonmen"],
+    "output": "e"
+  },
+  {
+    "input": [""],
+    "output": ""
+  },
+  {
+    "input": ["abba"],
+    "output": ""
+  },
+  {
+    "input": ["aa"],
+    "output": ""
+  },
+  {
+    "input": ["~><#~><"],
+    "output": "#"
+  },
+  {
+    "input": ["hello world, eh?"],
+    "output": "w"
+  }
+]
