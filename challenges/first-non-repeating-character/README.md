@@ -2,7 +2,7 @@
 
 Created by [@Divlo](https://github.com/Divlo) on 15 November 2020.
 
-## Instructions :
+## Instructions
 
 Write a function that takes a string input, and returns the first character that is not repeated anywhere in the string.
 
@@ -10,10 +10,10 @@ For example, if given the input `'stress'`, the function should return `'t'`, si
 
 If a string contains all repeating characters, it should return an empty string (`""`).
 
-## Source :
+## Source
 
 [First non-repeating character - Codewars](https://www.codewars.com/kata/52bc74d4ac05d0945d00054e/)
 
-## Examples :
+## Examples
 
 See the `input-output.json` file for examples of input/output.

@@ -2,7 +2,7 @@
 
 Created by [@Divlo](https://github.com/Divlo) on 8 July 2020.
 
-## Instructions :
+## Instructions
 
 Given an array `arr`, find element pairs whose sum equal the second argument `arg` and return the sum of their indices.
 
@@ -20,6 +20,6 @@ Below we'll take their corresponding indices and add them.
 - 9 + 11 = 20 → Indices 1 + 2 = 3
 - 3 + 3 = 6 → Return 6
 
-## Examples :
+## Examples
 
 See the `input-output.json` file for examples of input/output.

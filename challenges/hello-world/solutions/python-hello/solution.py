@@ -1,2 +1,2 @@
 def solution(arg):
-    return 'Hello ' + arg + '!' 
+    return 'Hello ' + arg + '!'

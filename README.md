@@ -29,7 +29,7 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 
 To easily create **new challenges instructions, solutions and test** your code, I made a **CLI tool** made with Node.js and TypeScript.
 
-### Requirements :
+### Requirements
 
 - Node.js >= 12
 

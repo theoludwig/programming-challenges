@@ -1,6 +1,6 @@
 # 💡 Contributing
 
-## Types of contributions :
+## Types of contributions
 
 - [Submit a challenge instructions](challenge-instructions)
 - [Share a solution for an already existing challenge](solution-for-an-already-existing-challenge)
@@ -13,7 +13,7 @@ After running the command `npm run create-challenge` (see Installation & Usage p
 
 You should have a new folder called the name of your challenge in [challenges](./challenges) folder.
 
-### Structure and purpose of each files :
+### Structure and purpose of each files
 
 - `README.md` : explain what the solution function should do (the instructions).
 - `input-output.json` : An array of possible input/output. This file allows you to test solutions.
@@ -86,6 +86,7 @@ Steps to add a new language :
    ```
 
 1. Add the language in the `_languages.json` file as a new object of the array. Example for JavaScript :
+
    ```json
    {
      "name": "JavaScript",
@@ -93,6 +94,7 @@ Steps to add a new language :
      "launch": "node"
    }
    ```
+
 1. Create a new solution file with the default basic boilerplate code in `/scripts/languages-wrapper/templates`. Example : `solution.js`:
 
    ```js

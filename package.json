@@ -1,28 +1,34 @@
 {
   "name": "programming-challenges",
-  "private": true,
+  "version": "1.0.0",
+  "description": "programming-challenges brings together lots of programming exercises and challenges to improve your algorithmic logic.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Divlo/programming-challenges"
+  },
   "scripts": {
     "create-challenge": "ts-node ./scripts/create-challenge.ts",
     "create-solution": "ts-node ./scripts/create-solution.ts",
     "test": "ts-node ./scripts/test.ts"
   },
   "devDependencies": {
-    "@types/date-and-time": "^0.13.0",
-    "@types/inquirer": "^7.3.1",
-    "@types/node": "^14.14.7",
-    "@types/node-emoji": "^1.8.1",
-    "@types/table": "^6.0.0",
-    "@types/validate-npm-package-name": "^3.0.0",
-    "chalk": "^4.1.0",
-    "date-and-time": "^0.14.1",
-    "inquirer": "^7.3.3",
-    "make-dir": "^3.1.0",
-    "node-emoji": "^1.10.0",
-    "pretty-ms": "^7.0.1",
-    "replace-in-file": "^6.1.0",
-    "table": "^6.0.3",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.5",
-    "validate-npm-package-name": "^3.0.0"
+    "@types/date-and-time": "0.13.0",
+    "@types/inquirer": "7.3.1",
+    "@types/node": "14.14.11",
+    "@types/node-emoji": "1.8.1",
+    "@types/table": "6.0.0",
+    "@types/validate-npm-package-name": "3.0.2",
+    "chalk": "4.1.0",
+    "date-and-time": "0.14.1",
+    "inquirer": "7.3.3",
+    "make-dir": "3.1.0",
+    "node-emoji": "1.10.0",
+    "pretty-ms": "7.0.1",
+    "replace-in-file": "6.1.0",
+    "table": "6.0.4",
+    "ts-node": "9.1.1",
+    "typescript": "4.1.2",
+    "validate-npm-package-name": "3.0.0"
   }
 }

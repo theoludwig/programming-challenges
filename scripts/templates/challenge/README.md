@@ -2,10 +2,10 @@
 
 {{ challengeInfo }}
 
-## Instructions :
+## Instructions
 
 Description of the challenge...
 
-## Examples :
+## Examples
 
 See the `input-output.json` file for examples of input/output.
