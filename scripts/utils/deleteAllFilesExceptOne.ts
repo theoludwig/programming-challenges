@@ -11,7 +11,7 @@ async function deleteAllFilesExceptOne(
     const fileNamePath = path.resolve(directoryPath, name)
     const stats = await fs.stat(fileNamePath)
     if (stats.isDirectory()) {
-      await fs.rmdir(fileNamePath, { recursive: true })
+      await fs.rm(fileNamePath, { recursive: true })
     } else if (name !== fileNameToNotDelete) {
       await fs.unlink(fileNamePath)
     }

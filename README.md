@@ -9,7 +9,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/licence-MIT-blue.svg" alt="Licence MIT"/></a>
   <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"/></a>
   <br/> <br/>
-  <img src="./.github/logo.png" width="120" alt="programming-challenges Logo" />
+  <img src="./logo.png" width="120" alt="programming-challenges Logo" />
 </p>
 
 ## 📜 About
