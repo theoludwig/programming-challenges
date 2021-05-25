@@ -5,7 +5,7 @@ interface ShiftedLetter {
   shifted: string
 }
 
-function shiftAlphabet (shift: number): ShiftedLetter[] {
+function shiftAlphabet(shift: number): ShiftedLetter[] {
   const result: ShiftedLetter[] = []
   for (let index = 0; index < alphabet.length; index++) {
     const letter = alphabet[index]
@@ -21,7 +21,7 @@ function shiftAlphabet (shift: number): ShiftedLetter[] {
   return result
 }
 
-function solution (str: string, shift: number): string {
+function solution(str: string, shift: number): string {
   const shiftedAlphabet = shiftAlphabet(shift)
   let result = ''
   for (const letter of str) {

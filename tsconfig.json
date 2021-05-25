@@ -8,8 +8,8 @@
     "checkJs": false,
     "declaration": false,
     "sourceMap": true,
-    "outDir": "./build",
-    "rootDir": "./src",
+    "outDir": "./bin",
+    "rootDir": "./cli",
     "removeComments": false,
     "noEmitOnError": true,
     "importHelpers": false,
@@ -19,5 +19,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "exclude": ["node_modules", "challenges"]
 }

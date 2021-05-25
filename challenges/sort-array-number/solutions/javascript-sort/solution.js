@@ -1,4 +1,4 @@
-function minNumber (array) {
+function minNumber(array) {
   let minNumber = { index: 0, value: array[0] }
   for (let index = 1; index < array.length; index++) {
     const number = array[index]
@@ -9,7 +9,7 @@ function minNumber (array) {
   return minNumber
 }
 
-function solution (array) {
+function solution(array) {
   const arrayDuplicated = [...array]
   const resultArray = []
   while (array.length !== resultArray.length) {

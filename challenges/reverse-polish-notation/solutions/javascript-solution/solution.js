@@ -16,7 +16,7 @@ function solution(value) {
     const number = Number(value)
     if (!isNaN(number)) {
       stack.push(number)
-    } else if (operations.hasOwnProperty(value)) {
+    } else if (Object.prototype.hasOwnProperty.call(operations, 'value')) {
       const number1 = stack.pop()
       const number2 = stack.pop()
       const operation = operations[value]

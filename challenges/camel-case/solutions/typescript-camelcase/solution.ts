@@ -1,11 +1,14 @@
-function solution (string: string) {
+function solution(string: string): string {
   return string.length === 0
     ? ''
     : string
         .trim()
         .split(' ')
         .map((word, index) => {
-          if (index === 0) return word
+          const isFirstElement = index === 0
+          if (isFirstElement) {
+            return word
+          }
           return word[0].toUpperCase() + word.slice(1)
         })
         .join('')

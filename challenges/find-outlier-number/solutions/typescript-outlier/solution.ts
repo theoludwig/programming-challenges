@@ -3,11 +3,11 @@ interface NumberObject {
   index: number
 }
 
-function isOdd (number: number): boolean {
+function isOdd(number: number): boolean {
   return number % 2 !== 0
 }
 
-function solution (numbers: number[]): number {
+function solution(numbers: number[]): number {
   const oddNumbers: NumberObject[] = []
   const evenNumbers: NumberObject[] = []
 

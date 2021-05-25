@@ -1,4 +1,4 @@
-function solution (arg: string) {
+function solution(arg: string): string {
   return 'Hello ' + arg + '!'
 }
 

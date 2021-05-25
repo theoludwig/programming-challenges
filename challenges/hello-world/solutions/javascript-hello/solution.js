@@ -1,4 +1,4 @@
-function solution (arg) {
+function solution(arg) {
   return 'Hello ' + arg + '!'
 }
 

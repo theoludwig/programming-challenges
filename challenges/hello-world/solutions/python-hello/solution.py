@@ -1,2 +1,2 @@
-def solution(arg):
-    return 'Hello ' + arg + '!'
+def solution(argument: str) -> str:
+    return 'Hello ' + argument + '!'

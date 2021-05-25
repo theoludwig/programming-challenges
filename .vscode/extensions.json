@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "coenraads.bracket-pair-colorizer",
+    "davidanson.vscode-markdownlint"
+  ]
+}

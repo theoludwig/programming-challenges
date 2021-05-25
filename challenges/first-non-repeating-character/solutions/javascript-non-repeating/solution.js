@@ -1,7 +1,7 @@
 /**
  * @param {string} string
  */
-function solution (string) {
+function solution(string) {
   const lettersCount = {}
   for (let index = 0; index < string.length; index++) {
     const character = string[index]
