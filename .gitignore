@@ -31,3 +31,5 @@ coverage
 
 # misc
 .DS_Store
+temp
+tmp

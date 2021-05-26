@@ -2,10 +2,10 @@
 
 Created by [@Divlo](https://github.com/Divlo) on 5 July 2020.
 
-## Instructions :
+## Instructions
 
 Your function should return Hello depending on the parameter.
 
-## Examples :
+## Examples
 
 See the `input-output.json` file for examples of input/output.
