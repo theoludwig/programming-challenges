@@ -81,10 +81,13 @@ export class Solution implements SolutionOptions {
           `execute${this.programmingLanguage.fileExtension}`
         )
       )
-      process.chdir(TEMPORARY_PATH)
       try {
-        const { stderr } = await execa(this.programmingLanguage.executable, [
+        const executePath = path.join(
+          TEMPORARY_PATH,
           `execute${this.programmingLanguage.fileExtension}`
+        )
+        const { stderr } = await execa(this.programmingLanguage.executable, [
+          executePath
         ])
         if (stderr.length !== 0) {
           await this.handleStandardError(stderr)

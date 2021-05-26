@@ -1,6 +1,5 @@
 import os
 import json
-# pyright: reportMissingImports=false
 from solution import solution
 
 current_directory = os.path.dirname(__file__)

@@ -3,5 +3,5 @@
     "allowJs": true,
     "strict": true
   },
-  "include": ["challenges", "cli"]
+  "include": ["challenges", "cli", "execute"]
 }
