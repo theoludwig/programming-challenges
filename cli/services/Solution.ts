@@ -46,7 +46,7 @@ export class Solution implements SolutionOptions {
   private async handleStandardError(error: string): Promise<void> {
     console.error(chalk.bgRedBright.black('Error occurred in your solution :'))
     console.error(error)
-    process.exit(0)
+    process.exit(1)
   }
 
   public async test(): Promise<number> {
@@ -97,7 +97,6 @@ export class Solution implements SolutionOptions {
           totalSuccessfulTest += 1
         }
       } catch (error) {
-        console.error(error)
         await this.handleStandardError(error.stderr)
       }
     }

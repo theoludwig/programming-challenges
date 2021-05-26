@@ -1,4 +1,4 @@
-function solution(folders, result = []) {
+const solution = (folders, result = []) => {
   for (const folder of folders) {
     if (folder.type === 'image') {
       result.push(folder.name)

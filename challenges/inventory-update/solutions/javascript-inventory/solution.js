@@ -1,6 +1,5 @@
-function solution(array1, array2) {
+const solution = (array1, array2) => {
   const result = [...array1]
-
   array2.forEach((delivery2) => {
     const foundResultIndex = result.findIndex(
       (deliveryResult) => deliveryResult.item === delivery2.item

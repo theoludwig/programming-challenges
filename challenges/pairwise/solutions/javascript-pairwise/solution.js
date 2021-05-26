@@ -1,4 +1,4 @@
-function solution(arr, arg) {
+const solution = (arr, arg) => {
   return arr.reduce((accumulator, currentNumber, indexReduce, array) => {
     for (let index = indexReduce + 1; index < array.length; index++) {
       if (array[index] + array[indexReduce] === arg) {

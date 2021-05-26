@@ -5,11 +5,10 @@ const operations = {
   '/': (n1, n2) => n1 / n2
 }
 
-function solution(value) {
+const solution = (value) => {
   if (value.length === 0) {
     return 0
   }
-
   const stack = []
   const values = value.split(' ')
   values.forEach((value) => {
@@ -24,7 +23,6 @@ function solution(value) {
       stack.push(result)
     }
   })
-
   return stack.pop()
 }
 

@@ -1,4 +1,4 @@
-function convertStringToFloat(string: string): number {
+const convertStringToFloat = (string: string): number => {
   return parseFloat(string.replace(',', '.'))
 }
 
@@ -43,15 +43,17 @@ class Defibrillator {
   }
 }
 
-function solution(
-  longitudeInput: string,
-  latitudeInput: string,
-  defibrillatorsInput: string[]
-): string {
-  const longitude = convertStringToFloat(longitudeInput)
-  const latitude = convertStringToFloat(latitudeInput)
+interface SolutionArgument {
+  longitude: string
+  latitude: string
+  defibrillators: string[]
+}
+
+const solution = (argument: SolutionArgument): string => {
+  const longitude = convertStringToFloat(argument.longitude)
+  const latitude = convertStringToFloat(argument.latitude)
   const userPosition = new Position(longitude, latitude)
-  const defibrillators = defibrillatorsInput.map((currentLine) => {
+  const defibrillators = argument.defibrillators.map((currentLine) => {
     const line = currentLine.split(';;').join(';')
     return new Defibrillator(line.split(';'), userPosition)
   })

@@ -1,21 +1,21 @@
 [
   {
-    "input": [
-      "3,879483",
-      "43,608177",
-      [
+    "input": {
+      "longitude": "3,879483",
+      "lagitude": "43,608177",
+      "defibrillators": [
         "1;Maison de la Prevention Sante;6 rue Maguelone 340000 Montpellier;;3,87952263361082;43,6071285339217",
         "2;Hotel de Ville;1 place Georges Freche 34267 Montpellier;;3,89652239197876;43,5987299452849",
         "3;Zoo de Lunaret;50 avenue Agropolis 34090 Mtp;;3,87388031141133;43,6395872778854"
       ]
-    ],
+    },
     "output": "Maison de la Prevention Sante"
   },
   {
-    "input": [
-      "3,88995587137398",
-      "43,6260090150577",
-      [
+    "input": {
+      "longitude": "3,88995587137398",
+      "lagitude": "43,6260090150577",
+      "defibrillators": [
         "1;Maison de la Prevention Sante;6 rue Maguelone 340000 Montpellier;04 67 02 21 60;3,87952263361082;43,6071285339217",
         "2;Hotel de Ville;1 place Georges Freche 34267 Montpellier;04 67 34 44 93;3,89652239197876;43,5987299452849",
         "3;Zoo de Lunaret;50 avenue Agropolis 34090 Mtp;04 67 54 45 23;3,87388031141133;43,6395872778854",
@@ -184,7 +184,7 @@
         "188;Mornay;26 allee jules milhau 34965 MONTPELLIER;;3,88335468006384;43,6090204423773",
         "189;Boulodrome Bernard Gasset;122 avenue Maurice Planes 34070 MONTPELLIER;;3,84329169898554;43,5967806501323"
       ]
-    ],
+    },
     "output": "Cimetiere Saint-Etienne"
   }
 ]

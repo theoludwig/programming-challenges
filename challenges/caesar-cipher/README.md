@@ -15,7 +15,7 @@ Alphabet rotated +3 : DEFGHIJKLMNOPQRSTUVWXYZABC
 
 Complete the solution function. It should return the encrypted string.
 
-The function has the following parameter(s):
+The function has the following JSON object in argument :
 
 - `string`: a string in cleartext (everything uppercase)
 - `shift`: an integer, the alphabet rotation factor

@@ -1,18 +1,30 @@
 [
   {
-    "input": ["ANTHONY", 2],
+    "input": {
+      "string": "ANTHONY",
+      "shift": 2
+    },
     "output": "YLRFMLW"
   },
   {
-    "input": ["THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG", 3],
+    "input": {
+      "string": "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+      "shift": 3
+    },
     "output": "QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD"
   },
   {
-    "input": ["PROGRAMMING CHALLENGES IS AWESOME", 14],
+    "input": {
+      "string": "PROGRAMMING CHALLENGES IS AWESOME",
+      "shift": 14
+    },
     "output": "BDASDMYYUZS OTMXXQZSQE UE MIQEAYQ"
   },
   {
-    "input": ["JVUNYHABSHAPVUZ", 7],
+    "input": {
+      "string": "JVUNYHABSHAPVUZ",
+      "shift": 7
+    },
     "output": "CONGRATULATIONS"
   }
 ]

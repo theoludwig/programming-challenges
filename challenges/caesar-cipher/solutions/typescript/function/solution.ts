@@ -21,10 +21,16 @@ function shiftAlphabet(shift: number): ShiftedLetter[] {
   return result
 }
 
-function solution(str: string, shift: number): string {
+interface SolutionArgument {
+  string: string
+  shift: number
+}
+
+const solution = (argument: SolutionArgument): string => {
+  const { string, shift } = argument
   const shiftedAlphabet = shiftAlphabet(shift)
   let result = ''
-  for (const letter of str) {
+  for (const letter of string) {
     if (letter === ' ') {
       result += ' '
     } else {

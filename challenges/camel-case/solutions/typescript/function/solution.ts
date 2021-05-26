@@ -1,4 +1,4 @@
-function solution(string: string): string {
+const solution = (string: string): string => {
   return string.length === 0
     ? ''
     : string

@@ -1,18 +1,18 @@
 [
   {
-    "input": ["camel case"],
+    "input": "camel case",
     "output": "camelCase"
   },
   {
-    "input": ["say hello "],
+    "input": "say hello ",
     "output": "sayHello"
   },
   {
-    "input": [" camel case word "],
+    "input": " camel case word ",
     "output": "camelCaseWord"
   },
   {
-    "input": [""],
+    "input": "",
     "output": ""
   }
 ]
