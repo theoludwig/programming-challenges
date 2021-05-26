@@ -39,10 +39,5 @@ export const programmingLanguages: ProgrammingLanguage[] = [
     name: 'JavaScript',
     executable: 'node',
     fileExtension: '.js'
-  }),
-  new ProgrammingLanguage({
-    name: 'TypeScript',
-    executable: 'npx ts-node --skip-project',
-    fileExtension: '.ts'
   })
 ]
