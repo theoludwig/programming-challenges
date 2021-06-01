@@ -2,7 +2,10 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   rootDir: './cli',
-  testPathIgnorePatterns: ['<rootDir>/commands/run/test.ts'],
+  testPathIgnorePatterns: [
+    '<rootDir>/commands/run/test.ts',
+    '<rootDir>/node_modules'
+  ],
   collectCoverage: true,
   collectCoverageFrom: [
     '**/*.{js,ts}',

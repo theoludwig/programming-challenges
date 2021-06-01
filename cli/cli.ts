@@ -1,5 +1,6 @@
 import { Builtins, Cli } from 'clipanion'
 
+import { GenerateChallengeCommand } from './commands/generate/challenge'
 import { RunTestCommand } from './commands/run/test'
 
 export const cli = new Cli({
@@ -10,3 +11,4 @@ export const cli = new Cli({
 cli.register(Builtins.HelpCommand)
 cli.register(Builtins.VersionCommand)
 cli.register(RunTestCommand)
+cli.register(GenerateChallengeCommand)
