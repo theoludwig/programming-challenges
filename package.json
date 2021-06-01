@@ -29,7 +29,7 @@
   "dependencies": {
     "chalk": "4.1.1",
     "clipanion": "3.0.0-rc.12",
-    "execa": "5.0.0",
+    "execa": "5.0.1",
     "get-stream": "6.0.1",
     "ora": "5.4.0"
   },
@@ -39,24 +39,24 @@
     "@types/jest": "26.0.23",
     "@types/mock-fs": "4.13.0",
     "@types/node": "15.6.1",
-    "@typescript-eslint/eslint-plugin": "4.25.0",
+    "@typescript-eslint/eslint-plugin": "4.26.0",
     "editorconfig-checker": "4.0.2",
     "eslint": "7.27.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-config-standard-with-typescript": "20.0.0",
-    "eslint-plugin-import": "2.23.3",
+    "eslint-plugin-import": "2.23.4",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-promise": "5.1.0",
     "husky": "6.0.0",
-    "jest": "26.6.3",
+    "jest": "27.0.3",
     "lint-staged": "11.0.0",
     "markdownlint-cli": "0.27.1",
     "mock-fs": "5.0.0",
     "pinst": "2.1.6",
     "prettier": "2.3.0",
     "rimraf": "3.0.2",
-    "ts-jest": "26.5.6",
-    "typescript": "4.2.4"
+    "ts-jest": "27.0.2",
+    "typescript": "4.3.2"
   }
 }
