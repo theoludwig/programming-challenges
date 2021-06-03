@@ -23,7 +23,7 @@ export interface ChallengeOptions {
   name: string
 }
 
-export interface CreateChallengeOptions extends ChallengeOptions {
+export interface GenerateChallengeOptions extends ChallengeOptions {
   githubUser: string
 }
 
@@ -37,7 +37,9 @@ export class Challenge implements ChallengeOptions {
     this.path = path.join(__dirname, '..', '..', 'challenges', name)
   }
 
-  static async create(options: Partial<CreateChallengeOptions>): Promise<void> {
+  static async generate(
+    options: Partial<GenerateChallengeOptions>
+  ): Promise<void> {
     const { name, githubUser } = options
     if (name == null) {
       throw new Error('Please specify the challenge name you want to create.')

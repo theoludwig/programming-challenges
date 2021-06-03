@@ -18,7 +18,7 @@ export class GenerateChallengeCommand extends Command {
 
   async execute(): Promise<number> {
     try {
-      await Challenge.create({
+      await Challenge.generate({
         name: this.challenge,
         githubUser: this.githubUser
       })
