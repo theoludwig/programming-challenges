@@ -18,7 +18,7 @@ export async function copyDirectory(
       const writePath = path.join(destination, file)
       await fs.copyFile(originalFilePath, writePath)
     } else if (stats.isDirectory()) {
-      await fs.mkdir(path.join(destination, file))
+      await fs.mkdir(path.join(destination, file), { recursive: true })
       await copyDirectory(path.join(source, file), path.join(destination, file))
     }
   }

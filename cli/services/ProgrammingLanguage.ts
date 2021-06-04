@@ -19,7 +19,7 @@ export class ProgrammingLanguage implements ProgrammingLanguageOptions {
   static get(languageName: string): ProgrammingLanguage {
     const programmingLanguage = programmingLanguages.find(
       (programmingLanguage) => {
-        return programmingLanguage.name === languageName
+        return programmingLanguage.name.toLowerCase() === languageName
       }
     )
     if (programmingLanguage == null) {

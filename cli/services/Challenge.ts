@@ -11,7 +11,7 @@ import { copyDirectory } from '../utils/copyDirectory'
 
 const fs = fsWithCallbacks.promises
 
-const TEMPLATES_PATH = path.join(__dirname, '..', '..', 'templates')
+export const TEMPLATES_PATH = path.join(__dirname, '..', '..', 'templates')
 const TEMPLATE_CHALLENGE_PATH = path.join(TEMPLATES_PATH, 'challenge')
 
 export interface InputOutput {
