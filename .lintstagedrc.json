@@ -1,6 +1,0 @@
-{
-  "*": ["editorconfig-checker"],
-  "*.{js,ts}": ["prettier --write", "eslint --fix", "jest --findRelatedTests"],
-  "*.{json}": ["prettier --write"],
-  "*.{md}": ["prettier --write", "markdownlint --dot --fix"]
-}

@@ -20,34 +20,8 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 
 ## ✅ Programming languages available
 
-`npm run test` command will only work with these languages :
-
 - JavaScript and TypeScript (Node.js >= 12)
 - Python >= 3.8
-
-## 🚀 Installation & Usage (CLI)
-
-To easily create **new challenges instructions, solutions and test** your code, I made a **CLI tool** made with Node.js and TypeScript.
-
-### Requirements
-
-- Node.js >= 12
-
-Then you need to run `npm install` in the root folder to install needed packages, you can now use one of these commands :
-
-- ### `npm run create-challenge`
-
-  Create the basic files needed for a new challenge. It will ask you some questions and you will be ready to write the instructions and `input-output.json`. Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
-
-- ### `npm run create-solution`
-
-  Create the basic files needed for a new solution for a challenge. It will ask you some questions and you will be ready to write your solution in the available programming languages (see above). If you wish to submit to everyone your solution. Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
-
-- ### `npm run test [challenge-name] [solution-name]`
-
-  Test if the solution is correct and display where it succeeds and fails with the inputs provided, the output of your function and the expected output.
-
-  Example : `npm run test hello-world python-hello`
 
 ## 💡 Contributing
 

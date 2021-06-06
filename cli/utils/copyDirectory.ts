@@ -1,24 +1,19 @@
-import * as fsWithCallbacks from 'fs'
+import fs from 'fs'
 import path from 'path'
 
-const fs = fsWithCallbacks.promises
-
-export async function copyDirectory(
+export async function copyDirectory (
   source: string,
   destination: string
 ): Promise<void> {
-  const filesToCreate = await fs.readdir(source)
-  for (let file of filesToCreate) {
+  const filesToCreate = await fs.promises.readdir(source)
+  for (const file of filesToCreate) {
     const originalFilePath = path.join(source, file)
-    const stats = await fs.stat(originalFilePath)
+    const stats = await fs.promises.stat(originalFilePath)
     if (stats.isFile()) {
-      if (file === '.npmignore') {
-        file = '.gitignore'
-      }
       const writePath = path.join(destination, file)
-      await fs.copyFile(originalFilePath, writePath)
+      await fs.promises.copyFile(originalFilePath, writePath)
     } else if (stats.isDirectory()) {
-      await fs.mkdir(path.join(destination, file), { recursive: true })
+      await fs.promises.mkdir(path.join(destination, file), { recursive: true })
       await copyDirectory(path.join(source, file), path.join(destination, file))
     }
   }

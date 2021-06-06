@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "allowJs": true,
-    "strict": true
-  },
-  "include": ["challenges", "cli", "execute"]
-}

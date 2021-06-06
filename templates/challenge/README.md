@@ -8,4 +8,4 @@ Description of the challenge...
 
 ## Examples
 
-See the `input-output.json` file for examples of input/output.
+See the `test` folder for examples of input/output.

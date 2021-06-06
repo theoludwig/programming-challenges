@@ -16,4 +16,4 @@ If a string contains all repeating characters, it should return an empty string 
 
 ## Examples
 
-See the `input-output.json` file for examples of input/output.
+See the `test` folder for examples of input/output.

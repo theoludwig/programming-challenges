@@ -7,10 +7,10 @@
     "allowJs": false,
     "checkJs": false,
     "declaration": false,
-    "sourceMap": true,
-    "outDir": "./bin",
+    "sourceMap": false,
+    "outDir": "./build",
     "rootDir": "./cli",
-    "removeComments": false,
+    "removeComments": true,
     "noEmitOnError": true,
     "importHelpers": false,
     "strict": true,
@@ -20,5 +20,5 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["node_modules", "challenges", "execute", "temp"]
+  "exclude": ["node_modules", "challenges", "templates"]
 }

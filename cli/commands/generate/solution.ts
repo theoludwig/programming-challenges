@@ -1,4 +1,8 @@
 import { Command, Option } from 'clipanion'
+import * as typanion from 'typanion'
+
+import chalk from 'chalk'
+
 import { Solution } from '../../services/Solution'
 
 export class GenerateSolutionCommand extends Command {
@@ -9,32 +13,45 @@ export class GenerateSolutionCommand extends Command {
   }
 
   public challenge = Option.String('--challenge', {
-    description: 'challenge'
+    description: 'challenge',
+    required: true,
+    validator: typanion.isString()
   })
 
   public githubUser = Option.String('--github-user', {
-    description: 'github-user'
+    description: 'github-user',
+    required: true,
+    validator: typanion.isString()
   })
 
   public solutionName = Option.String('--solution', {
-    description: 'solution'
+    description: 'solution',
+    required: true,
+    validator: typanion.isString()
   })
 
   public programmingLanguage = Option.String('--language', {
-    description: 'language'
+    description: 'language',
+    required: true,
+    validator: typanion.isString()
   })
 
-  async execute(): Promise<number> {
+  async execute (): Promise<number> {
     try {
-      await Solution.generate({
+      const solution = await Solution.generate({
         name: this.solutionName,
         githubUser: this.githubUser,
         challengeName: this.challenge,
-        programmingLanguageName: this.programmingLanguage?.toLowerCase()
+        programmingLanguageName: this.programmingLanguage
       })
+      console.log(
+        `${chalk.bold.green('Success:')} created the new solution at ${
+          solution.path
+        }.`
+      )
       return 0
     } catch (error) {
-      console.error(error.message)
+      console.error(`${chalk.bold.red('Error:')} ${error.message as string}`)
       return 1
     }
   }

@@ -1,13 +1,11 @@
 import fsMock from 'mock-fs'
-import * as fsWithCallbacks from 'fs'
+import fs from 'fs'
 
 import {
   TEMPORARY_PATH,
   createTemporaryEmptyFolder
 } from '../createTemporaryEmptyFolder'
 import { isExistingPath } from '../isExistingPath'
-
-const fs = fsWithCallbacks.promises
 
 describe('utils/createTemporaryEmptyFolder', () => {
   afterEach(async () => {
@@ -28,8 +26,8 @@ describe('utils/createTemporaryEmptyFolder', () => {
       }
     })
     expect(await isExistingPath(TEMPORARY_PATH)).toBeTruthy()
-    expect((await fs.readdir(TEMPORARY_PATH)).length).toEqual(1)
+    expect((await fs.promises.readdir(TEMPORARY_PATH)).length).toEqual(1)
     await createTemporaryEmptyFolder()
-    expect((await fs.readdir(TEMPORARY_PATH)).length).toEqual(0)
+    expect((await fs.promises.readdir(TEMPORARY_PATH)).length).toEqual(0)
   })
 })

@@ -6,28 +6,20 @@ npm-debug.log*
 
 # production
 build
-bin
-dist
-out
+__pycache__
 
 # testing
 coverage
 
-# IDEs and editors
-/.idea
+# editors
+.idea
+.vscode
 .project
 .classpath
 .c9/
 *.launch
 .settings/
 *.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
 # misc
 .DS_Store

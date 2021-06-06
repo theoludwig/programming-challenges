@@ -1,26 +1,19 @@
 import path from 'path'
-import * as fsWithCallbacks from 'fs'
+import fs from 'fs'
 
-import makeDirectory from 'make-dir'
-import chalk from 'chalk'
 import execa from 'execa'
-import { replaceInFile } from 'replace-in-file'
-import date from 'date-and-time'
+import chalk from 'chalk'
+import ora from 'ora'
+import { table } from 'table'
 
 import {
   createTemporaryEmptyFolder,
   TEMPORARY_PATH
 } from '../utils/createTemporaryEmptyFolder'
 import { isExistingPath } from '../utils/isExistingPath'
-import { Challenge, TEMPLATES_PATH } from './Challenge'
-import { ProgrammingLanguage } from './ProgrammingLanguage'
+import { Challenge } from './Challenge'
 import { copyDirectory } from '../utils/copyDirectory'
-
-const fs = fsWithCallbacks.promises
-
-const TEMPORARY_INPUT_PATH = path.join(TEMPORARY_PATH, 'input.json')
-const TEMPORARY_OUTPUT_PATH = path.join(TEMPORARY_PATH, 'output.json')
-const TEMPLATE_SOLUTION_PATH = path.join(TEMPLATES_PATH, 'solution')
+import { template } from './Template'
 
 export interface GetSolutionOptions {
   programmingLanguageName: string
@@ -33,161 +26,142 @@ export interface GenerateSolutionOptions extends GetSolutionOptions {
 }
 
 export interface SolutionOptions {
-  path: string
-  name: string
-  programmingLanguage: ProgrammingLanguage
+  programmingLanguageName: string
   challenge: Challenge
+  name: string
 }
 
 export class Solution implements SolutionOptions {
-  public programmingLanguage: ProgrammingLanguage
+  public programmingLanguageName: string
   public challenge: Challenge
   public name: string
   public path: string
 
-  constructor(options: SolutionOptions) {
-    const { programmingLanguage, challenge, name, path } = options
-    this.programmingLanguage = programmingLanguage
+  constructor (options: SolutionOptions) {
+    const { programmingLanguageName, challenge, name } = options
+    this.programmingLanguageName = programmingLanguageName
     this.challenge = challenge
     this.name = name
-    this.path = path
+    this.path = path.join(
+      challenge.path,
+      'solutions',
+      programmingLanguageName,
+      name
+    )
   }
 
-  static async generate(
-    options: Partial<GenerateSolutionOptions>
-  ): Promise<void> {
-    const {
-      name,
-      challengeName = '',
-      programmingLanguageName = '',
-      githubUser
-    } = options
-    if (name == null) {
-      throw new Error('Please specify the solution name you want to create.')
+  private async prepareTemporaryFolder (): Promise<void> {
+    await createTemporaryEmptyFolder()
+    await copyDirectory(this.path, TEMPORARY_PATH)
+    await template.docker({
+      programmingLanguage: this.programmingLanguageName,
+      destination: TEMPORARY_PATH
+    })
+    process.chdir(TEMPORARY_PATH)
+  }
+
+  public async test (): Promise<void> {
+    await this.prepareTemporaryFolder()
+    const testPath = path.join(this.challenge.path, 'test')
+    const tests = await fs.promises.readdir(testPath)
+    const containerTag = 'programming_challenges'
+    await execa.command(`docker build --tag=${containerTag} ./`)
+    const result: boolean[] = []
+    const tableResult = [
+      [
+        chalk.cyan('N°'),
+        chalk.cyan('Input'),
+        chalk.cyan('Expected'),
+        chalk.cyan('Received')
+      ]
+    ]
+    for (let index = 0; index < tests.length; index++) {
+      const test = tests[index]
+      const loader = ora(`Test n°${index + 1}`).start()
+      const inputPath = path.join(testPath, test, 'input.txt')
+      const outputPath = path.join(testPath, test, 'output.txt')
+      const input = await fs.promises.readFile(inputPath, { encoding: 'utf-8' })
+      const output = await fs.promises.readFile(outputPath, {
+        encoding: 'utf-8'
+      })
+      const { stdout } = await execa.command(
+        `docker run --interactive --rm ${containerTag}`,
+        {
+          input
+        }
+      )
+      const isSuccessTest = stdout === output
+      result.push(isSuccessTest)
+      if (isSuccessTest) {
+        loader.succeed()
+      } else {
+        loader.fail()
+        tableResult.push([(index + 1).toString(), input, output, stdout])
+      }
     }
+
+    const totalCorrectTest = result.reduce((total, isSuccess) => {
+      if (!isSuccess) {
+        return total
+      }
+      return total + 1
+    }, 0)
+    const isSuccess = totalCorrectTest === tests.length
+    if (!isSuccess) {
+      console.log()
+      console.log(table(tableResult))
+    } else {
+      console.log()
+    }
+    const testsMessage = isSuccess
+      ? chalk.green(`${totalCorrectTest} passed`)
+      : chalk.red(`${tests.length - totalCorrectTest} failed`)
+    console.log(`Name  : ${this.challenge.name}/${this.programmingLanguageName}/${this.name}
+Tests : ${testsMessage}, ${tests.length} total
+`)
+    if (!isSuccess) {
+      throw new Error('Tests failed, try again!')
+    }
+  }
+
+  static async generate (options: GenerateSolutionOptions): Promise<Solution> {
+    const { name, challengeName, programmingLanguageName, githubUser } = options
     const challenge = new Challenge({ name: challengeName })
     if (!(await isExistingPath(challenge.path))) {
       throw new Error(`The challenge doesn't exist yet: ${name}.`)
     }
-    const programmingLanguage = ProgrammingLanguage.get(programmingLanguageName)
-    const solutionPath = path.join(
-      challenge.path,
-      'solutions',
-      programmingLanguage.name.toLowerCase(),
-      name
-    )
-    if (await isExistingPath(solutionPath)) {
+    const solution = new Solution({
+      name,
+      challenge,
+      programmingLanguageName
+    })
+    if (await isExistingPath(solution.path)) {
       throw new Error('The solution already exists.')
     }
-    await makeDirectory(solutionPath)
-    await copyDirectory(TEMPLATE_SOLUTION_PATH, solutionPath)
-    const readmePath = path.join(solutionPath, 'README.md')
-    const dateString = date.format(new Date(), 'D MMMM Y', true)
-
-    const description = `Created${
-      githubUser != null
-        ? ` by [@${githubUser}](https://github.com/${githubUser})`
-        : ''
-    } on ${dateString as string}.`
-    await replaceInFile({
-      files: [readmePath],
-      from: /{{ name }}/g,
-      to: `${challengeName}/${programmingLanguageName}/${name}`
+    await fs.promises.mkdir(solution.path, { recursive: true })
+    await template.solution({
+      challengeName: challenge.name,
+      destination: solution.path,
+      githubUser,
+      programmingLanguageName: solution.programmingLanguageName,
+      name: solution.name
     })
-    await replaceInFile({
-      files: [readmePath],
-      from: /{{ description }}/g,
-      to: description
-    })
+    return solution
   }
 
-  private async handleStandardError(error: string): Promise<void> {
-    console.error(chalk.bgRedBright.black('Error occurred in your solution :'))
-    console.error(error)
-    process.exit(1)
-  }
-
-  public async test(): Promise<number> {
-    const inputOutput = await this.challenge.getInputOutput()
-    let totalSuccessfulTest = 0
-    for (const { input, output } of inputOutput) {
-      await createTemporaryEmptyFolder()
-      const inputString = JSON.stringify(input)
-      await fs.writeFile(TEMPORARY_INPUT_PATH, inputString, {
-        encoding: 'utf8'
-      })
-      await fs.copyFile(
-        path.join(
-          this.path,
-          `solution${this.programmingLanguage.fileExtension}`
-        ),
-        path.join(
-          TEMPORARY_PATH,
-          `solution${this.programmingLanguage.fileExtension}`
-        )
-      )
-      await fs.copyFile(
-        path.join(
-          __dirname,
-          '..',
-          '..',
-          'execute',
-          `execute${this.programmingLanguage.fileExtension}`
-        ),
-        path.join(
-          TEMPORARY_PATH,
-          `execute${this.programmingLanguage.fileExtension}`
-        )
-      )
-      try {
-        const executePath = path.join(
-          TEMPORARY_PATH,
-          `execute${this.programmingLanguage.fileExtension}`
-        )
-        const { stderr } = await execa(this.programmingLanguage.executable, [
-          executePath
-        ])
-        if (stderr.length !== 0) {
-          await this.handleStandardError(stderr)
-        }
-        const currentRawOutput = await fs.readFile(TEMPORARY_OUTPUT_PATH, {
-          encoding: 'utf-8'
-        })
-        const isCorrect = JSON.stringify(output) === currentRawOutput
-        if (isCorrect) {
-          totalSuccessfulTest += 1
-        }
-      } catch (error) {
-        await this.handleStandardError(error.stderr)
-      }
-    }
-    return totalSuccessfulTest === inputOutput.length ? 0 : 1
-  }
-
-  static async get(options: Partial<GetSolutionOptions>): Promise<Solution> {
-    const {
-      name = '',
-      challengeName = '',
-      programmingLanguageName = ''
-    } = options
+  static async get (options: GetSolutionOptions): Promise<Solution> {
+    const { name, challengeName, programmingLanguageName } = options
     const challenge = new Challenge({
       name: challengeName
     })
-    const programmingLanguage = ProgrammingLanguage.get(programmingLanguageName)
-    const solutionPath = path.join(
-      challenge.path,
-      'solutions',
-      programmingLanguage.name.toLowerCase(),
-      name
-    )
-    if (!(await isExistingPath(solutionPath))) {
-      throw new Error('The solution was not found')
-    }
-    return new Solution({
+    const solution = new Solution({
       name,
       challenge,
-      programmingLanguage,
-      path: solutionPath
+      programmingLanguageName
     })
+    if (!(await isExistingPath(solution.path))) {
+      throw new Error('The solution was not found.')
+    }
+    return solution
   }
 }

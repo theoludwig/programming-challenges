@@ -13,8 +13,6 @@ Thanks a lot for your interest in contributing to **programming-challenges**! ðŸ
 
 - **Please first discuss** the change you wish to make via [issue](https://github.com/Divlo/programming-challenges/issues) before making a change. It might avoid a waste of your time.
 
-- Ensure your code respect [Typescript Standard Style](https://www.npmjs.com/package/ts-standard).
-
 - Make sure your **code passes the tests**.
 
 If you're adding new features to **programming-challenges**, please include tests.

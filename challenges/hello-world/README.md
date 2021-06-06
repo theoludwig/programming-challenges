@@ -1,11 +1,11 @@
 # hello-world
 
-Created by [@Divlo](https://github.com/Divlo) on 5 July 2020.
+Created by [@Divlo](https://github.com/Divlo) on 6 June 2021.
 
 ## Instructions
 
-Your function should return Hello depending on the parameter.
+Your function should return Hello depending of the parameter.
 
 ## Examples
 
-See the `input-output.json` file for examples of input/output.
+See the `test` folder for examples of input/output.
