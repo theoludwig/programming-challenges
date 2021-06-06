@@ -11,6 +11,6 @@ export const cli = new Cli({
 })
 cli.register(Builtins.HelpCommand)
 cli.register(Builtins.VersionCommand)
-cli.register(RunTestCommand)
 cli.register(GenerateChallengeCommand)
 cli.register(GenerateSolutionCommand)
+cli.register(RunTestCommand)

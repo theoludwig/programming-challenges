@@ -1,5 +1,6 @@
 # dependencies
 node_modules
+.npm
 
 # debug
 npm-debug.log*
@@ -12,16 +13,10 @@ __pycache__
 coverage
 
 # editors
-.idea
 .vscode
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+.theia
+.idea
 
 # misc
 .DS_Store
 temp
-tmp

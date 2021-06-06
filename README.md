@@ -20,14 +20,16 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 
 ## ✅ Programming languages available
 
-- JavaScript and TypeScript (Node.js >= 12)
-- Python >= 3.8
+- [C (gcc)](https://gcc.gnu.org/)
+- [Dart](https://dart.dev/)
+- [JavaScript and TypeScript (Node.js)](https://nodejs.org/)
+- [Python](https://www.python.org/)
 
 ## 💡 Contributing
 
-Feel free to submit your challenges, your solutions or even a simple spelling mistake.
+Anyone can help to improve the project, submit a challenge, a solution or even correct a simple spelling mistake.
 
-Everyone can contribute to the improvement of the project! The steps to contribute can be found in the [CONTRIBUTING.md](./.github/CONTRIBUTING.md) file.
+The steps to contribute can be found in the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
 
 ## 📄 License
 
