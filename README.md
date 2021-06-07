@@ -22,7 +22,7 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 
 - [C/C++ (gcc)](https://gcc.gnu.org/)
 - [Dart](https://dart.dev/)
-- [Java (openjdk](https://openjdk.java.net/)
+- [Java (openjdk)](https://openjdk.java.net/)
 - [JavaScript/TypeScript (Node.js)](https://nodejs.org/)
 - [Python](https://www.python.org/)
 - [Rust](https://www.rust-lang.org/)
