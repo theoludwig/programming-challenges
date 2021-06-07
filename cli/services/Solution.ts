@@ -1,7 +1,6 @@
 import path from 'path'
 import fs from 'fs'
 
-import execa from 'execa'
 import chalk from 'chalk'
 import ora from 'ora'
 import { table } from 'table'
@@ -14,6 +13,7 @@ import { isExistingPath } from '../utils/isExistingPath'
 import { Challenge } from './Challenge'
 import { copyDirectory } from '../utils/copyDirectory'
 import { template } from './Template'
+import { docker } from './Docker'
 
 export interface GetSolutionOptions {
   programmingLanguageName: string
@@ -64,8 +64,7 @@ export class Solution implements SolutionOptions {
     await this.prepareTemporaryFolder()
     const testPath = path.join(this.challenge.path, 'test')
     const tests = await fs.promises.readdir(testPath)
-    const containerTag = 'programming_challenges'
-    await execa.command(`docker build --tag=${containerTag} ./`)
+    await docker.build()
     const result: boolean[] = []
     const tableResult = [
       [
@@ -84,12 +83,7 @@ export class Solution implements SolutionOptions {
       const output = await fs.promises.readFile(outputPath, {
         encoding: 'utf-8'
       })
-      const { stdout } = await execa.command(
-        `docker run --interactive --rm ${containerTag}`,
-        {
-          input
-        }
-      )
+      const stdout = await docker.run(input)
       const isSuccessTest = stdout === output
       result.push(isSuccessTest)
       if (isSuccessTest) {
