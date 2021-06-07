@@ -1,17 +1,18 @@
 import execa from 'execa'
-import getStream from 'get-stream'
+import ora from 'ora'
 
 const CONTAINER_TAG = 'programming-challenges'
 
 class Docker {
   public async build (): Promise<void> {
-    const stream = execa.command(`docker build --tag=${CONTAINER_TAG} ./`).stdout
-    if (stream == null) {
-      return
+    const loader = ora('Building the Docker image').start()
+    try {
+      await execa.command(`docker build --tag=${CONTAINER_TAG} ./`)
+      loader.succeed()
+    } catch (error) {
+      loader.fail()
+      throw error
     }
-    stream.pipe(process.stdout)
-    await getStream(stream)
-    console.log()
   }
 
   public async run (input: string): Promise<string> {
