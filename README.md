@@ -20,10 +20,12 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 
 ## ✅ Programming languages available
 
-- [C (gcc)](https://gcc.gnu.org/)
+- [C/C++ (gcc)](https://gcc.gnu.org/)
 - [Dart](https://dart.dev/)
-- [JavaScript and TypeScript (Node.js)](https://nodejs.org/)
+- [Java (openjdk](https://openjdk.java.net/)
+- [JavaScript/TypeScript (Node.js)](https://nodejs.org/)
 - [Python](https://www.python.org/)
+- [Rust](https://www.rust-lang.org/)
 
 ## 💡 Contributing
 
