@@ -5,15 +5,14 @@
 - [ ] Add `run benchmark` command
 - [ ] Possibility to run test without Docker + improve Gitpod workflow and GitHub Actions (`run test --affected`)
 - [ ] Add documentation for all the commands + README/CONTRIBUTING
-- [ ] Add programming languages support
 
 ## Languages support
 
 - [x] C
+- [x] C++
 - [x] Dart
 - [x] JavaScript
 - [x] Python
 - [x] TypeScript
-- [ ] C++
 - [ ] Rust
 - [ ] Java
