@@ -1,9 +1,9 @@
 from typing import List
 import sys
 
-input = []
+input_values: List[str] = []
 for value in sys.stdin:
-    input.append(value.rstrip('\n'))
+    input_values.append(value.rstrip('\n'))
 
 
 def divider_list(number: int) -> List[int]:
@@ -18,7 +18,7 @@ def solution(number: int) -> bool:
     return len(divider_list(number)) == 2
 
 
-is_prime_number = solution(int(input[0]))
+is_prime_number = solution(int(input_values[0]))
 if is_prime_number:
     print('true')
 else:
