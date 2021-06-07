@@ -1,6 +1,7 @@
 image: 'gitpod/workspace-full'
 
 tasks:
-  - before: 'npm install'
-    init: 'npm run build'
-    command: 'npm install --global'
+  - name: 'programming-challenges'
+    before: 'npm install --global npm@7 && npm clean-install'
+    init: 'npm run build && npm install --global'
+    command: 'programming-challenges'
