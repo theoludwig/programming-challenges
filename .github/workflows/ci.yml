@@ -2,12 +2,12 @@ name: 'ci'
 
 on:
   push:
-    branches: [master]
+    branches: [master, feat/rewrite-cli]
   pull_request:
     branches: [master]
 
 jobs:
-  lint:
+  cli:
     runs-on: 'ubuntu-latest'
     steps:
       - uses: 'actions/checkout@v2'
@@ -31,10 +31,19 @@ jobs:
       - run: 'npm run lint:markdown'
       - run: 'npm run lint:typescript'
 
-  build:
+      - name: 'Build'
+        run: 'npm run build'
+
+      - name: 'Test'
+        run: 'npm run test'
+
+  challenges:
     runs-on: 'ubuntu-latest'
     steps:
       - uses: 'actions/checkout@v2'
+
+      - name: 'Use Docker'
+        uses: 'actions-hub/docker/cli@master'
 
       - name: 'Use Node.js'
         uses: 'actions/setup-node@v2.1.5'
@@ -53,24 +62,8 @@ jobs:
       - name: 'Build'
         run: 'npm run build'
 
-  test:
-    runs-on: 'ubuntu-latest'
-    steps:
-      - uses: 'actions/checkout@v2'
-
-      - name: 'Use Node.js'
-        uses: 'actions/setup-node@v2.1.5'
-        with:
-          node-version: '16.x'
-
-      - name: 'Cache dependencies'
-        uses: 'actions/cache@v2.1.6'
-        with:
-          path: '.npm'
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-
-      - name: 'Install'
-        run: 'npm ci --cache .npm --prefer-offline'
+      - name: 'Install programming-challenges'
+        run: 'npm install --global'
 
       - name: 'Test'
-        run: 'npm run test'
+        run: 'programming-challenges run test --challenge="hello-world" --solution="function" --language="cpp"'

@@ -5,3 +5,13 @@ tasks:
     before: 'npm install --global npm@7 && npm clean-install'
     init: 'npm run build && npm install --global'
     command: 'programming-challenges'
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addComment: true
+    addBadge: true
+    addLabel: true
