@@ -62,9 +62,9 @@ export class Solution implements SolutionOptions {
 
   public async test (): Promise<void> {
     await this.prepareTemporaryFolder()
+    await docker.build()
     const testPath = path.join(this.challenge.path, 'test')
     const tests = await fs.promises.readdir(testPath)
-    await docker.build()
     const result: boolean[] = []
     const tableResult = [
       [
@@ -93,7 +93,6 @@ export class Solution implements SolutionOptions {
         tableResult.push([(index + 1).toString(), input, output, stdout])
       }
     }
-
     const totalCorrectTest = result.reduce((total, isSuccess) => {
       if (!isSuccess) {
         return total
@@ -107,12 +106,12 @@ export class Solution implements SolutionOptions {
     } else {
       console.log()
     }
-    const testsMessage = isSuccess
+    const testsResult = isSuccess
       ? chalk.green(`${totalCorrectTest} passed`)
       : chalk.red(`${tests.length - totalCorrectTest} failed`)
-    console.log(`Name  : ${this.challenge.name}/${this.programmingLanguageName}/${this.name}
-Tests : ${testsMessage}, ${tests.length} total
-`)
+    const nameMessage = `Name  : ${this.challenge.name}/${this.programmingLanguageName}/${this.name}`
+    const testsMessage = `Tests : ${testsResult}, ${tests.length} total`
+    console.log(`${nameMessage}\n${testsMessage}`)
     if (!isSuccess) {
       throw new Error('Tests failed, try again!')
     }
