@@ -11,8 +11,8 @@
 - [x] C
 - [x] C++
 - [x] Dart
+- [x] Java
 - [x] JavaScript
 - [x] Python
 - [x] Rust
 - [x] TypeScript
-- [ ] Java
