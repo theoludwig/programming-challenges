@@ -14,5 +14,6 @@ insert_final_newline = true
 indent_size = 4
 
 [*.txt]
+indent_size = 1
 trim_trailing_whitespace = false
 insert_final_newline = false
