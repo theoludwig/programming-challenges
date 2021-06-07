@@ -13,6 +13,6 @@
 - [x] Dart
 - [x] JavaScript
 - [x] Python
+- [x] Rust
 - [x] TypeScript
-- [ ] Rust
 - [ ] Java
