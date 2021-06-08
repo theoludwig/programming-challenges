@@ -34,7 +34,7 @@ export class Solution implements SolutionOptions {
   public name: string
   public path: string
 
-  constructor(options: SolutionOptions) {
+  constructor (options: SolutionOptions) {
     const { programmingLanguageName, challenge, name } = options
     this.programmingLanguageName = programmingLanguageName
     this.challenge = challenge
@@ -47,7 +47,7 @@ export class Solution implements SolutionOptions {
     )
   }
 
-  private async prepareTemporaryFolder(): Promise<void> {
+  private async prepareTemporaryFolder (): Promise<void> {
     await createTemporaryEmptyFolder()
     await copyDirectory(this.path, TEMPORARY_PATH)
     await template.docker({
@@ -57,13 +57,13 @@ export class Solution implements SolutionOptions {
     process.chdir(TEMPORARY_PATH)
   }
 
-  public async test(): Promise<void> {
+  public async test (): Promise<void> {
     await this.prepareTemporaryFolder()
     await docker.build()
     await Test.runAll(this)
   }
 
-  static async generate(options: GenerateSolutionOptions): Promise<Solution> {
+  static async generate (options: GenerateSolutionOptions): Promise<Solution> {
     const { name, challengeName, programmingLanguageName, githubUser } = options
     const challenge = new Challenge({ name: challengeName })
     if (!(await isExistingPath(challenge.path))) {
@@ -88,7 +88,7 @@ export class Solution implements SolutionOptions {
     return solution
   }
 
-  static async get(options: GetSolutionOptions): Promise<Solution> {
+  static async get (options: GetSolutionOptions): Promise<Solution> {
     const { name, challengeName, programmingLanguageName } = options
     const challenge = new Challenge({
       name: challengeName
