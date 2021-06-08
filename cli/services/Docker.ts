@@ -4,7 +4,7 @@ import ora from 'ora'
 const CONTAINER_TAG = 'programming-challenges'
 
 class Docker {
-  public async build (): Promise<void> {
+  public async build(): Promise<void> {
     const loader = ora('Building the Docker image').start()
     try {
       await execa.command(`docker build --tag=${CONTAINER_TAG} ./`)
@@ -15,7 +15,7 @@ class Docker {
     }
   }
 
-  public async run (input: string): Promise<string> {
+  public async run(input: string): Promise<string> {
     const { stdout } = await execa.command(
       `docker run --interactive --rm ${CONTAINER_TAG}`,
       {

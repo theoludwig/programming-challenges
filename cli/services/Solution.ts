@@ -1,10 +1,6 @@
 import path from 'path'
 import fs from 'fs'
 
-import chalk from 'chalk'
-import ora from 'ora'
-import { table } from 'table'
-
 import {
   createTemporaryEmptyFolder,
   TEMPORARY_PATH
@@ -14,6 +10,7 @@ import { Challenge } from './Challenge'
 import { copyDirectory } from '../utils/copyDirectory'
 import { template } from './Template'
 import { docker } from './Docker'
+import { Test } from './Test'
 
 export interface GetSolutionOptions {
   programmingLanguageName: string
@@ -37,7 +34,7 @@ export class Solution implements SolutionOptions {
   public name: string
   public path: string
 
-  constructor (options: SolutionOptions) {
+  constructor(options: SolutionOptions) {
     const { programmingLanguageName, challenge, name } = options
     this.programmingLanguageName = programmingLanguageName
     this.challenge = challenge
@@ -50,7 +47,7 @@ export class Solution implements SolutionOptions {
     )
   }
 
-  private async prepareTemporaryFolder (): Promise<void> {
+  private async prepareTemporaryFolder(): Promise<void> {
     await createTemporaryEmptyFolder()
     await copyDirectory(this.path, TEMPORARY_PATH)
     await template.docker({
@@ -60,64 +57,13 @@ export class Solution implements SolutionOptions {
     process.chdir(TEMPORARY_PATH)
   }
 
-  public async test (): Promise<void> {
+  public async test(): Promise<void> {
     await this.prepareTemporaryFolder()
     await docker.build()
-    const testPath = path.join(this.challenge.path, 'test')
-    const tests = await fs.promises.readdir(testPath)
-    const result: boolean[] = []
-    const tableResult = [
-      [
-        chalk.cyan('N°'),
-        chalk.cyan('Input'),
-        chalk.cyan('Expected'),
-        chalk.cyan('Received')
-      ]
-    ]
-    for (let index = 0; index < tests.length; index++) {
-      const test = tests[index]
-      const loader = ora(`Test n°${index + 1}`).start()
-      const inputPath = path.join(testPath, test, 'input.txt')
-      const outputPath = path.join(testPath, test, 'output.txt')
-      const input = await fs.promises.readFile(inputPath, { encoding: 'utf-8' })
-      const output = await fs.promises.readFile(outputPath, {
-        encoding: 'utf-8'
-      })
-      const stdout = await docker.run(input)
-      const isSuccessTest = stdout === output
-      result.push(isSuccessTest)
-      if (isSuccessTest) {
-        loader.succeed()
-      } else {
-        loader.fail()
-        tableResult.push([(index + 1).toString(), input, output, stdout])
-      }
-    }
-    const totalCorrectTest = result.reduce((total, isSuccess) => {
-      if (!isSuccess) {
-        return total
-      }
-      return total + 1
-    }, 0)
-    const isSuccess = totalCorrectTest === tests.length
-    if (!isSuccess) {
-      console.log()
-      console.log(table(tableResult))
-    } else {
-      console.log()
-    }
-    const testsResult = isSuccess
-      ? chalk.green(`${totalCorrectTest} passed`)
-      : chalk.red(`${tests.length - totalCorrectTest} failed`)
-    const nameMessage = `Name  : ${this.challenge.name}/${this.programmingLanguageName}/${this.name}`
-    const testsMessage = `Tests : ${testsResult}, ${tests.length} total`
-    console.log(`${nameMessage}\n${testsMessage}`)
-    if (!isSuccess) {
-      throw new Error('Tests failed, try again!')
-    }
+    await Test.runAll(this)
   }
 
-  static async generate (options: GenerateSolutionOptions): Promise<Solution> {
+  static async generate(options: GenerateSolutionOptions): Promise<Solution> {
     const { name, challengeName, programmingLanguageName, githubUser } = options
     const challenge = new Challenge({ name: challengeName })
     if (!(await isExistingPath(challenge.path))) {
@@ -142,7 +88,7 @@ export class Solution implements SolutionOptions {
     return solution
   }
 
-  static async get (options: GetSolutionOptions): Promise<Solution> {
+  static async get(options: GetSolutionOptions): Promise<Solution> {
     const { name, challengeName, programmingLanguageName } = options
     const challenge = new Challenge({
       name: challengeName
