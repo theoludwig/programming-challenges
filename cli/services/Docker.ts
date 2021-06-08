@@ -8,7 +8,7 @@ class Docker {
     const loader = ora('Building the Docker image').start()
     try {
       await execa.command(`docker build --tag=${CONTAINER_TAG} ./`)
-      loader.succeed()
+      loader.stop()
     } catch (error) {
       loader.fail()
       throw error

@@ -45,23 +45,18 @@ export class Test implements TestOptions {
   }
 
   static async printResult (tests: Test[], name: string): Promise<void> {
-    const tableResult = [
-      [
-        chalk.cyan('N°'),
-        chalk.cyan('Input'),
-        chalk.cyan('Expected'),
-        chalk.cyan('Received')
-      ]
-    ]
+    const tableResult = [['N°', 'Input', 'Expected', 'Received']]
     let totalFailedTests = 0
     let totalCorrectTests = 0
     for (const test of tests) {
       if (!test.isSuccess) {
+        const expected = test.output.split('\n').join('"\n"')
+        const received = test.stdout.split('\n').join('"\n"')
         tableResult.push([
           test.index.toString(),
-          test.input,
-          test.output,
-          test.stdout
+          `"${test.input}"`,
+          `"${expected}"`,
+          `"${received}"`
         ])
         totalFailedTests += 1
       } else {
@@ -76,10 +71,10 @@ export class Test implements TestOptions {
       console.log(table(tableResult))
     }
     const testsResult = isSuccess
-      ? chalk.green(`${totalCorrectTests} passed`)
-      : chalk.red(`${totalFailedTests} failed`)
+      ? chalk.bold.green(`${totalCorrectTests} passed`)
+      : chalk.bold.red(`${totalFailedTests} failed`)
     const nameMessage = `Name  : ${name}`
-    const testsMessage = `Tests : ${testsResult}`
+    const testsMessage = `Tests : ${testsResult}, ${tests.length} total`
     console.log(nameMessage)
     console.log(testsMessage)
     if (!isSuccess) {
@@ -129,7 +124,7 @@ export class Test implements TestOptions {
     const stdout = await docker.run(input)
     const test = new Test({
       path: options.path,
-      index: options.index + 1,
+      index: options.index,
       input,
       output,
       stdout,
