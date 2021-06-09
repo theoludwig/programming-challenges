@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  cli:
+  lint:
     runs-on: 'ubuntu-latest'
     steps:
       - uses: 'actions/checkout@v2'
@@ -31,8 +31,48 @@ jobs:
       - run: 'npm run lint:markdown'
       - run: 'npm run lint:typescript'
 
+  build:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v2'
+
+      - name: 'Use Node.js'
+        uses: 'actions/setup-node@v2.1.5'
+        with:
+          node-version: '16.x'
+
+      - name: 'Cache dependencies'
+        uses: 'actions/cache@v2.1.6'
+        with:
+          path: '.npm'
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: 'Install'
+        run: 'npm ci --cache .npm --prefer-offline'
+
+
       - name: 'Build'
         run: 'npm run build'
+
+  test:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v2'
+
+      - name: 'Use Node.js'
+        uses: 'actions/setup-node@v2.1.5'
+        with:
+          node-version: '16.x'
+
+      - name: 'Cache dependencies'
+        uses: 'actions/cache@v2.1.6'
+        with:
+          path: '.npm'
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: 'Install'
+        run: 'npm ci --cache .npm --prefer-offline'
+
 
       - name: 'Test'
         run: 'npm run test'

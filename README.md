@@ -18,7 +18,7 @@
 
 Each challenge has its **solutions**, its **instructions** and **input/output examples** so you can try to solve them on your own. See [challenges](./challenges) folder.
 
-## ✅ Programming languages available
+### ✅ Programming languages available
 
 - [C/C++ (gcc)](https://gcc.gnu.org/)
 - [Dart](https://dart.dev/)
@@ -26,6 +26,45 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 - [JavaScript/TypeScript (Node.js)](https://nodejs.org/)
 - [Python](https://www.python.org/)
 - [Rust](https://www.rust-lang.org/)
+
+## 🚀 Getting Started
+
+### ☁️ Try with a Single-Click
+
+Gitpod will automatically setup an environment for you.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Divlo/programming-challenges)
+
+### Locally
+
+#### Prerequisites
+
+- [Node.js](https://nodejs.org/) >= 16
+- [npm](https://npmjs.com/) >= 7
+- [Docker](https://www.docker.com/)
+
+#### Installation
+
+```sh
+# Clone the repository
+git clone https://github.com/Divlo/programming-challenges.git
+
+# Go to the project root
+cd programming-challenges
+
+# Install dependencies
+npm install
+
+# Install the `programming-challenges` Command Line Interface (CLI)
+npm install --global
+```
+
+### Usage
+
+```sh
+# Discover all the commands availables
+programming-challenges --help
+```
 
 ## 💡 Contributing
 

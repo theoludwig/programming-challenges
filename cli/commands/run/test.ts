@@ -17,12 +17,12 @@ export class RunTestCommand extends Command {
   }
 
   public programmingLanguage = Option.String('--language', {
-    description: 'language',
+    description: 'The programming language to use to solve the challenge.',
     validator: typanion.isString()
   })
 
   public challenge = Option.String('--challenge', {
-    description: 'challenge',
+    description: 'The challenge name where you want to test your solution.',
     validator: typanion.isString()
   })
 
@@ -32,7 +32,7 @@ export class RunTestCommand extends Command {
   })
 
   public affected = Option.Boolean('--affected', false, {
-    description: 'affected'
+    description: 'Only run the tests for the affected files in `git`.'
   })
 
   async execute (): Promise<number> {

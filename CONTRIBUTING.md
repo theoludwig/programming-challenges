@@ -4,10 +4,28 @@ Thanks a lot for your interest in contributing to **programming-challenges**! ðŸ
 
 ## Types of contributions
 
-- Reporting a bug.
-- Suggest a new feature idea.
+- [Submit a challenge](#submit-a-challenge)
+- [Submit a solution](#submit-a-solution)
+- Add support for a new language
 - Correct spelling errors, improvements or additions to documentation files (README, CONTRIBUTING...).
-- Improve structure/format/performance/refactor/tests of the code.
+
+## Submit a challenge
+
+You can submit a new challenge by running the command `programming-challenges generate challenge --challenge="<your-challenge-name>" --github-user="<your-github-user>"`
+
+After running this command, a new folder will be created inside the [challenges](./challenges) folder.
+
+You can start editing the `test` folder of the challenge with corresponding `input.txt` and `output.txt` also don't forget to update `README.md` with appropriate exercise statement, to explain what is intended for this challenge.
+
+## Submit a solution
+
+You can submit a new solution by running the command `programming-challenges generate challenge --challenge="<name>" --github-user="<your-github-user>" --language="<your-favorite-language>" --solution="<your-solution>"`.
+
+After running this command, a new folder will be created inside the `solutions` folder of the challenge.
+
+Start writing some code, inside the `solution` file with your favorite programming language, you will get the input thanks to STDIN, and you should output what is intended to STDOUT.
+
+Before submitting the solution, make sure it passes all the tests by running `programming-challenges run test --affected`.
 
 ## Pull Requests
 
@@ -42,7 +60,3 @@ Types define which kind of changes you made to the project.
 ### Scopes
 
 Scopes define what part of the code changed.
-
-## Getting Started
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Divlo/programming-challenges)

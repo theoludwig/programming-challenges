@@ -13,25 +13,25 @@ export class GenerateSolutionCommand extends Command {
   }
 
   public challenge = Option.String('--challenge', {
-    description: 'challenge',
+    description: 'The challenge name you want to generate a solution for.',
     required: true,
     validator: typanion.isString()
   })
 
   public githubUser = Option.String('--github-user', {
-    description: 'github-user',
+    description: 'Your GitHub user.',
     required: true,
     validator: typanion.isString()
   })
 
   public solutionName = Option.String('--solution', {
-    description: 'solution',
+    description: 'The new solution name to generate.',
     required: true,
     validator: typanion.isString()
   })
 
   public programmingLanguage = Option.String('--language', {
-    description: 'language',
+    description: 'The programming language to use to solve the challenge.',
     required: true,
     validator: typanion.isString()
   })
