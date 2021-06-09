@@ -16,12 +16,18 @@ class Docker {
   }
 
   public async run (input: string): Promise<string> {
-    const { stdout, stderr } = await execa.command(
+    const subprocess = execa.command(
       `docker run --interactive --rm ${CONTAINER_TAG}`,
       {
         input
       }
     )
+    setTimeout(() => {
+      subprocess.kill('SIGTERM', {
+        forceKillAfterTimeout: 30_000
+      })
+    }, 1_000)
+    const { stdout, stderr } = await subprocess
     if (stderr.length !== 0) {
       throw new Error(stderr)
     }
