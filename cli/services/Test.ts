@@ -44,8 +44,15 @@ export class Test implements TestOptions {
     this.stdout = options.stdout
   }
 
-  static async printResult (tests: Test[], name: string): Promise<void> {
-    const tableResult = [['N°', 'Input', 'Expected', 'Received']]
+  static async printResult (tests: Test[]): Promise<void> {
+    const tableResult = [
+      [
+        chalk.bold('N°'),
+        chalk.bold('Input'),
+        chalk.bold('Expected'),
+        chalk.bold('Received')
+      ]
+    ]
     let totalFailedTests = 0
     let totalCorrectTests = 0
     for (const test of tests) {
@@ -73,10 +80,7 @@ export class Test implements TestOptions {
     const testsResult = isSuccess
       ? chalk.bold.green(`${totalCorrectTests} passed`)
       : chalk.bold.red(`${totalFailedTests} failed`)
-    const nameMessage = `Name  : ${name}`
-    const testsMessage = `Tests : ${testsResult}, ${tests.length} total`
-    console.log(nameMessage)
-    console.log(testsMessage)
+    console.log(`${chalk.bold('Tests:')} ${testsResult}, ${tests.length} total`)
     if (!isSuccess) {
       throw new Error('Tests failed, try again!')
     }
@@ -87,6 +91,7 @@ export class Test implements TestOptions {
     const testsPath = path.join(solution.challenge.path, 'test')
     const testsFolders = await fs.promises.readdir(testsPath)
     const tests: Test[] = []
+    console.log(`${chalk.bold('Name:')} ${name}\n`)
     for (let index = 0; index < testsFolders.length; index++) {
       const currentTestIndex = index + 1
       const loader = ora(`Test n°${currentTestIndex}`).start()
@@ -106,7 +111,7 @@ export class Test implements TestOptions {
         throw error
       }
     }
-    await Test.printResult(tests, name)
+    await Test.printResult(tests)
   }
 
   static async getInputOutput (testPath: string): Promise<InputOutput> {

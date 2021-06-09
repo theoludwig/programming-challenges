@@ -6,6 +6,8 @@ import chalk from 'chalk'
 import { Solution } from '../../services/Solution'
 import { gitAffected } from '../../services/GitAffected'
 
+const successMessage = `${chalk.bold.green('Success:')} Tests passed! 🎉`
+
 export class RunTestCommand extends Command {
   static paths = [['run', 'test']]
 
@@ -33,10 +35,16 @@ export class RunTestCommand extends Command {
     description: 'affected'
   })
 
-  async execute(): Promise<number> {
+  async execute (): Promise<number> {
+    console.log()
     try {
       if (this.affected) {
-        await gitAffected.getAffectedSolutions()
+        const solutions = await gitAffected.getAffectedSolutions()
+        for (const solution of solutions) {
+          await solution.test()
+          console.log('\n------------------------------\n')
+        }
+        console.log(successMessage)
         return 0
       }
       if (
@@ -54,10 +62,10 @@ export class RunTestCommand extends Command {
         programmingLanguageName: this.programmingLanguage
       })
       await solution.test()
-      console.log(`${chalk.bold.green('Success:')} Tests passed! 🎉`)
+      console.log(successMessage)
       return 0
     } catch (error) {
-      console.error(`${chalk.bold.red('Error:')} ${error.message as string}`)
+      console.error(`\n${chalk.bold.red('Error:')} ${error.message as string}`)
       return 1
     }
   }

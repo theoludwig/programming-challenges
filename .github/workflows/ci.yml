@@ -68,4 +68,4 @@ jobs:
         run: 'npm install --global'
 
       - name: 'Test'
-        run: 'programming-challenges run test --challenge="hello-world" --solution="function" --language="cpp"'
+        run: 'programming-challenges run test --affected'
