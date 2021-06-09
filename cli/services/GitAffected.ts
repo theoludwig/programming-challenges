@@ -6,12 +6,13 @@ import { Solution } from './Solution'
 const git = simpleGit()
 
 const solutionsRegex = new RegExp(
-  /challenges\/[\s\S]*\/solutions\/(c|cpp|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/*.(c|cpp|dart|java|js|py|rs|ts)/
+  /challenges\/[\s\S]*\/solutions\/(c|cpp|dart|javascript|python|rust|typescript)\/[\s\S]*\/solution.(c|cpp|dart|js|py|rs|ts)/
 )
 
 class GitAffected {
   public async getAffectedSolutions (): Promise<Solution[]> {
-    const diff = await git.diff(['--name-only'])
+    await git.add('.')
+    const diff = await git.diff(['--name-only', '--staged'])
     const affectedSolutionsPaths = diff.split('\n').filter((currentDiff) => {
       return solutionsRegex.test(currentDiff)
     })

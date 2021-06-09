@@ -3,8 +3,8 @@ image: 'gitpod/workspace-full'
 tasks:
   - name: 'programming-challenges'
     before: 'npm install --global npm@7 && npm clean-install'
-    init: 'npm run build && npm install --global'
-    command: 'programming-challenges'
+    init: 'npm run build'
+    command: 'npm install --global && programming-challenges'
 
 github:
   prebuilds:

@@ -22,11 +22,6 @@ class Docker {
         input
       }
     )
-    setTimeout(() => {
-      subprocess.kill('SIGTERM', {
-        forceKillAfterTimeout: 30_000
-      })
-    }, 1_000)
     const { stdout, stderr } = await subprocess
     if (stderr.length !== 0) {
       throw new Error(stderr)
