@@ -4,6 +4,7 @@ import * as typanion from 'typanion'
 import chalk from 'chalk'
 
 import { Solution } from '../../services/Solution'
+import { gitAffected } from '../../services/GitAffected'
 
 export class RunTestCommand extends Command {
   static paths = [['run', 'test']]
@@ -15,24 +16,38 @@ export class RunTestCommand extends Command {
 
   public programmingLanguage = Option.String('--language', {
     description: 'language',
-    required: true,
     validator: typanion.isString()
   })
 
   public challenge = Option.String('--challenge', {
     description: 'challenge',
-    required: true,
     validator: typanion.isString()
   })
 
   public solutionName = Option.String('--solution', {
     description: 'solution',
-    required: true,
     validator: typanion.isString()
   })
 
-  async execute (): Promise<number> {
+  public affected = Option.Boolean('--affected', false, {
+    description: 'affected'
+  })
+
+  async execute(): Promise<number> {
     try {
+      if (this.affected) {
+        await gitAffected.getAffectedSolutions()
+        return 0
+      }
+      if (
+        this.solutionName == null ||
+        this.challenge == null ||
+        this.programmingLanguage == null
+      ) {
+        throw new Error(
+          'You must specify all the options (`--challenge`, `--solution`,  `--language`).'
+        )
+      }
       const solution = await Solution.get({
         name: this.solutionName,
         challengeName: this.challenge,

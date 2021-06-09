@@ -77,7 +77,6 @@ export class Solution implements SolutionOptions {
     if (await isExistingPath(solution.path)) {
       throw new Error('The solution already exists.')
     }
-    await fs.promises.mkdir(solution.path, { recursive: true })
     await template.solution({
       challengeName: challenge.name,
       destination: solution.path,

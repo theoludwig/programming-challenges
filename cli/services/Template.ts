@@ -1,9 +1,11 @@
 import path from 'path'
+import fs from 'fs'
 
 import { replaceInFile } from 'replace-in-file'
 import date from 'date-and-time'
 
 import { copyDirectory } from '../utils/copyDirectory'
+import { isExistingPath } from '../utils/isExistingPath'
 
 const TEMPLATE_PATH = path.join(__dirname, '..', '..', 'templates')
 const TEMPLATE_DOCKER_PATH = path.join(TEMPLATE_PATH, 'docker')
@@ -71,6 +73,10 @@ class Template {
   public async solution (options: TemplateSolutionOptions): Promise<void> {
     const { destination, githubUser, name, challengeName, programmingLanguageName } = options
     const templateLanguagePath = path.join(TEMPLATE_SOLUTION_PATH, programmingLanguageName)
+    if (!(await isExistingPath(templateLanguagePath))) {
+      throw new Error('This programming language is not supported yet.')
+    }
+    await fs.promises.mkdir(destination, { recursive: true })
     await copyDirectory(templateLanguagePath, destination)
     await copyDirectory(TEMPLATE_SOLUTION_BASE_PATH, destination)
     await this.replaceInDestination({
