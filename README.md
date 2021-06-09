@@ -9,7 +9,7 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/licence-MIT-blue.svg" alt="Licence MIT"/></a>
   <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"/></a>
   <br/> <br/>
-  <img src="./.github/logo.png" width="120" alt="programming-challenges Logo" />
+  <img src="./logo.png" width="120" alt="programming-challenges Logo" />
 </p>
 
 ## 📜 About
@@ -18,42 +18,58 @@
 
 Each challenge has its **solutions**, its **instructions** and **input/output examples** so you can try to solve them on your own. See [challenges](./challenges) folder.
 
-## ✅ Programming languages available
+### ✅ Programming languages available
 
-`npm run test` command will only work with these languages :
+- [C/C++ (gcc)](https://gcc.gnu.org/)
+- [Dart](https://dart.dev/)
+- [JavaScript/TypeScript (Node.js)](https://nodejs.org/)
+- [Python](https://www.python.org/)
+- [Rust](https://www.rust-lang.org/)
 
-- JavaScript and TypeScript (Node.js >= 12)
-- Python >= 3.8
+## 🚀 Getting Started
 
-## 🚀 Installation & Usage (CLI)
+### ☁️ Try with a Single-Click
 
-To easily create **new challenges instructions, solutions and test** your code, I made a **CLI tool** made with Node.js and TypeScript.
+Gitpod will automatically setup an environment for you.
 
-### Requirements
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Divlo/programming-challenges)
 
-- Node.js >= 12
+### Locally
 
-Then you need to run `npm install` in the root folder to install needed packages, you can now use one of these commands :
+#### Prerequisites
 
-- ### `npm run create-challenge`
+- [Node.js](https://nodejs.org/) >= 16
+- [npm](https://npmjs.com/) >= 7
+- [Docker](https://www.docker.com/)
 
-  Create the basic files needed for a new challenge. It will ask you some questions and you will be ready to write the instructions and `input-output.json`. Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
+#### Installation
 
-- ### `npm run create-solution`
+```sh
+# Clone the repository
+git clone https://github.com/Divlo/programming-challenges.git
 
-  Create the basic files needed for a new solution for a challenge. It will ask you some questions and you will be ready to write your solution in the available programming languages (see above). If you wish to submit to everyone your solution. Please read [CONTRIBUTING.md](./.github/CONTRIBUTING.md).
+# Go to the project root
+cd programming-challenges
 
-- ### `npm run test [challenge-name] [solution-name]`
+# Install dependencies
+npm install
 
-  Test if the solution is correct and display where it succeeds and fails with the inputs provided, the output of your function and the expected output.
+# Install the `programming-challenges` Command Line Interface (CLI)
+npm install --global
+```
 
-  Example : `npm run test hello-world python-hello`
+### Usage
+
+```sh
+# Discover all the commands availables
+programming-challenges --help
+```
 
 ## 💡 Contributing
 
-Feel free to submit your challenges, your solutions or even a simple spelling mistake.
+Anyone can help to improve the project, submit a challenge, a solution or even correct a simple spelling mistake.
 
-Everyone can contribute to the improvement of the project! The steps to contribute can be found in the [CONTRIBUTING.md](./.github/CONTRIBUTING.md) file.
+The steps to contribute can be found in the [CONTRIBUTING.md](./CONTRIBUTING.md) file.
 
 ## 📄 License
 

@@ -10,4 +10,4 @@ The function should return `true` if a given number is a prime number and `false
 
 ## Examples
 
-See the `input-output.json` file for examples of input/output.
+See the `test` folder for examples of input/output.

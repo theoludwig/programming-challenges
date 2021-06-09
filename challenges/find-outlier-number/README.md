@@ -8,4 +8,4 @@ You are given an array (which will have a length of at least 3, but could be ver
 
 ## Examples
 
-See the `input-output.json` file for examples of input/output.
+See the `test` folder for examples of input/output.

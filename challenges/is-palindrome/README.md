@@ -10,4 +10,4 @@ The function should return `true` if a given string (case insensitive) is a pali
 
 ## Examples
 
-See the `input-output.json` file for examples of input/output.
+See the `test` folder for examples of input/output.

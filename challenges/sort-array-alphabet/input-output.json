@@ -1,6 +1,0 @@
-[
-  {
-    "input": [["JavaScript", "Apple", "Hello", "Car", "Orange", "Ice scream"]],
-    "output": ["Apple", "Car", "Hello", "Ice scream", "JavaScript", "Orange"]
-  }
-]

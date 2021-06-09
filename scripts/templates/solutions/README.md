@@ -1,3 +1,0 @@
-# {{ solutionName }}
-
-{{ solutionInfo }}

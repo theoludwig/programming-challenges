@@ -1,26 +1,16 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 node_modules
-.pnp
-.pnp.js
-
-# lockfiles
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
-# production
-build
-
-# envs
-.env
-.env.production
+.npm
 
 # debug
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+
+# production
+build
+__pycache__
+
+# testing
+coverage
 
 # editors
 .vscode
@@ -29,3 +19,4 @@ yarn-error.log*
 
 # misc
 .DS_Store
+temp

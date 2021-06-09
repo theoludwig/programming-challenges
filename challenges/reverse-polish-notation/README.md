@@ -22,4 +22,4 @@ You may assume that there won't be exceptional situations (like stack underflow 
 
 ## Examples
 
-See the `input-output.json` file for examples of input/output.
+See the `test` folder for examples of input/output.
