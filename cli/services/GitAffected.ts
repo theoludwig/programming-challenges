@@ -6,7 +6,7 @@ import { Solution } from './Solution'
 const git = simpleGit()
 
 const solutionsRegex = new RegExp(
-  /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|javascript|python|rust|typescript)\/[\s\S]*\/(solution|Solution).(c|cpp|cs|dart|js|py|rs|ts)/
+  /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/(solution|Solution).(c|cpp|cs|dart|java|js|py|rs|ts)/
 )
 
 class GitAffected {

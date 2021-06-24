@@ -21,8 +21,9 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 ### ✅ Programming languages available
 
 - [C/C++ (gcc)](https://gcc.gnu.org/)
-- [C# (.NET Core)](https://docs.microsoft.com/en-us/dotnet/csharp/)
+- [C# (.NET)](https://docs.microsoft.com/dotnet/csharp/)
 - [Dart](https://dart.dev/)
+- [Java (OpenJDK)](https://openjdk.java.net/)
 - [JavaScript/TypeScript (Node.js)](https://nodejs.org/)
 - [Python](https://www.python.org/)
 - [Rust](https://www.rust-lang.org/)
