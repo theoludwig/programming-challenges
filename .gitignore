@@ -8,6 +8,8 @@ npm-debug.log*
 # production
 build
 __pycache__
+obj
+bin
 
 # testing
 coverage
