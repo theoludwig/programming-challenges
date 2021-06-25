@@ -4,7 +4,7 @@ import * as typanion from 'typanion'
 import chalk from 'chalk'
 
 import { Solution } from '../../services/Solution'
-import { gitAffected } from '../../services/GitAffected'
+import { GitAffected } from '../../services/GitAffected'
 
 const successMessage = `${chalk.bold.green('Success:')} Tests passed! 🎉`
 
@@ -35,10 +35,17 @@ export class RunTestCommand extends Command {
     description: 'Only run the tests for the affected files in `git`.'
   })
 
+  public isContinuousIntegration = Option.Boolean('--ci', false, {
+    description: 'Run the tests for the Continuous Integration (CI).'
+  })
+
   async execute (): Promise<number> {
     console.log()
     try {
       if (this.affected) {
+        const gitAffected = new GitAffected({
+          isContinuousIntegration: this.isContinuousIntegration
+        })
         const solutions = await gitAffected.getAffectedSolutions()
         for (const solution of solutions) {
           await solution.test()
