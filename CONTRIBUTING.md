@@ -6,7 +6,7 @@ Thanks a lot for your interest in contributing to **programming-challenges**! ðŸ
 
 - [Submit a challenge](#submit-a-challenge)
 - [Submit a solution](#submit-a-solution)
-- Add support for a new language
+- [Add support for a new language](#add-a-language)
 - Correct spelling errors, improvements or additions to documentation files (README, CONTRIBUTING...).
 
 ## Submit a challenge
@@ -19,13 +19,24 @@ You can start editing the `test` folder of the challenge with corresponding `inp
 
 ## Submit a solution
 
-You can submit a new solution by running the command `programming-challenges generate challenge --challenge="<name>" --github-user="<your-github-user>" --language="<your-favorite-language>" --solution="<your-solution>"`.
+You can submit a new solution by running the command `programming-challenges generate solution --challenge="<name>" --github-user="<your-github-user>" --language="<your-favorite-language>" --solution="<your-solution>"`.
 
 After running this command, a new folder will be created inside the `solutions` folder of the challenge.
 
 Start writing some code, inside the `solution` file with your favorite programming language, you will get the input thanks to STDIN, and you should output what is intended to STDOUT.
 
 Before submitting the solution, make sure it passes all the tests by running `programming-challenges run test --affected`.
+
+## Add a language
+
+You can add support for a new language, so you can solve the challenges with even more programming languages!
+
+- First create a new folder inside `templates/docker` with the file extension of the new programming language (e.g: `js`, `cpp`, etc.)
+- Inside this new folder create a `Dockerfile`, to compile and execute the solution
+- Create a new template inside `templates/solution` folder with the file extension of the new programming language, with the basic boilerplate to read from `stdin` and print to `stdout` the result
+- Run the command `programming-challenges generate solution --challenge="<name>" --github-user="<your-github-user>" --language="<your-new-language>" --solution="<your-solution>`
+
+Before submitting the new programming language, make sure it passes all the tests by running `programming-challenges run test --affected`
 
 ## Pull Requests
 
@@ -60,3 +71,18 @@ Types define which kind of changes you made to the project.
 ### Scopes
 
 Scopes define what part of the code changed.
+
+- cli
+- challenges
+- solutions
+- languages
+
+### Examples
+
+```sh
+git commit -m "feat(languages): add C# support"
+git commit -m "fix(cli): improve --ci option to `run test` command"
+git commit -m "feat(challenges): add `hello-world`"
+git commit -m "feat(solutions): add `hello-world/javascript/function`"
+git commit -m "docs: fix typo `at` should be `on`"
+```
