@@ -29,10 +29,14 @@ export class GitAffected implements GitAffectedOptions {
     base: string,
     head: string
   ): Promise<string[]> {
-    const { stdout } = await execa.command(
-      `git diff --name-only --relative ${base} ${head}`
-    )
-    return this.parseGitOutput(stdout)
+    try {
+      const { stdout } = await execa.command(
+        `git diff --name-only --relative ${base} ${head}`
+      )
+      return this.parseGitOutput(stdout)
+    } catch {
+      return []
+    }
   }
 
   public async getUncommittedFiles (): Promise<string[]> {
