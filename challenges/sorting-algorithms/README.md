@@ -9,6 +9,10 @@ We will use the [numerical order](https://en.wikipedia.org/wiki/Numerical_order)
 
 Write a function that takes a list of integers and sort them in ascending order.
 
+### Constraints
+
+- List of integers length <= 25 000
+
 ## Source
 
 - [Wikipedia - Sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm)
