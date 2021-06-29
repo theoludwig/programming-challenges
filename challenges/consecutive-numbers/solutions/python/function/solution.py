@@ -6,21 +6,28 @@ for value in sys.stdin:
     input_values.append(value.rstrip('\n'))
 
 
-def consecutive_numbers(numbers: List[int]) -> List[List[int]]:
-    consecutive_numbers_pairs: List[List[int]] = []
+def consecutive_numbers(numbers: List[int], couple_length: int) -> List[List[int]]:
+    result: List[List[int]] = []
     numbers_length = len(numbers)
     for index in range(numbers_length):
-        number = numbers[index]
-        is_last_number = index == numbers_length - 1
-        if not is_last_number and number + 1 == numbers[index + 1]:
-            consecutive_numbers_pairs.append([number, number + 1])
-    return consecutive_numbers_pairs
+        consecutive: List[int] = [numbers[index]]
+        for couple_index in range(1, couple_length, 1):
+            is_last_number = index + couple_index == numbers_length
+            if is_last_number:
+                break
+            if (numbers[index] + couple_index == numbers[index + couple_index]):
+                consecutive.append(numbers[index] + couple_index)
+        is_consecutive = len(consecutive) == couple_length
+        if is_consecutive:
+            result.append(consecutive)
+    return result
 
 
 numbers: List[int] = []
-for value in input_values:
+for value in input_values[1].split(' ; '):
     numbers.append(int(value))
 
-consecutive_numbers_pairs = consecutive_numbers(numbers)
-for pairs in consecutive_numbers_pairs:
-    print(f"{pairs[0]} ; {pairs[1]}")
+result = consecutive_numbers(numbers, int(input_values[0]))
+for consecutive in result:
+    consecutive = [str(number) for number in consecutive]
+    print(' ; '.join(consecutive))
