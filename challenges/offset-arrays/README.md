@@ -19,7 +19,7 @@ You are given a list of `n` array definitions and your job is to figure out what
 ### Input
 
 - **Line 1:** An integer `n` for the number of array assignments
-- **`N` next lines:** One array assignment per line: `array_identifier` [ `first_index` .. `last_index` ] = `last_index - first_index + 1` integers separated by space
+- **`n` next lines:** One array assignment per line: `array_identifier` [ `first_index` .. `last_index` ] = `last_index - first_index + 1` integers separated by space
 - **Line `n+2`:** Element to print: `arr` [ `i` ]
 
 ### Constraints

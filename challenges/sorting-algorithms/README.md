@@ -9,6 +9,11 @@ We will use the [numerical order](https://en.wikipedia.org/wiki/Numerical_order)
 
 Write a function that takes a list of integers and sort them in ascending order.
 
+## Input
+
+- **Line 1:** An integer `n` for the length of the list of integers
+- **`n` next lines:** the numbers to sort
+
 ### Constraints
 
 - List of integers length <= 25 000

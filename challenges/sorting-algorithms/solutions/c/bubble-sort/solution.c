@@ -4,8 +4,9 @@
 #include "bubble_sort.h"
 
 int main() {
-  int *numbers = malloc(25000 * sizeof(int));
   int current_number;
+  int length = scanf("%d", &current_number);
+  int *numbers = malloc(current_number * sizeof(int));
   int index_input = 0;
   while (scanf("%d", &current_number) != EOF) {
     numbers[index_input] = current_number;

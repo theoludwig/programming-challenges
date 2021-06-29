@@ -12,7 +12,7 @@ readlineInterface.on('close', solution)
 
 function solution() {
   const numbers = input.map((value) => Number(value))
-  const sortedNumbers = mergeSort(numbers)
+  const sortedNumbers = mergeSort(numbers.slice(1))
   sortedNumbers.forEach((number) => {
     console.log(number)
   })

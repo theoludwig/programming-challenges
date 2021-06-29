@@ -41,6 +41,7 @@ numbers: List[int] = []
 for value in sys.stdin:
     numbers.append(int(value.rstrip('\n')))
 
+numbers = numbers[1:]
 sorted_numbers = merge_sort(numbers)
 for number in sorted_numbers:
     print(number)
