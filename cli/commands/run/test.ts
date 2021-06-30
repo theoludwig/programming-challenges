@@ -39,12 +39,17 @@ export class RunTestCommand extends Command {
     description: 'Run the tests for the Continuous Integration (CI).'
   })
 
+  public base = Option.String('--base', {
+    description: 'Base of the current branch (usually master)'
+  })
+
   async execute (): Promise<number> {
     console.log()
     try {
       if (this.affected) {
         const gitAffected = new GitAffected({
-          isContinuousIntegration: this.isContinuousIntegration
+          isContinuousIntegration: this.isContinuousIntegration,
+          base: this.base
         })
         const solutions = await gitAffected.getAffectedSolutions()
         for (const solution of solutions) {

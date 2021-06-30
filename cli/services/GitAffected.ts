@@ -9,13 +9,16 @@ const solutionsRegex = new RegExp(
 
 export interface GitAffectedOptions {
   isContinuousIntegration: boolean
+  base?: string
 }
 
 export class GitAffected implements GitAffectedOptions {
   public isContinuousIntegration: boolean
+  public base?: string
 
   constructor (options: GitAffectedOptions) {
     this.isContinuousIntegration = options.isContinuousIntegration
+    this.base = options.base
   }
 
   public parseGitOutput (output: string): string[] {
@@ -57,12 +60,14 @@ export class GitAffected implements GitAffectedOptions {
   }
 
   public async getAffectedSolutions (): Promise<Solution[]> {
-    const files = Array.from(
-      new Set([
-        ...(await this.getUnpushedFiles()),
-        ...(await this.getUncommittedFiles())
-      ])
-    )
+    let files = [
+      ...(await this.getUnpushedFiles()),
+      ...(await this.getUncommittedFiles())
+    ]
+    if (this.base != null) {
+      files.push(...(await this.getFilesUsingBaseAndHead(this.base, '.')))
+    }
+    files = Array.from(new Set(files))
     const affectedSolutionsPaths = files.filter((filePath) => {
       return solutionsRegex.test(filePath)
     })

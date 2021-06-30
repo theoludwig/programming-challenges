@@ -109,5 +109,12 @@ jobs:
       - name: 'Install programming-challenges'
         run: 'npm install --global'
 
+      - uses: 'nrwl/last-successful-commit-action@v1'
+        id: 'last_successful_commit'
+        with:
+          branch: 'master'
+          workflow_id: 'ci.yml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 'Test'
-        run: 'programming-challenges run test --affected --ci'
+        run: 'programming-challenges run test --affected --ci --base=${{ steps.last_successful_commit.outputs.commit_hash }}'
