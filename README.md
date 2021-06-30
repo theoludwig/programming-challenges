@@ -60,6 +60,9 @@ cd programming-challenges
 # Install dependencies
 npm install
 
+# Build the Command Line Interface (CLI)
+npm run build
+
 # Install the `programming-challenges` Command Line Interface (CLI)
 npm install --global
 ```
