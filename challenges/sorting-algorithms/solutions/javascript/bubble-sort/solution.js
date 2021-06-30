@@ -1,17 +1,16 @@
 import readline from 'readline'
 
-const input = []
+const numbers = []
 const readlineInterface = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
 readlineInterface.on('line', (value) => {
-  input.push(value)
+  numbers.push(Number(value))
 })
 readlineInterface.on('close', solution)
 
 function solution() {
-  const numbers = input.map((value) => Number(value))
   const sortedNumbers = bubbleSort(numbers.slice(1))
   sortedNumbers.forEach((number) => {
     console.log(number)
