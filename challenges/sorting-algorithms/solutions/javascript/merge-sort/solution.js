@@ -1,4 +1,4 @@
-import readline from 'readline'
+import readline from 'node:readline'
 
 const numbers = []
 const readlineInterface = readline.createInterface({

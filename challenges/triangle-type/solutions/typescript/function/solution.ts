@@ -1,4 +1,4 @@
-import readline from 'readline'
+import readline from 'node:readline'
 
 const removeByIndex = <T = any>(array: T[], index: number): T[] => {
   const result = [...array]

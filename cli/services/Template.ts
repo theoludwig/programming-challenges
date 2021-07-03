@@ -1,5 +1,5 @@
-import path from 'path'
-import fs from 'fs'
+import path from 'node:path'
+import fs from 'node:fs'
 
 import { replaceInFile } from 'replace-in-file'
 import date from 'date-and-time'

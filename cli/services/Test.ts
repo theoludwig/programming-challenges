@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import { performance } from 'perf_hooks'
+import fs from 'node:fs'
+import path from 'node:path'
+import { performance } from 'node:perf_hooks'
 
 import ora from 'ora'
 import chalk from 'chalk'

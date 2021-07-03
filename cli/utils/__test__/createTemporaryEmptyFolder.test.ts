@@ -1,5 +1,6 @@
+import fs from 'node:fs'
+
 import fsMock from 'mock-fs'
-import fs from 'fs'
 
 import {
   TEMPORARY_PATH,

@@ -1,6 +1,5 @@
 import { Command, Option } from 'clipanion'
 import * as typanion from 'typanion'
-
 import chalk from 'chalk'
 
 import { Solution } from '../../services/Solution'
