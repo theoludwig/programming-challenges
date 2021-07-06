@@ -15,9 +15,4 @@ for value in sys.stdin:
 grid = Grid(grid_values)
 sudoku = Sudoku(grid)
 sudoku.solve()
-
-for row in sudoku.grid.data:
-    column_string = ''
-    for column in row:
-        column_string += str(column) + ' '
-    print(column_string.strip())
+print(sudoku.grid)

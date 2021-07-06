@@ -15,8 +15,8 @@ class Sudoku:
     def __repr__(self) -> str:
         result: str = '+' + '---+' * 9 + '\n'
         for x in range(0, 9):
-            result += ('|' + ' {}   {}   {} |'*3).format(*
-                                                         [y.number if y.number != 0 else ' ' for y in self.grid.data[x]])
+            format_result = [y.number for y in self.grid.data[x]]
+            result += ('|' + ' {}   {}   {} |'*3).format(*format_result)
             result += '\n'
             if x % 3 == 2:
                 result += '+' + '---+' * 9 + '\n'

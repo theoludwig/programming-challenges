@@ -14,19 +14,17 @@ class Grid:
         self.data = data
 
     def __repr__(self) -> str:
-        result: str = '['
+        result: str = ''
         for y in range(len(self.data)):
-            result += '['
+            column = ''
             for x in range(len(self.data[y])):
-                result += str(self.get_cell(x, y).number)
-                is_last_x = x == (len(self.data[y]) - 1)
-                if not is_last_x:
-                    result += ', '
-            result += ']'
-            is_last_y = y == len(self.data) - 1
-            if not is_last_y:
-                result += ',\n'
-        return result + ']'
+                cell = self.get_cell(x, y)
+                column += str(cell.number) + ' '
+            result += column.rstrip()
+            is_last_column = (len(self.data) - 1) == y
+            if not is_last_column:
+                result += '\n'
+        return result
 
     def get_cell(self, x: int, y: int) -> Cell:
         return self.data[y][x]
