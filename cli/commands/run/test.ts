@@ -76,7 +76,9 @@ export class RunTestCommand extends Command {
       console.log(successMessage)
       return 0
     } catch (error) {
-      console.error(`\n${chalk.bold.red('Error:')} ${error.message as string}`)
+      if (error instanceof Error) {
+        console.error(`${chalk.bold.red('Error:')} ${error.message}`)
+      }
       return 1
     }
   }

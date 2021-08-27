@@ -1,6 +1,6 @@
 import readline from 'node:readline'
 
-const removeByIndex = <T = any>(array: T[], index: number): T[] => {
+const removeByIndex = <T = unknown>(array: T[], index: number): T[] => {
   const result = [...array]
   result.splice(index, 1)
   return result

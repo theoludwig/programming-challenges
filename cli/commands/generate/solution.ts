@@ -50,7 +50,9 @@ export class GenerateSolutionCommand extends Command {
       )
       return 0
     } catch (error) {
-      console.error(`${chalk.bold.red('Error:')} ${error.message as string}`)
+      if (error instanceof Error) {
+        console.error(`${chalk.bold.red('Error:')} ${error.message}`)
+      }
       return 1
     }
   }
