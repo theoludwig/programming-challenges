@@ -1,3 +1,3 @@
-FROM dart:2.13.1
+FROM dart:2.13.4
 COPY ./ ./
 CMD ["dart", "run", "solution.dart"]

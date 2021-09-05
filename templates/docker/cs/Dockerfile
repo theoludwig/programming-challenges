@@ -1,5 +1,5 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0
+FROM mono:6.12
 WORKDIR /usr/src/app
 COPY ./ ./
-RUN dotnet restore
-ENTRYPOINT ["dotnet", "run"]
+RUN mcs ./Solution.cs -out:Solution.exe
+ENTRYPOINT ["mono", "./Solution.exe"]

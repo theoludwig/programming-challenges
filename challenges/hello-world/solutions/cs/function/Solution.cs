@@ -1,15 +1,17 @@
+using System;
+
 namespace Solution
 {
-  class Program
-  {
-    static void Main()
+    class Program
     {
-      string line;
-      while ((line = System.Console.ReadLine()) != null)
-      {
+        static void Main()
+        {
+            string line;
+            while ((line = Console.ReadLine()) != null)
+            {
 
-        System.Console.WriteLine($"Hello, {line}!");
-      }
+                Console.WriteLine($"Hello, {line}!");
+            }
+        }
     }
-  }
 }
