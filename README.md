@@ -25,7 +25,7 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 ### ✅ Programming languages available
 
 - [C/C++ (gcc)](https://gcc.gnu.org/)
-- [C# (.NET)](https://docs.microsoft.com/dotnet/csharp/)
+- [C# (Mono)](https://www.mono-project.com/)
 - [Dart](https://dart.dev/)
 - [Java (OpenJDK)](https://openjdk.java.net/)
 - [JavaScript/TypeScript (Node.js)](https://nodejs.org/)
@@ -72,6 +72,15 @@ npm install --global
 ```sh
 # Discover all the commands availables
 programming-challenges --help
+
+# Generate a new challenge
+programming-challenges generate challenge --github-user="YourGitHubName" --challenge="challenge-name"
+
+# Generate a new solution
+programming-challenges generate solution --github-user="YourGitHubName" --challenge="hello-world" --solution="solution-name" --language="python"
+
+# Test a solution
+programming-challenges run test --challenge="hello-world" --solution="solution-name" --language="python"
 ```
 
 ## 💡 Contributing
