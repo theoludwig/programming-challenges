@@ -13,8 +13,8 @@ def convert_string_to_float(string: str) -> float:
 
 class Position:
     def __init__(self, longitude: float, latitude: float) -> None:
-        self.longitude = self.convert_degrees_to_radien(longitude)
-        self.latitude = self.convert_degrees_to_radien(latitude)
+        self.longitude = self.convert_degrees_to_radian(longitude)
+        self.latitude = self.convert_degrees_to_radian(latitude)
 
     @staticmethod
     def calculation_distance(pointA: 'Position', pointB: 'Position') -> float:
@@ -23,7 +23,7 @@ class Position:
         y = pointB.latitude - pointA.latitude
         return math.sqrt(math.pow(x, 2) + math.pow(y, 2)) * 6371
 
-    def convert_degrees_to_radien(self, degrees: float) -> float:
+    def convert_degrees_to_radian(self, degrees: float) -> float:
         return degrees * (math.pi / 180)
 
 
