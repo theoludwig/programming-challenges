@@ -30,7 +30,7 @@ char* string_reverse(const char* string);
 bool string_is_palindrome(const char* string);
 
 /**
- * @brief Replace all the occurrences of search_value into replace_value in
+ * @brief Replace all the occurrences of search value into replace value in
  * the string.
  *
  * @param string
@@ -38,6 +38,6 @@ bool string_is_palindrome(const char* string);
  * @param replace_value A character containing the text to replace for match.
  * @return char*
  */
-char* string_replace(const char* string, char search_value, char replace_value);
+char* string_replace(const char* string, char search, char replace);
 
 #endif

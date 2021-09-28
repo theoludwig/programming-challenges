@@ -31,14 +31,13 @@ bool string_is_palindrome(const char* string) {
   return is_palindrome;
 }
 
-char* string_replace(const char* string, char search_value,
-                     char replace_value) {
+char* string_replace(const char* string, char search, char replace) {
   size_t string_length = strlen(string);
   char* result = malloc(sizeof(char) * (string_length + 1));
   for (size_t index = 0; index < string_length; index++) {
-    bool is_search_value = search_value == string[index];
+    bool is_search_value = search == string[index];
     if (is_search_value) {
-      character_append(result, replace_value);
+      character_append(result, replace);
     } else {
       character_append(result, string[index]);
     }
