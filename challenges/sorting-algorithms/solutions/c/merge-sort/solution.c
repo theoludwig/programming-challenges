@@ -17,7 +17,7 @@ int main() {
     printf("%d\n", numbers[index]);
   }
   free(numbers);
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 void merge(int numbers[], int left_index, int middle_index, int right_index) {

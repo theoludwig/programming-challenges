@@ -6,5 +6,5 @@ int main() {
   while (scanf("%s", &input) != EOF) {
     printf("Hello, %s!", input);
   }
-  return 0;
+  return EXIT_SUCCESS;
 }

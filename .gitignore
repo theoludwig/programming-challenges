@@ -10,6 +10,8 @@ build
 __pycache__
 obj
 bin
+*.out
+*.exe
 
 # testing
 coverage

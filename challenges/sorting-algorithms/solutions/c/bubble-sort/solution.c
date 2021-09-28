@@ -17,7 +17,7 @@ int main() {
     printf("%d\n", numbers[index]);
   }
   free(numbers);
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 void bubble_sort(int numbers[], const int length) {
