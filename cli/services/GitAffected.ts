@@ -2,6 +2,7 @@ import execa from 'execa'
 
 import { Challenge } from './Challenge'
 import { Solution } from './Solution'
+import { isExistingPath } from '../utils/isExistingPath'
 
 const solutionsRegex = new RegExp(
   /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/(solution|Solution).(c|cpp|cs|dart|java|js|py|rs|ts)/
@@ -71,7 +72,13 @@ export class GitAffected implements GitAffectedOptions {
     const affectedSolutionsPaths = files.filter((filePath) => {
       return solutionsRegex.test(filePath)
     })
-    return affectedSolutionsPaths.map((solution) => {
+    const solutions: string[] = []
+    for (const path of affectedSolutionsPaths) {
+      if (await isExistingPath(path)) {
+        solutions.push(path)
+      }
+    }
+    return solutions.map((solution) => {
       const [, challengeName, , programmingLanguageName, solutionName] =
         solution.split('/')
       return new Solution({
