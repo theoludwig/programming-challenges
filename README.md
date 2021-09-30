@@ -77,10 +77,10 @@ programming-challenges --help
 programming-challenges generate challenge --github-user="YourGitHubName" --challenge="challenge-name"
 
 # Generate a new solution
-programming-challenges generate solution --github-user="YourGitHubName" --challenge="hello-world" --solution="solution-name" --language="python"
+programming-challenges generate solution --github-user="YourGitHubName" --challenge="challenge-name" --solution="function" --language="python"
 
 # Test a solution
-programming-challenges run test --challenge="hello-world" --solution="solution-name" --language="python"
+programming-challenges run test --challenge="challenge-name" --solution="function" --language="python"
 ```
 
 ## 💡 Contributing

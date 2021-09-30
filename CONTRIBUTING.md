@@ -6,7 +6,7 @@ Thanks a lot for your interest in contributing to **programming-challenges**! ðŸ
 
 - [Submit a challenge](#submit-a-challenge)
 - [Submit a solution](#submit-a-solution)
-- [Add support for a new language](#add-a-language)
+- [Add support for a new language](#add-a-programming-language)
 - Correct spelling errors, improvements or additions to documentation files (README, CONTRIBUTING...).
 
 ## Submit a challenge
@@ -27,14 +27,16 @@ Start writing some code, inside the `solution` file with your favorite programmi
 
 Before submitting the solution, make sure it passes all the tests by running `programming-challenges run test --affected`.
 
-## Add a language
+## Add a programming language
 
 You can add support for a new language, so you can solve the challenges with even more programming languages!
 
 - First create a new folder inside `templates/docker` with the file extension of the new programming language (e.g: `js`, `cpp`, etc.)
 - Inside this new folder create a `Dockerfile`, to compile and execute the solution
 - Create a new template inside `templates/solution` folder with the file extension of the new programming language, with the basic boilerplate to read from `stdin` and print to `stdout` the result
-- Run the command `programming-challenges generate solution --challenge="<name>" --github-user="<your-github-user>" --language="<your-new-language>" --solution="<your-solution>`
+- Every programming language should have at least one working solution for `challenges/hello-world`.
+
+To do so, run the command `programming-challenges generate solution --challenge="hello-world" --github-user="<your-github-user>" --language="<your-new-language>" --solution="function`
 
 Before submitting the new programming language, make sure it passes all the tests by running `programming-challenges run test --affected`
 
