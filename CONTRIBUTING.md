@@ -36,7 +36,7 @@ You can add support for a new language, so you can solve the challenges with eve
 - Create a new template inside `templates/solution` folder with the file extension of the new programming language, with the basic boilerplate to read from `stdin` and print to `stdout` the result
 - Every programming language should have at least one working solution for `challenges/hello-world`.
 
-To do so, run the command `programming-challenges generate solution --challenge="hello-world" --github-user="<your-github-user>" --language="<your-new-language>" --solution="function`
+  To generate the solution for the `hello-world` challenge with your new language, run the command `programming-challenges generate solution --challenge="hello-world" --github-user="<your-github-user>" --language="<your-new-language>" --solution="function"`
 
 Before submitting the new programming language, make sure it passes all the tests by running `programming-challenges run test --affected`
 
