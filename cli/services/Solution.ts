@@ -101,4 +101,29 @@ export class Solution implements SolutionOptions {
     }
     return solution
   }
+
+  /**
+   * Get Solutions by relative paths.
+   * @param paths relative to `challenges` (e.g: `challenges/hello-world/solutions/c/function`)
+   * @returns
+   */
+  static async getManyByPaths (paths: string[]): Promise<Solution[]> {
+    const solutions: string[] = []
+    for (const path of paths) {
+      if (await isExistingPath(path)) {
+        solutions.push(path)
+      }
+    }
+    return solutions.map((solution) => {
+      const [, challengeName, , programmingLanguageName, solutionName] =
+        solution.split('/')
+      return new Solution({
+        challenge: new Challenge({
+          name: challengeName
+        }),
+        name: solutionName,
+        programmingLanguageName
+      })
+    })
+  }
 }

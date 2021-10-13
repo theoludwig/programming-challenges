@@ -1,5 +1,5 @@
-#ifndef MERGE_SORT_H
-#define MERGE_SORT_H
+#ifndef __MERGE_SORT__
+#define __MERGE_SORT__
 
 void merge(int numbers[], int left_index, int middle_index, int right_index);
 

@@ -5,7 +5,7 @@
 
 int main() {
   int current_number;
-  int length = scanf("%d", &current_number);
+  scanf("%d", &current_number);
   int *numbers = malloc(current_number * sizeof(int));
   int index_input = 0;
   while (scanf("%d", &current_number) != EOF) {

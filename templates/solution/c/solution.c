@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "input.h"
+
 int main() {
-  char input[1024];
-  while (scanf("%s", &input) != EOF) {
-    printf("Hello, %s!", input);
-  }
+  char *string = input();
+  printf("Hello, %s!\n", string);
   return EXIT_SUCCESS;
 }

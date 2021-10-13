@@ -9,7 +9,7 @@ void character_append(char* string, char character) {
   string[length + 1] = '\0';
 }
 
-const char character_to_upper(const char character) {
+char character_to_upper(char character) {
   char ascii_a = 'a';
   char ascii_A = 'A';
   char ascii_z = 'z';

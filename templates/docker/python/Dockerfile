@@ -1,3 +1,3 @@
-FROM python:3.9.7
+FROM python:3.10.0
 COPY ./ ./
 CMD ["python", "solution.py"]

@@ -1,5 +1,5 @@
-#ifndef INSERTION_SORT_H
-#define INSERTION_SORT_H
+#ifndef __INSERTION_SORT__
+#define __INSERTION_SORT__
 
 void insertion_sort(int *numbers, const int length);
 

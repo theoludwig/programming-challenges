@@ -1,5 +1,5 @@
-#ifndef BUBBLE_SORT_H
-#define BUBBLE_SORT_H
+#ifndef __BUBBLE_SORT__
+#define __BUBBLE_SORT__
 
 void swap_numbers(int *value_1, int *value_2);
 

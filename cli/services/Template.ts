@@ -73,9 +73,7 @@ class Template {
   public async solution (options: TemplateSolutionOptions): Promise<void> {
     const { destination, githubUser, name, challengeName, programmingLanguageName } = options
     const templateLanguagePath = path.join(TEMPLATE_SOLUTION_PATH, programmingLanguageName)
-    if (!(await isExistingPath(templateLanguagePath))) {
-      throw new Error('This programming language is not supported yet.')
-    }
+    await this.verifySupportedProgrammingLanguage(programmingLanguageName)
     await fs.promises.mkdir(destination, { recursive: true })
     await copyDirectory(templateLanguagePath, destination)
     await copyDirectory(TEMPLATE_SOLUTION_BASE_PATH, destination)
@@ -94,6 +92,13 @@ class Template {
       description: this.getDescription(githubUser),
       destination
     })
+  }
+
+  public async verifySupportedProgrammingLanguage (language: string): Promise<void> {
+    const templateLanguagePath = path.join(TEMPLATE_SOLUTION_PATH, language)
+    if (!(await isExistingPath(templateLanguagePath))) {
+      throw new Error('This programming language is not supported yet.')
+    }
   }
 }
 

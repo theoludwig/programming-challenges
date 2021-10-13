@@ -1,5 +1,5 @@
-#ifndef STRING_H
-#define STRING_H
+#ifndef __STRING__
+#define __STRING__
 
 /**
  * @brief Converts all the alphabetic characters in a string to uppercase.

@@ -42,8 +42,8 @@ int main() {
       if (is_last_number) {
         break;
       }
-      if (numbers[index] + couple_index == numbers[index + couple_index]) {
-        consecutive[consecutive_length] = numbers[index] + couple_index;
+      if ((int)(numbers[index] + couple_index) == numbers[index + couple_index]) {
+        consecutive[consecutive_length] = (int)(numbers[index] + couple_index);
         consecutive_length++;
       }
       bool is_consecutive = consecutive_length == couple_length;

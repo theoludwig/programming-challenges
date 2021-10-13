@@ -29,7 +29,7 @@ char* string_caesar_cipher(char* string, int shift) {
   for (size_t index = 0; index < string_length; index++) {
     char letter = string[index];
     if (letter != ' ') {
-      for (char index_alphabet = 0; index_alphabet < ALPHABET_LENGTH; index_alphabet++) {
+      for (int index_alphabet = 0; index_alphabet < ALPHABET_LENGTH; index_alphabet++) {
         char current_letter = 'A' + index_alphabet;
         if (string[index] == current_letter) {
           letter = shifted_alphabet[index_alphabet];
