@@ -116,7 +116,7 @@ export class Solution implements SolutionOptions {
     }
     return solutions.map((solution) => {
       const [, challengeName, , programmingLanguageName, solutionName] =
-        solution.split('/')
+        solution.replaceAll('\\', '/').split('/')
       return new Solution({
         challenge: new Challenge({
           name: challengeName
