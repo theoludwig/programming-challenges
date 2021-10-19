@@ -47,13 +47,13 @@ int* prime_numbers_decomposition(int number, int* decomposition_length) {
   int dividend = number;
   while (total != number) {
     int divider = 2;
-    int reste = 0;
+    int remainder = 0;
     int quotient = 0;
     do {
-      reste = dividend % divider;
+      remainder = dividend % divider;
       quotient = dividend / divider;
       divider++;
-    } while (reste != 0);
+    } while (remainder != 0);
     divider--;
     decomposition[*decomposition_length - 1] = divider;
     *decomposition_length = *decomposition_length + 1;

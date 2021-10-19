@@ -1,5 +1,5 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef __CHARACTER__
+#define __CHARACTER__
 
 /**
  * @brief Append a character to a string, assuming string points to an array

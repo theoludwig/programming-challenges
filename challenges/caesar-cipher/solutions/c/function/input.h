@@ -1,5 +1,5 @@
-#ifndef INPUT_H
-#define INPUT_H
+#ifndef __INPUT__
+#define __INPUT__
 
 /**
  * @brief Read a line from stdin.

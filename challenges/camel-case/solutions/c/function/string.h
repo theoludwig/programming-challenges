@@ -1,5 +1,5 @@
-#ifndef STRING_H
-#define STRING_H
+#ifndef __STRING__
+#define __STRING__
 
 /**
  * @brief Removes all whitespace from the start of a string.
