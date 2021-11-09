@@ -29,6 +29,8 @@ export interface TestOptions {
   elapsedTimeMilliseconds: number
 }
 
+export const successMessage = `${chalk.bold.green('Success:')} Tests passed! 🎉`
+
 export class Test implements TestOptions {
   public index: number
   public path: string
@@ -130,6 +132,23 @@ export class Test implements TestOptions {
       encoding: 'utf-8'
     })
     return { input, output }
+  }
+
+  static async runManyWithSolutions (solutions: Solution[]): Promise<number> {
+    for (const solution of solutions) {
+      await solution.test()
+      console.log('\n------------------------------\n')
+    }
+    console.log(successMessage)
+    return 0
+  }
+
+  static async runAllTests (programmingLanguage?: string): Promise<number> {
+    const solutions = await Solution.getManyByProgrammingLanguages(
+      programmingLanguage != null ? [programmingLanguage] : undefined
+    )
+    await Test.runManyWithSolutions(solutions)
+    return 0
   }
 
   static async run (options: TestRunOptions): Promise<Test> {

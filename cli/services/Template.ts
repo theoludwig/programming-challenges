@@ -5,7 +5,6 @@ import { replaceInFile } from 'replace-in-file'
 import date from 'date-and-time'
 
 import { copyDirectory } from '../utils/copyDirectory'
-import { isExistingPath } from '../utils/isExistingPath'
 
 const TEMPLATE_PATH = path.join(__dirname, '..', '..', 'templates')
 const TEMPLATE_DOCKER_PATH = path.join(TEMPLATE_PATH, 'docker')
@@ -94,9 +93,14 @@ class Template {
     })
   }
 
+  public async getProgrammingLanguages (): Promise<string[]> {
+    const languages = await fs.promises.readdir(TEMPLATE_SOLUTION_PATH)
+    return languages.filter(language => language !== 'base')
+  }
+
   public async verifySupportedProgrammingLanguage (language: string): Promise<void> {
-    const templateLanguagePath = path.join(TEMPLATE_SOLUTION_PATH, language)
-    if (!(await isExistingPath(templateLanguagePath))) {
+    const languages = await this.getProgrammingLanguages()
+    if (!languages.includes(language)) {
       throw new Error('This programming language is not supported yet.')
     }
   }

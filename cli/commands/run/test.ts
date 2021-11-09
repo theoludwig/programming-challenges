@@ -1,6 +1,3 @@
-import fs from 'node:fs'
-import path from 'node:path'
-
 import { Command, Option } from 'clipanion'
 import * as typanion from 'typanion'
 import chalk from 'chalk'
@@ -8,8 +5,7 @@ import chalk from 'chalk'
 import { Solution } from '../../services/Solution'
 import { GitAffected } from '../../services/GitAffected'
 import { template } from '../../services/Template'
-
-const successMessage = `${chalk.bold.green('Success:')} Tests passed! 🎉`
+import { Test, successMessage } from '../../services/Test'
 
 export class RunTestCommand extends Command {
   static paths = [['run', 'test']]
@@ -50,15 +46,6 @@ export class RunTestCommand extends Command {
     description: 'Base of the current branch (usually master)'
   })
 
-  async runTests (solutions: Solution[]): Promise<number> {
-    for (const solution of solutions) {
-      await solution.test()
-      console.log('\n------------------------------\n')
-    }
-    console.log(successMessage)
-    return 0
-  }
-
   async execute (): Promise<number> {
     console.log()
     try {
@@ -66,35 +53,7 @@ export class RunTestCommand extends Command {
         await template.verifySupportedProgrammingLanguage(this.programmingLanguage)
       }
       if (this.all) {
-        const challengesPath = path.join(
-          __dirname,
-          '..',
-          '..',
-          '..',
-          'challenges'
-        )
-        const challenges = await fs.promises.readdir(challengesPath)
-        const paths: string[] = []
-        for (const challenge of challenges) {
-          const solutionsPath = path.join(challengesPath, challenge, 'solutions')
-          const languagesSolution = (await fs.promises.readdir(solutionsPath)).filter(
-            (name) => {
-              if (this.programmingLanguage != null) {
-                return name === this.programmingLanguage
-              }
-              return name !== '.gitkeep'
-            }
-          )
-          for (const language of languagesSolution) {
-            const solutionPath = (await fs.promises.readdir(path.join(solutionsPath, language))).map((solutionName) => {
-              return `challenges/${challenge}/solutions/${language}/${solutionName}`
-            })
-            paths.push(...solutionPath)
-          }
-        }
-        const solutions = await Solution.getManyByPaths(paths)
-        await this.runTests(solutions)
-        return 0
+        return await Test.runAllTests(this.programmingLanguage)
       }
       if (this.affected) {
         const gitAffected = new GitAffected({
@@ -102,7 +61,7 @@ export class RunTestCommand extends Command {
           base: this.base
         })
         const solutions = await gitAffected.getAffectedSolutions()
-        return await this.runTests(solutions)
+        return await Test.runManyWithSolutions(solutions)
       }
       if (
         this.solutionName == null ||

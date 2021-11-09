@@ -6,6 +6,10 @@ const solutionsRegex = new RegExp(
   /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/(solution|Solution).(c|cpp|cs|dart|java|js|py|rs|ts)/
 )
 
+const dockerRegex = new RegExp(
+  /templates\/docker\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/Dockerfile/
+)
+
 export interface GitAffectedOptions {
   isContinuousIntegration: boolean
   base?: string
@@ -70,6 +74,21 @@ export class GitAffected implements GitAffectedOptions {
     const affectedSolutionsPaths = files.filter((filePath) => {
       return solutionsRegex.test(filePath)
     })
-    return await Solution.getManyByPaths(affectedSolutionsPaths)
+    const affectedDockerPaths = files.filter((filePath) => {
+      return dockerRegex.test(filePath)
+    })
+    const affectedLanguages = affectedDockerPaths.map((filePath) => {
+      const [,, programmingLanguageName] = filePath.replaceAll('\\', '/').split('/')
+      return programmingLanguageName
+    })
+    const solutionsChallenges = await Solution.getManyByPaths(affectedSolutionsPaths)
+    const solutionsDocker = await Solution.getManyByProgrammingLanguages(affectedLanguages)
+    const solutions: Solution[] = solutionsDocker
+    for (const solution of solutionsChallenges) {
+      if (!affectedLanguages.includes(solution.programmingLanguageName)) {
+        solutions.push(solution)
+      }
+    }
+    return solutions
   }
 }

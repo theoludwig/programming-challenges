@@ -1,4 +1,5 @@
 import path from 'node:path'
+import fs from 'node:fs'
 
 import {
   createTemporaryEmptyFolder,
@@ -100,6 +101,33 @@ export class Solution implements SolutionOptions {
       throw new Error('The solution was not found.')
     }
     return solution
+  }
+
+  static async getManyByProgrammingLanguages (programmingLanguages?: string[]): Promise<Solution[]> {
+    const languages = programmingLanguages ?? await template.getProgrammingLanguages()
+    const challengesPath = path.join(
+      __dirname,
+      '..',
+      '..',
+      'challenges'
+    )
+    const challenges = await fs.promises.readdir(challengesPath)
+    const paths: string[] = []
+    for (const challenge of challenges) {
+      const solutionsPath = path.join(challengesPath, challenge, 'solutions')
+      const languagesSolution = (await fs.promises.readdir(solutionsPath)).filter(
+        (name) => {
+          return name !== '.gitkeep' && languages.includes(name)
+        }
+      )
+      for (const language of languagesSolution) {
+        const solutionPath = (await fs.promises.readdir(path.join(solutionsPath, language))).map((solutionName) => {
+          return `challenges/${challenge}/solutions/${language}/${solutionName}`
+        })
+        paths.push(...solutionPath)
+      }
+    }
+    return await Solution.getManyByPaths(paths)
   }
 
   /**
