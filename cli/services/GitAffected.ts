@@ -4,7 +4,7 @@ import { Challenge } from './Challenge'
 import { Solution } from './Solution'
 
 const solutionsRegex = new RegExp(
-  /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/(solution|Solution).(c|cpp|cs|dart|java|js|py|rs|ts)/
+  /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/(.*).(c|cpp|cs|dart|java|js|py|rs|ts)/
 )
 
 const dockerRegex = new RegExp(
@@ -12,7 +12,7 @@ const dockerRegex = new RegExp(
 )
 
 const inputOutputRegex = new RegExp(
-  /challenges\/[\s\S]*\/test\/[0-9]\/(input.txt|output.txt)/
+  /challenges\/[\s\S]*\/test\/(.*)\/(input.txt|output.txt)/
 )
 
 export interface GitAffectedOptions {
