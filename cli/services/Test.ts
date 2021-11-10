@@ -29,8 +29,6 @@ export interface TestOptions {
   elapsedTimeMilliseconds: number
 }
 
-export const successMessage = `${chalk.bold.green('Success:')} Tests passed! 🎉`
-
 export class Test implements TestOptions {
   public index: number
   public path: string
@@ -39,6 +37,7 @@ export class Test implements TestOptions {
   public output: string
   public stdout: string
   public elapsedTimeMilliseconds: number
+  static successMessage = `${chalk.bold.green('Success:')} Tests passed! 🎉`
 
   constructor (options: TestOptions) {
     this.index = options.index
@@ -139,7 +138,7 @@ export class Test implements TestOptions {
       await solution.test()
       console.log('\n------------------------------\n')
     }
-    console.log(successMessage)
+    console.log(Test.successMessage)
     return 0
   }
 

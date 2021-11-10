@@ -5,7 +5,7 @@ import chalk from 'chalk'
 import { Solution } from '../../services/Solution'
 import { GitAffected } from '../../services/GitAffected'
 import { template } from '../../services/Template'
-import { Test, successMessage } from '../../services/Test'
+import { Test } from '../../services/Test'
 
 export class RunTestCommand extends Command {
   static paths = [['run', 'test']]
@@ -78,7 +78,7 @@ export class RunTestCommand extends Command {
         programmingLanguageName: this.programmingLanguage
       })
       await solution.test()
-      console.log(successMessage)
+      console.log(Test.successMessage)
       return 0
     } catch (error) {
       if (error instanceof Error) {

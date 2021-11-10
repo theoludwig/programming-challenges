@@ -103,6 +103,23 @@ export class Solution implements SolutionOptions {
     return solution
   }
 
+  static async getManyByChallenge (challenge: Challenge): Promise<Solution[]> {
+    const solutionsPath = path.join(challenge.path, 'solutions')
+    const languagesSolution = (await fs.promises.readdir(solutionsPath)).filter(
+      (name) => {
+        return name !== '.gitkeep'
+      }
+    )
+    const paths: string[] = []
+    for (const language of languagesSolution) {
+      const solutionPath = (await fs.promises.readdir(path.join(solutionsPath, language))).map((solutionName) => {
+        return `challenges/${challenge.name}/solutions/${language}/${solutionName}`
+      })
+      paths.push(...solutionPath)
+    }
+    return await Solution.getManyByPaths(paths)
+  }
+
   static async getManyByProgrammingLanguages (programmingLanguages?: string[]): Promise<Solution[]> {
     const languages = programmingLanguages ?? await template.getProgrammingLanguages()
     const challengesPath = path.join(

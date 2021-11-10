@@ -1,5 +1,6 @@
 import execa from 'execa'
 
+import { Challenge } from './Challenge'
 import { Solution } from './Solution'
 
 const solutionsRegex = new RegExp(
@@ -8,6 +9,10 @@ const solutionsRegex = new RegExp(
 
 const dockerRegex = new RegExp(
   /templates\/docker\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/Dockerfile/
+)
+
+const inputOutputRegex = new RegExp(
+  /challenges\/[\s\S]*\/test\/[0-9]\/(input.txt|output.txt)/
 )
 
 export interface GitAffectedOptions {
@@ -81,12 +86,32 @@ export class GitAffected implements GitAffectedOptions {
       const [,, programmingLanguageName] = filePath.replaceAll('\\', '/').split('/')
       return programmingLanguageName
     })
+    const affectedInputOutput = files.filter((filePath) => {
+      return inputOutputRegex.test(filePath)
+    })
+    const affectedChallenges = affectedInputOutput.map((filePath) => {
+      const [, challengeName] = filePath.replaceAll('\\', '/').split('/')
+      return new Challenge({ name: challengeName })
+    })
     const solutionsChallenges = await Solution.getManyByPaths(affectedSolutionsPaths)
     const solutionsDocker = await Solution.getManyByProgrammingLanguages(affectedLanguages)
     const solutions: Solution[] = solutionsDocker
     for (const solution of solutionsChallenges) {
       if (!affectedLanguages.includes(solution.programmingLanguageName)) {
         solutions.push(solution)
+      }
+    }
+    for (const challenge of affectedChallenges) {
+      let isSolutionIncluded = false
+      for (const solution of solutions) {
+        if (solution.challenge.name === challenge.name) {
+          isSolutionIncluded = true
+          break
+        }
+      }
+      if (!isSolutionIncluded) {
+        const solutionsByChallenge = await Solution.getManyByChallenge(challenge)
+        solutions.push(...solutionsByChallenge)
       }
     }
     return solutions
