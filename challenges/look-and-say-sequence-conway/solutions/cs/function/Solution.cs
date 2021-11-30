@@ -18,7 +18,7 @@ namespace Solution
                     numberOfAppearances += 1;
                     iteration++;
                 }
-                result = result + numberOfAppearances.ToString() + line[index];
+                result = result + numberOfAppearances.ToString() + valueToSearch;
                 index += numberOfAppearances - 1;
             }
             Console.WriteLine(result);
