@@ -114,6 +114,15 @@ export class GitAffected implements GitAffectedOptions {
         solutions.push(...solutionsByChallenge)
       }
     }
-    return solutions
+    const solutionsUnique: Solution[] = []
+    for (const solution of solutions) {
+      const isAlreadyIncluded = solutionsUnique.some((solutionUnique) => {
+        return solutionUnique.path === solution.path
+      })
+      if (!isAlreadyIncluded) {
+        solutionsUnique.push(solution)
+      }
+    }
+    return solutionsUnique
   }
 }
