@@ -3,17 +3,11 @@ import execa from 'execa'
 import { Challenge } from './Challenge'
 import { Solution } from './Solution'
 
-const solutionsRegex = new RegExp(
-  /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/(.*).(c|cpp|cs|dart|java|js|py|rs|ts)/
-)
+const solutionsRegex = /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/(.*).(c|cpp|cs|dart|java|js|py|rs|ts)/
 
-const dockerRegex = new RegExp(
-  /templates\/docker\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/Dockerfile/
-)
+const dockerRegex = /templates\/docker\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/Dockerfile/
 
-const inputOutputRegex = new RegExp(
-  /challenges\/[\s\S]*\/test\/(.*)\/(input.txt|output.txt)/
-)
+const inputOutputRegex = /challenges\/[\s\S]*\/test\/(.*)\/(input.txt|output.txt)/
 
 export interface GitAffectedOptions {
   isContinuousIntegration: boolean
@@ -89,30 +83,16 @@ export class GitAffected implements GitAffectedOptions {
     const affectedInputOutput = files.filter((filePath) => {
       return inputOutputRegex.test(filePath)
     })
-    const affectedChallenges = affectedInputOutput.map((filePath) => {
+    const affectedChallengesFromInputOutput = affectedInputOutput.map((filePath) => {
       const [, challengeName] = filePath.replaceAll('\\', '/').split('/')
       return new Challenge({ name: challengeName })
     })
     const solutionsChallenges = await Solution.getManyByPaths(affectedSolutionsPaths)
     const solutionsDocker = await Solution.getManyByProgrammingLanguages(affectedLanguages)
-    const solutions: Solution[] = solutionsDocker
-    for (const solution of solutionsChallenges) {
-      if (!affectedLanguages.includes(solution.programmingLanguageName)) {
-        solutions.push(solution)
-      }
-    }
-    for (const challenge of affectedChallenges) {
-      let isSolutionIncluded = false
-      for (const solution of solutions) {
-        if (solution.challenge.name === challenge.name) {
-          isSolutionIncluded = true
-          break
-        }
-      }
-      if (!isSolutionIncluded) {
-        const solutionsByChallenge = await Solution.getManyByChallenge(challenge)
-        solutions.push(...solutionsByChallenge)
-      }
+    const solutions: Solution[] = [...solutionsDocker, ...solutionsChallenges]
+    for (const challenge of affectedChallengesFromInputOutput) {
+      const solutionsByChallenge = await Solution.getManyByChallenge(challenge)
+      solutions.push(...solutionsByChallenge)
     }
     const solutionsUnique: Solution[] = []
     for (const solution of solutions) {

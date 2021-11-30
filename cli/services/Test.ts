@@ -37,7 +37,7 @@ export class Test implements TestOptions {
   public output: string
   public stdout: string
   public elapsedTimeMilliseconds: number
-  static successMessage = `${chalk.bold.green('Success:')} Tests passed! 🎉`
+  static SUCCESS_MESSAGE = `${chalk.bold.green('Success:')} Tests passed! 🎉`
 
   constructor (options: TestOptions) {
     this.index = options.index
@@ -99,15 +99,15 @@ export class Test implements TestOptions {
     const name = `${solution.challenge.name}/${solution.programmingLanguageName}/${solution.name}`
     const testsPath = path.join(solution.challenge.path, 'test')
     const testsFolders = await fs.promises.readdir(testsPath)
+    const testsNumbers = testsFolders.map((test) => Number(test)).sort((a, b) => a - b)
     const tests: Test[] = []
     console.log(`${chalk.bold('Name:')} ${name}\n`)
-    for (let index = 0; index < testsFolders.length; index++) {
-      const currentTestIndex = index + 1
-      const loader = ora(`Test n°${currentTestIndex}`).start()
+    for (const testNumber of testsNumbers) {
+      const loader = ora(`Test n°${testNumber}`).start()
       try {
         const test = await Test.run({
-          path: path.join(testsPath, testsFolders[index]),
-          index: currentTestIndex
+          path: path.join(testsPath, testNumber.toString()),
+          index: testNumber
         })
         tests.push(test)
         if (test.isSuccess) {
@@ -138,7 +138,7 @@ export class Test implements TestOptions {
       await solution.test()
       console.log('\n------------------------------\n')
     }
-    console.log(Test.successMessage)
+    console.log(Test.SUCCESS_MESSAGE)
     return 0
   }
 

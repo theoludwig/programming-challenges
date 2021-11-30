@@ -1,13 +1,13 @@
 import execa from 'execa'
 import ora from 'ora'
 
-const CONTAINER_TAG = 'programming-challenges'
-
 class Docker {
+  static CONTAINER_TAG = 'programming-challenges'
+
   public async build (): Promise<void> {
     const loader = ora('Building the Docker image').start()
     try {
-      await execa.command(`docker build --tag=${CONTAINER_TAG} ./`)
+      await execa.command(`docker build --tag=${Docker.CONTAINER_TAG} ./`)
       loader.stop()
     } catch (error) {
       loader.fail()
@@ -17,7 +17,7 @@ class Docker {
 
   public async run (input: string): Promise<string> {
     const subprocess = execa.command(
-      `docker run --interactive --rm ${CONTAINER_TAG}`,
+      `docker run --interactive --rm ${Docker.CONTAINER_TAG}`,
       {
         input
       }

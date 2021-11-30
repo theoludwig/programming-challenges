@@ -78,7 +78,7 @@ export class RunTestCommand extends Command {
         programmingLanguageName: this.programmingLanguage
       })
       await solution.test()
-      console.log(Test.successMessage)
+      console.log(Test.SUCCESS_MESSAGE)
       return 0
     } catch (error) {
       if (error instanceof Error) {
