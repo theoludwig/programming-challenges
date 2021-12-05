@@ -1,3 +1,3 @@
-FROM node:16.13.0
+FROM node:16.13.1
 COPY ./ ./
 CMD ["node", "solution.js"]
