@@ -67,7 +67,7 @@ export class Solution implements SolutionOptions {
     const { name, challengeName, programmingLanguageName, githubUser } = options
     const challenge = new Challenge({ name: challengeName })
     if (!(await isExistingPath(challenge.path))) {
-      throw new Error(`The challenge doesn't exist yet: ${name}.`)
+      throw new Error(`The challenge doesn't exist yet: ${challenge.name}.`)
     }
     const solution = new Solution({
       name,
@@ -75,7 +75,7 @@ export class Solution implements SolutionOptions {
       programmingLanguageName
     })
     if (await isExistingPath(solution.path)) {
-      throw new Error('The solution already exists.')
+      throw new Error(`The solution already exists: ${name}.`)
     }
     await template.solution({
       challengeName: challenge.name,

@@ -12,8 +12,8 @@ import { isExistingPath } from '../../../utils/isExistingPath'
 
 const input = ['generate', 'challenge']
 const githubUser = 'Divlo'
-const challengeName = 'aaaa-test-jest'
-const inputChallengeName = `--challenge=${challengeName}`
+const challenge = 'aaaa-test-jest'
+const inputChallenge = `--challenge=${challenge}`
 const inputGitHubUser = `--github-user=${githubUser}`
 
 describe('programming-challenges generate challenge', () => {
@@ -36,7 +36,7 @@ describe('programming-challenges generate challenge', () => {
     const dateString = date.format(new Date(), 'D MMMM Y', true)
     const stream = new PassThrough()
     const exitCode = await cli.run(
-      [...input, inputChallengeName, inputGitHubUser],
+      [...input, inputChallenge, inputGitHubUser],
       {
         stdin: process.stdin,
         stdout: stream,
@@ -45,13 +45,13 @@ describe('programming-challenges generate challenge', () => {
     )
     stream.end()
     expect(exitCode).toEqual(0)
-    const challengePath = path.join(process.cwd(), 'challenges', challengeName)
+    const challengePath = path.join(process.cwd(), 'challenges', challenge)
     const readmePath = path.join(challengePath, 'README.md')
     const readmeContent = await fs.promises.readFile(readmePath, { encoding: 'utf-8' })
     const successMessage = `${chalk.bold.green('Success:')} created the new challenge at ${challengePath}.`
     expect(console.log).toHaveBeenCalledWith(successMessage)
     expect(await isExistingPath(challengePath)).toBeTruthy()
-    expect(readmeContent).toMatch(`# ${challengeName}
+    expect(readmeContent).toMatch(`# ${challenge}
 
 Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
 
