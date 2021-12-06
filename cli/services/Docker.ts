@@ -3,6 +3,7 @@ import ora from 'ora'
 
 class Docker {
   static CONTAINER_TAG = 'programming-challenges'
+  static SIGSEGV_EXIT_CODE = 139
 
   public async build (): Promise<void> {
     const loader = ora('Building the Docker image').start()
@@ -22,11 +23,18 @@ class Docker {
         input
       }
     )
-    const { stdout, stderr } = await subprocess
-    if (stderr.length !== 0) {
-      throw new Error(stderr)
+    try {
+      const { stdout, stderr } = await subprocess
+      if (stderr.length !== 0) {
+        throw new Error(stderr)
+      }
+      return stdout
+    } catch (error: any) {
+      if (error.exitCode === Docker.SIGSEGV_EXIT_CODE) {
+        throw new Error('Docker run failed: SIGSEGV indicates a segmentation fault (attempts to access a memory location that it\'s not allowed to access).')
+      }
+      throw new Error(`Docker run failed: ${error.message as string}`)
     }
-    return stdout
   }
 }
 

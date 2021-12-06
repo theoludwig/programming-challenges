@@ -1,4 +1,8 @@
 FROM node:16.13.1
-RUN npm install --global ts-node typescript @types/node
-COPY ./ ./
-CMD ["ts-node", "solution.ts"]
+
+WORKDIR /usr/app
+COPY ./ /usr/app
+RUN npm install
+RUN npm run build
+
+CMD ["node", "build/solution.js"]
