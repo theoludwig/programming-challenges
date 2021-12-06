@@ -13,19 +13,12 @@ describe('utils/createTemporaryEmptyFolder', () => {
     fsMock.restore()
   })
 
-  it('should create the temporary folder', async () => {
-    fsMock({})
-    expect(await isExistingPath(TEMPORARY_PATH)).toBeFalsy()
-    await createTemporaryEmptyFolder()
-    expect(await isExistingPath(TEMPORARY_PATH)).toBeTruthy()
-  })
-
   it('should remove and create again the temporary folder', async () => {
     fsMock({
       [TEMPORARY_PATH]: {
         'file.txt': ''
       }
-    })
+    }, { createCwd: false })
     expect(await isExistingPath(TEMPORARY_PATH)).toBeTruthy()
     expect((await fs.promises.readdir(TEMPORARY_PATH)).length).toEqual(1)
     await createTemporaryEmptyFolder()

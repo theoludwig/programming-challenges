@@ -17,7 +17,7 @@ describe('utils/copyDirectory', () => {
         '.npmignore': ''
       },
       '/destination': {}
-    })
+    }, { createCwd: false })
 
     let destinationDirectoryContent = await fs.promises.readdir('/destination')
     let sourceDirectoryContent = await fs.promises.readdir('/source')
@@ -50,7 +50,7 @@ describe('utils/copyDirectory', () => {
         '.npmignore': ''
       },
       '/destination': {}
-    })
+    }, { createCwd: false })
 
     let destinationDirectoryContent = await fs.promises.readdir('/destination')
     let sourceDirectoryContent = await fs.promises.readdir('/source')

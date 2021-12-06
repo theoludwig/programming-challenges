@@ -101,6 +101,26 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
     )
   })
 
+  it('fails with invalid language', async () => {
+    console.error = jest.fn()
+    const stream = new PassThrough()
+    const invalidLanguage = 'invalid'
+    const inputInvalidLanguage = `--language=${invalidLanguage}`
+    const exitCode = await cli.run(
+      [...input, inputChallenge, inputGitHubUser, inputSolution, inputInvalidLanguage],
+      {
+        stdin: process.stdin,
+        stdout: stream,
+        stderr: stream
+      }
+    )
+    stream.end()
+    expect(exitCode).toEqual(1)
+    expect(console.error).toHaveBeenCalledWith(
+      chalk.bold.red('Error:') + ' This programming language is not supported yet.'
+    )
+  })
+
   it('fails without options', async () => {
     const stream = new PassThrough()
     const promise = getStream(stream)
