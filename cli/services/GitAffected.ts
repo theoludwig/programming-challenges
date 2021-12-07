@@ -5,7 +5,7 @@ import { Solution } from './Solution'
 
 const solutionsRegex = /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/(.*).(c|cpp|cs|dart|java|js|py|rs|ts)/
 
-const dockerRegex = /templates\/docker\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/Dockerfile/
+const dockerRegex = /templates\/docker\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/(.*)/
 
 const inputOutputRegex = /challenges\/[\s\S]*\/test\/(.*)\/(input.txt|output.txt)/
 
@@ -61,15 +61,7 @@ export class GitAffected implements GitAffectedOptions {
     )
   }
 
-  public async getAffectedSolutions (): Promise<Solution[]> {
-    let files = [
-      ...(await this.getUnpushedFiles()),
-      ...(await this.getUncommittedFiles())
-    ]
-    if (this.base != null) {
-      files.push(...(await this.getFilesUsingBaseAndHead(this.base, '.')))
-    }
-    files = Array.from(new Set(files))
+  public async getAffectedSolutionsFromFiles (files: string[]): Promise<Solution[]> {
     const affectedSolutionsPaths = files.filter((filePath) => {
       return solutionsRegex.test(filePath)
     })
@@ -104,5 +96,17 @@ export class GitAffected implements GitAffectedOptions {
       }
     }
     return solutionsUnique
+  }
+
+  public async getAffectedSolutionsFromGit (): Promise<Solution[]> {
+    let files = [
+      ...(await this.getUnpushedFiles()),
+      ...(await this.getUncommittedFiles())
+    ]
+    if (this.base != null) {
+      files.push(...(await this.getFilesUsingBaseAndHead(this.base, '.')))
+    }
+    files = Array.from(new Set(files))
+    return await this.getAffectedSolutionsFromFiles(files)
   }
 }

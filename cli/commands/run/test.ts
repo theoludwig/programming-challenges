@@ -60,7 +60,7 @@ export class RunTestCommand extends Command {
           isContinuousIntegration: this.isContinuousIntegration,
           base: this.base
         })
-        const solutions = await gitAffected.getAffectedSolutions()
+        const solutions = await gitAffected.getAffectedSolutionsFromGit()
         return await Test.runManyWithSolutions(solutions)
       }
       if (
