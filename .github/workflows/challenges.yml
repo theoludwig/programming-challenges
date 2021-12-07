@@ -1,0 +1,45 @@
+name: 'challenges'
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test-solutions:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: 'actions/checkout@v2'
+        with:
+          fetch-depth: 0
+
+      - name: 'Use Docker'
+        uses: 'actions-hub/docker/cli@master'
+        env:
+          SKIP_LOGIN: true
+
+      - name: 'Use Node.js'
+        uses: 'actions/setup-node@v2.5.0'
+        with:
+          node-version: '16.x'
+          cache: 'npm'
+
+      - name: 'Install'
+        run: 'npm install'
+
+      - name: 'Build'
+        run: 'npm run build'
+
+      - name: 'Install programming-challenges'
+        run: 'npm install --global'
+
+      - uses: 'nrwl/last-successful-commit-action@v1'
+        id: 'last_successful_commit'
+        with:
+          branch: 'master'
+          workflow_id: 'ci.yml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Test'
+        run: 'programming-challenges run test --affected --ci --base=${{ steps.last_successful_commit.outputs.commit_hash }}'

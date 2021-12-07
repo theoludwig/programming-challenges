@@ -1,2 +1,3 @@
-const ONE_MINUTE_IN_MILLISECONDS = 60 * 1000
-jest.setTimeout(ONE_MINUTE_IN_MILLISECONDS)
+import { Docker } from '../services/Docker'
+
+jest.setTimeout(Docker.MAXIMUM_TIMEOUT_MILLISECONDS)
