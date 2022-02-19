@@ -1,6 +1,6 @@
-import { Challenge } from '../Challenge'
-import { GitAffected } from '../GitAffected'
-import { Solution } from '../Solution'
+import { Challenge } from '../Challenge.js'
+import { GitAffected } from '../GitAffected.js'
+import { Solution } from '../Solution.js'
 
 const gitAffected = new GitAffected({ isContinuousIntegration: false })
 

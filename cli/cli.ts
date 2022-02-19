@@ -1,8 +1,8 @@
 import { Builtins, Cli } from 'clipanion'
 
-import { GenerateChallengeCommand } from './commands/generate/challenge'
-import { GenerateSolutionCommand } from './commands/generate/solution'
-import { RunTestCommand } from './commands/run/test'
+import { GenerateChallengeCommand } from './commands/generate/challenge.js'
+import { GenerateSolutionCommand } from './commands/generate/solution.js'
+import { RunTestCommand } from './commands/run/test.js'
 
 export const cli = new Cli({
   binaryLabel: 'programming-challenges',

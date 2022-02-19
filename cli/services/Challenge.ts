@@ -3,8 +3,8 @@ import fs from 'node:fs'
 
 import validateProjectName from 'validate-npm-package-name'
 
-import { isExistingPath } from '../utils/isExistingPath'
-import { template } from './Template'
+import { isExistingPath } from '../utils/isExistingPath.js'
+import { template } from './Template.js'
 
 export interface ChallengeOptions {
   name: string

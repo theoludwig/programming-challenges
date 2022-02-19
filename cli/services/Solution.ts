@@ -4,13 +4,13 @@ import fs from 'node:fs'
 import {
   createTemporaryEmptyFolder,
   TEMPORARY_PATH
-} from '../utils/createTemporaryEmptyFolder'
-import { isExistingPath } from '../utils/isExistingPath'
-import { Challenge } from './Challenge'
-import { copyDirectory } from '../utils/copyDirectory'
-import { template } from './Template'
-import { docker } from './Docker'
-import { Test } from './Test'
+} from '../utils/createTemporaryEmptyFolder.js'
+import { isExistingPath } from '../utils/isExistingPath.js'
+import { Challenge } from './Challenge.js'
+import { copyDirectory } from '../utils/copyDirectory.js'
+import { template } from './Template.js'
+import { docker } from './Docker.js'
+import { Test } from './Test.js'
 
 export interface GetSolutionOptions {
   programmingLanguageName: string

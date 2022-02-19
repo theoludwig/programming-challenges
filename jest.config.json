@@ -1,13 +1,14 @@
 {
-  "preset": "ts-jest",
   "testEnvironment": "node",
+  "resolver": "jest-ts-webcompat-resolver",
+  "transform": {
+    "^.+\\.(t|j)sx?$": ["@swc/jest"]
+  },
   "rootDir": "./cli",
   "testPathIgnorePatterns": [
     "<rootDir>/commands/run/test.ts",
     "<rootDir>/services/Test.ts",
     "<rootDir>/node_modules"
   ],
-  "setupFiles": [
-    "<rootDir>/__test__/setup.ts"
-  ]
+  "setupFiles": ["<rootDir>/__test__/setup.ts"]
 }

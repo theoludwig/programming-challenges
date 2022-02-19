@@ -2,8 +2,8 @@ import { PassThrough } from 'node:stream'
 
 import chalk from 'chalk'
 
-import { cli } from '../../../cli'
-import { Test } from '../../../services/Test'
+import { cli } from '../../../cli.js'
+import { Test } from '../../../services/Test.js'
 
 const input = ['run', 'test']
 const challenge = 'hello-world'

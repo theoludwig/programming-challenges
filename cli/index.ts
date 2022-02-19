@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import { Cli } from 'clipanion'
 
-import { cli } from './cli'
+import { cli } from './cli.js'
 
-const [, , ...args] = process.argv
+const [, , ...arguments_] = process.argv
 
-cli.runExit(args, Cli.defaultContext).catch(() => {
+cli.runExit(arguments_, Cli.defaultContext).catch(() => {
   console.error('Error occurred...')
   process.exit(1)
 })

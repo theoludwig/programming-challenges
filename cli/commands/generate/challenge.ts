@@ -2,7 +2,7 @@ import { Command, Option } from 'clipanion'
 import * as typanion from 'typanion'
 import chalk from 'chalk'
 
-import { Challenge } from '../../services/Challenge'
+import { Challenge } from '../../services/Challenge.js'
 
 export class GenerateChallengeCommand extends Command {
   static paths = [['generate', 'challenge']]

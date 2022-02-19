@@ -1,0 +1,15 @@
+{
+  "extends": ["conventions"],
+  "plugins": ["import", "unicorn"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "import/extensions": ["error", "always"],
+    "unicorn/prevent-abbreviations": "error"
+  }
+}

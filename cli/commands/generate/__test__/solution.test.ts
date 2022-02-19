@@ -7,8 +7,8 @@ import getStream from 'get-stream'
 import fsMock from 'mock-fs'
 import date from 'date-and-time'
 
-import { cli } from '../../../cli'
-import { isExistingPath } from '../../../utils/isExistingPath'
+import { cli } from '../../../cli.js'
+import { isExistingPath } from '../../../utils/isExistingPath.js'
 
 const input = ['generate', 'solution']
 const githubUser = 'Divlo'

@@ -2,10 +2,10 @@ import { Command, Option } from 'clipanion'
 import * as typanion from 'typanion'
 import chalk from 'chalk'
 
-import { Solution } from '../../services/Solution'
-import { GitAffected } from '../../services/GitAffected'
-import { template } from '../../services/Template'
-import { Test } from '../../services/Test'
+import { Solution } from '../../services/Solution.js'
+import { GitAffected } from '../../services/GitAffected.js'
+import { template } from '../../services/Template.js'
+import { Test } from '../../services/Test.js'
 
 export class RunTestCommand extends Command {
   static paths = [['run', 'test']]

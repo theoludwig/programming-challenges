@@ -1,13 +1,13 @@
 import execa from 'execa'
 
-import { Challenge } from './Challenge'
-import { Solution } from './Solution'
+import { Challenge } from './Challenge.js'
+import { Solution } from './Solution.js'
 
-const solutionsRegex = /challenges\/[\s\S]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\s\S]*\/(.*).(c|cpp|cs|dart|java|js|py|rs|ts)/
+const solutionsRegex = /challenges\/[\S\s]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\S\s]*\/(.*).(c|cpp|cs|dart|java|js|py|rs|ts)/
 
 const dockerRegex = /templates\/docker\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/(.*)/
 
-const inputOutputRegex = /challenges\/[\s\S]*\/test\/(.*)\/(input.txt|output.txt)/
+const inputOutputRegex = /challenges\/[\S\s]*\/test\/(.*)\/(input.txt|output.txt)/
 
 export interface GitAffectedOptions {
   isContinuousIntegration: boolean

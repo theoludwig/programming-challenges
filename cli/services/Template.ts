@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import { replaceInFile } from 'replace-in-file'
 import date from 'date-and-time'
 
-import { copyDirectory } from '../utils/copyDirectory'
+import { copyDirectory } from '../utils/copyDirectory.js'
 
 const TEMPLATE_PATH = path.join(__dirname, '..', '..', 'templates')
 const TEMPLATE_DOCKER_PATH = path.join(TEMPLATE_PATH, 'docker')
@@ -87,7 +87,7 @@ class Template {
     const { destination, githubUser, name } = options
     await copyDirectory(TEMPLATE_CHALLENGE_PATH, destination)
     await this.replaceInDestination({
-      name: name,
+      name,
       description: this.getDescription(githubUser),
       destination
     })

@@ -1,4 +1,4 @@
-FROM rust:1.57.0
+FROM rust:1.58.1
 COPY ./ ./
 RUN rustc solution.rs
 CMD ["./solution"]

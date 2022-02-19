@@ -5,11 +5,11 @@ import fsMock from 'mock-fs'
 import {
   TEMPORARY_PATH,
   createTemporaryEmptyFolder
-} from '../createTemporaryEmptyFolder'
-import { isExistingPath } from '../isExistingPath'
+} from '../createTemporaryEmptyFolder.js'
+import { isExistingPath } from '../isExistingPath.js'
 
 describe('utils/createTemporaryEmptyFolder', () => {
-  afterEach(async () => {
+  afterEach(() => {
     fsMock.restore()
   })
 

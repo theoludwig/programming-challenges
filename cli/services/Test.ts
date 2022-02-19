@@ -6,8 +6,8 @@ import ora from 'ora'
 import chalk from 'chalk'
 import { table } from 'table'
 
-import { Solution } from './Solution'
-import { docker } from './Docker'
+import { Solution } from './Solution.js'
+import { docker } from './Docker.js'
 
 export interface InputOutput {
   input: string
@@ -49,7 +49,7 @@ export class Test implements TestOptions {
     this.elapsedTimeMilliseconds = options.elapsedTimeMilliseconds
   }
 
-  static async printResult (tests: Test[]): Promise<void> {
+  static printResult (tests: Test[]): void {
     const tableResult = [
       [
         chalk.bold('N°'),
@@ -120,7 +120,7 @@ export class Test implements TestOptions {
         throw error
       }
     }
-    await Test.printResult(tests)
+    Test.printResult(tests)
   }
 
   static async getInputOutput (testPath: string): Promise<InputOutput> {

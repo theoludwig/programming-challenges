@@ -2,10 +2,10 @@ import fs from 'node:fs'
 
 import fsMock from 'mock-fs'
 
-import { copyDirectory } from '../copyDirectory'
+import { copyDirectory } from '../copyDirectory.js'
 
 describe('utils/copyDirectory', () => {
-  afterEach(async () => {
+  afterEach(() => {
     fsMock.restore()
   })
 
