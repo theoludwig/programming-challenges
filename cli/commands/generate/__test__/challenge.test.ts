@@ -2,9 +2,11 @@ import { PassThrough } from 'node:stream'
 import path from 'node:path'
 import fs from 'node:fs'
 
+import tap from 'tap'
+import sinon from 'sinon'
+import fsMock from 'mock-fs'
 import chalk from 'chalk'
 import getStream from 'get-stream'
-import fsMock from 'mock-fs'
 import date from 'date-and-time'
 
 import { cli } from '../../../cli.js'
@@ -16,8 +18,8 @@ const challenge = 'aaaa-test-jest'
 const inputChallenge = `--challenge=${challenge}`
 const inputGitHubUser = `--github-user=${githubUser}`
 
-describe('programming-challenges generate challenge', () => {
-  beforeEach(() => {
+await tap.test('programming-challenges generate challenge', async (t) => {
+  t.beforeEach(() => {
     fsMock(
       {
         [process.cwd()]: fsMock.load(process.cwd(), { recursive: true })
@@ -26,13 +28,14 @@ describe('programming-challenges generate challenge', () => {
     )
   })
 
-  afterEach(() => {
+  t.afterEach(() => {
     fsMock.restore()
-    jest.clearAllMocks()
+    sinon.restore()
   })
 
-  it('succeeds and generate the new challenge', async () => {
-    console.log = jest.fn()
+  await t.test('succeeds and generate the new challenge', async (t) => {
+    sinon.stub(console, 'log').value(() => {})
+    const consoleLogSpy = sinon.spy(console, 'log')
     const dateString = date.format(new Date(), 'D MMMM Y', true)
     const stream = new PassThrough()
     const exitCode = await cli.run(
@@ -44,14 +47,20 @@ describe('programming-challenges generate challenge', () => {
       }
     )
     stream.end()
-    expect(exitCode).toEqual(0)
+    t.equal(exitCode, 0)
     const challengePath = path.join(process.cwd(), 'challenges', challenge)
     const readmePath = path.join(challengePath, 'README.md')
-    const readmeContent = await fs.promises.readFile(readmePath, { encoding: 'utf-8' })
-    const successMessage = `${chalk.bold.green('Success:')} created the new challenge at ${challengePath}.`
-    expect(console.log).toHaveBeenCalledWith(successMessage)
-    expect(await isExistingPath(challengePath)).toBeTruthy()
-    expect(readmeContent).toMatch(`# ${challenge}
+    const readmeContent = await fs.promises.readFile(readmePath, {
+      encoding: 'utf-8'
+    })
+    const successMessage = `${chalk.bold.green(
+      'Success:'
+    )} created the new challenge at ${challengePath}.`
+    t.equal(consoleLogSpy.calledWith(successMessage), true)
+    t.equal(await isExistingPath(challengePath), true)
+    t.equal(
+      readmeContent,
+      `# ${challenge}
 
 Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
 
@@ -62,10 +71,11 @@ Description of the challenge...
 ## Examples
 
 See the \`test\` folder for examples of input/output.
-`)
+`
+    )
   })
 
-  it('fails without options', async () => {
+  await t.test('fails without options', async (t) => {
     const stream = new PassThrough()
     const promise = getStream(stream)
     const exitCode = await cli.run(input, {
@@ -74,13 +84,14 @@ See the \`test\` folder for examples of input/output.
       stderr: stream
     })
     stream.end()
-    expect(exitCode).toEqual(1)
+    t.equal(exitCode, 1)
     const output = await promise
-    expect(output).toContain('Unknown Syntax Error')
+    t.match(output, 'Unknown Syntax Error')
   })
 
-  it('fails with already existing challenge', async () => {
-    console.error = jest.fn()
+  await t.test('fails with already existing challenge', async (t) => {
+    sinon.stub(console, 'error').value(() => {})
+    const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
     const exitCode = await cli.run(
       [...input, '--challenge=hello-world', inputGitHubUser],
@@ -90,15 +101,19 @@ See the \`test\` folder for examples of input/output.
         stderr: stream
       }
     )
-    expect(console.error).toHaveBeenCalledWith(
-      `${chalk.bold.red('Error:')} The challenge already exists: hello-world.`
-    )
     stream.end()
-    expect(exitCode).toEqual(1)
+    t.equal(exitCode, 1)
+    t.equal(
+      consoleErrorSpy.calledWith(
+        `${chalk.bold.red('Error:')} The challenge already exists: hello-world.`
+      ),
+      true
+    )
   })
 
-  it('fails with invalid challenge name', async () => {
-    console.error = jest.fn()
+  await t.test('fails with invalid challenge name', async (t) => {
+    sinon.stub(console, 'error').value(() => {})
+    const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
     const exitCode = await cli.run(
       [...input, '--challenge=hEllO-world', inputGitHubUser],
@@ -109,9 +124,12 @@ See the \`test\` folder for examples of input/output.
       }
     )
     stream.end()
-    expect(exitCode).toEqual(1)
-    expect(console.error).toHaveBeenCalledWith(
-      `${chalk.bold.red('Error:')} Invalid challenge name.`
+    t.equal(exitCode, 1)
+    t.equal(
+      consoleErrorSpy.calledWith(
+        `${chalk.bold.red('Error:')} Invalid challenge name.`
+      ),
+      true
     )
   })
 })

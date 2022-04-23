@@ -1,9 +1,10 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
 
 int main() {
-  for (std::string line; std::getline(std::cin, line);) {
-    std::cout << "Hello, " + line + "!" << std::endl;
-  }
-  return 0;
+  std::string line;
+  std::getline(std::cin, line);
+  std::cout << "Hello, " + line + "!\n";
+  return EXIT_SUCCESS;
 }

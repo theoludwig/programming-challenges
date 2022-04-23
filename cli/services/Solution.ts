@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import fs from 'node:fs'
 
@@ -122,12 +123,7 @@ export class Solution implements SolutionOptions {
 
   static async getManyByProgrammingLanguages (programmingLanguages?: string[]): Promise<Solution[]> {
     const languages = programmingLanguages ?? await template.getProgrammingLanguages()
-    const challengesPath = path.join(
-      __dirname,
-      '..',
-      '..',
-      'challenges'
-    )
+    const challengesPath = fileURLToPath(new URL('../../challenges', import.meta.url))
     const challenges = await fs.promises.readdir(challengesPath)
     const paths: string[] = []
     for (const challenge of challenges) {

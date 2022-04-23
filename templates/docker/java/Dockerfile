@@ -1,4 +1,7 @@
 FROM openjdk:17
-COPY ./ ./
+
+WORKDIR /usr/app
+COPY ./ /usr/app
 RUN javac Solution.java
+
 CMD ["java", "Solution"]

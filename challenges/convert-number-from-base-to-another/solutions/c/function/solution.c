@@ -16,7 +16,7 @@ char* convert_from_base_10_to_base(unsigned long number, unsigned int base) {
   if (number == 0) {
     return "0";
   }
-  int remainders[64] = {};
+  int remainders[64];
   int index = 0;
   while (number > 0) {
     remainders[index] = number % base;

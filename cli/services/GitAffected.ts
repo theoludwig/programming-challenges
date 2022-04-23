@@ -1,4 +1,4 @@
-import execa from 'execa'
+import { execaCommand } from 'execa'
 
 import { Challenge } from './Challenge.js'
 import { Solution } from './Solution.js'
@@ -35,7 +35,7 @@ export class GitAffected implements GitAffectedOptions {
     head: string
   ): Promise<string[]> {
     try {
-      const { stdout } = await execa.command(
+      const { stdout } = await execaCommand(
         `git diff --name-only --relative ${base} ${head}`
       )
       return this.parseGitOutput(stdout)
@@ -50,7 +50,7 @@ export class GitAffected implements GitAffectedOptions {
 
   public async getLatestPushedCommit (): Promise<string> {
     const latestCommit = this.isContinuousIntegration ? '~1' : ''
-    const { stdout } = await execa.command(`git rev-parse origin/master${latestCommit}`)
+    const { stdout } = await execaCommand(`git rev-parse origin/master${latestCommit}`)
     return stdout
   }
 

@@ -1,5 +1,7 @@
 import { PassThrough } from 'node:stream'
 
+import tap from 'tap'
+import sinon from 'sinon'
 import chalk from 'chalk'
 
 import { cli } from '../../../cli.js'
@@ -13,13 +15,14 @@ const inputChallenge = `--challenge=${challenge}`
 const inputLanguage = `--language=${language}`
 const inputSolution = `--solution=${solution}`
 
-describe('programming-challenges run test', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
+await tap.test('programming-challenges run test', async (t) => {
+  t.afterEach(() => {
+    sinon.restore()
   })
 
-  it('succeeds', async () => {
-    console.log = jest.fn()
+  await t.test('succeeds', async (t) => {
+    sinon.stub(console, 'log').value(() => {})
+    const consoleLogSpy = sinon.spy(console, 'log')
     const stream = new PassThrough()
     const exitCode = await cli.run(
       [...input, inputChallenge, inputSolution, inputLanguage],
@@ -30,14 +33,25 @@ describe('programming-challenges run test', () => {
       }
     )
     stream.end()
-    expect(exitCode).toEqual(0)
-    expect(console.log).toHaveBeenNthCalledWith(2, `${chalk.bold('Name:')} ${challenge}/${language}/${solution}\n`)
-    expect(console.log).toHaveBeenNthCalledWith(4, `${chalk.bold('Tests:')} ${chalk.bold.green('3 passed')}, 3 total`)
-    expect(console.log).toHaveBeenNthCalledWith(6, Test.SUCCESS_MESSAGE)
+    t.equal(exitCode, 0)
+    t.equal(
+      consoleLogSpy.calledWith(
+        `${chalk.bold('Name:')} ${challenge}/${language}/${solution}\n`
+      ),
+      true
+    )
+    t.equal(
+      consoleLogSpy.calledWith(
+        `${chalk.bold('Tests:')} ${chalk.bold.green('3 passed')}, 3 total`
+      ),
+      true
+    )
+    t.equal(consoleLogSpy.calledWith(Test.SUCCESS_MESSAGE), true)
   })
 
-  it("fails with solution that doesn't exist", async () => {
-    console.error = jest.fn()
+  await t.test("fails with solution that doesn't exist", async (t) => {
+    sinon.stub(console, 'error').value(() => {})
+    const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
     const invalidSolution = 'invalid'
     const inputInvalidSolution = `--solution=${invalidSolution}`
@@ -50,14 +64,18 @@ describe('programming-challenges run test', () => {
       }
     )
     stream.end()
-    expect(exitCode).toEqual(1)
-    expect(console.error).toHaveBeenCalledWith(
-      chalk.bold.red('Error:') + ' The solution was not found.'
+    t.equal(exitCode, 1)
+    t.equal(
+      consoleErrorSpy.calledWith(
+        chalk.bold.red('Error:') + ' The solution was not found.'
+      ),
+      true
     )
   })
 
-  it('fails with invalid language', async () => {
-    console.error = jest.fn()
+  await t.test('fails with invalid language', async (t) => {
+    sinon.stub(console, 'error').value(() => {})
+    const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
     const invalidLanguage = 'invalid'
     const inputInvalidLanguage = `--language=${invalidLanguage}`
@@ -70,14 +88,19 @@ describe('programming-challenges run test', () => {
       }
     )
     stream.end()
-    expect(exitCode).toEqual(1)
-    expect(console.error).toHaveBeenCalledWith(
-      chalk.bold.red('Error:') + ' This programming language is not supported yet.'
+    t.equal(exitCode, 1)
+    t.equal(
+      consoleErrorSpy.calledWith(
+        chalk.bold.red('Error:') +
+          ' This programming language is not supported yet.'
+      ),
+      true
     )
   })
 
-  it('fails without options', async () => {
-    console.error = jest.fn()
+  await t.test('fails without options', async (t) => {
+    sinon.stub(console, 'error').value(() => {})
+    const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
     const exitCode = await cli.run(input, {
       stdin: process.stdin,
@@ -85,9 +108,14 @@ describe('programming-challenges run test', () => {
       stderr: stream
     })
     stream.end()
-    expect(exitCode).toEqual(1)
-    expect(console.error).toHaveBeenCalledWith(
-      `${chalk.bold.red('Error:')} You must specify all the options (\`--challenge\`, \`--solution\`,  \`--language\`).`
+    t.equal(exitCode, 1)
+    t.equal(
+      consoleErrorSpy.calledWith(
+        `${chalk.bold.red(
+          'Error:'
+        )} You must specify all the options (\`--challenge\`, \`--solution\`,  \`--language\`).`
+      ),
+      true
     )
   })
 })

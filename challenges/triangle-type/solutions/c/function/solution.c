@@ -15,7 +15,7 @@ char* triangle_type(int triangle_sides[3]) {
 }
 
 int main() {
-  int triangle_sides[3] = {};
+  int triangle_sides[3];
   for (size_t index = 0; index < 3; index++) {
     scanf("%d", &triangle_sides[index]);
   }

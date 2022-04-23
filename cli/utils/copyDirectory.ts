@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-export async function copyDirectory (
+export async function copyDirectory(
   source: string,
   destination: string
 ): Promise<void> {

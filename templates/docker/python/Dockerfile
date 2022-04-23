@@ -1,3 +1,6 @@
-FROM python:3.10.0
-COPY ./ ./
+FROM pypy:3.9-7
+
+WORKDIR /usr/app
+COPY ./ /usr/app
+
 CMD ["python", "solution.py"]

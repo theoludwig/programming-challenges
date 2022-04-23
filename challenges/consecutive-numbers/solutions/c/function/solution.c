@@ -17,7 +17,7 @@ void print_couple(int* numbers, size_t couple_length) {
 
 int main() {
   size_t couple_length;
-  scanf("%ld\n", &couple_length);
+  scanf("%lu\n", &couple_length);
   char* string = input();
   char* token = strtok(string, " ; ");
   size_t numbers_length = 1;
