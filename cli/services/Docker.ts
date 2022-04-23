@@ -1,4 +1,4 @@
-import execa from 'execa'
+import { execaCommand } from 'execa'
 import ora from 'ora'
 import ms from 'ms'
 
@@ -11,7 +11,7 @@ export class Docker {
   public async build (): Promise<void> {
     const loader = ora('Building the Docker image').start()
     try {
-      await execa.command(`docker build --tag=${Docker.CONTAINER_TAG} ./`)
+      await execaCommand(`docker build --tag=${Docker.CONTAINER_TAG} ./`)
       loader.stop()
     } catch (error) {
       loader.fail()
@@ -20,7 +20,7 @@ export class Docker {
   }
 
   public async run (input: string): Promise<string> {
-    const subprocess = execa.command(
+    const subprocess = execaCommand(
       `docker run --interactive --rm ${Docker.CONTAINER_TAG}`,
       {
         input

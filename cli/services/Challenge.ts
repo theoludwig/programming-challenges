@@ -1,5 +1,5 @@
-import path from 'node:path'
 import fs from 'node:fs'
+import { fileURLToPath } from 'node:url'
 
 import validateProjectName from 'validate-npm-package-name'
 
@@ -21,7 +21,7 @@ export class Challenge implements ChallengeOptions {
   constructor (options: ChallengeOptions) {
     const { name } = options
     this.name = name
-    this.path = path.join(__dirname, '..', '..', 'challenges', name)
+    this.path = fileURLToPath(new URL(`../../challenges/${name}`, import.meta.url))
   }
 
   static async generate (options: GenerateChallengeOptions): Promise<Challenge> {

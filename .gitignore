@@ -16,6 +16,7 @@ bin
 
 # testing
 coverage
+.nyc_output
 
 # editors
 .vscode
