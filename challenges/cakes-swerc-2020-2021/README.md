@@ -55,7 +55,7 @@ See the `test` folder for examples of input/output.
 2
 ```
 
-### Example 1
+### Example 2
 
 #### Input
 
