@@ -39,7 +39,7 @@ jobs:
         id: 'last_successful_commit'
         with:
           branch: 'master'
-          workflow_id: 'ci.yml'
+          workflow_id: 'challenges.yml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Test'
