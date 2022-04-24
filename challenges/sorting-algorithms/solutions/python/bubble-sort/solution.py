@@ -1,8 +1,7 @@
-from typing import List
 import sys
 
 
-def bubble_sort(numbersInput: List[int]) -> List[int]:
+def bubble_sort(numbersInput: list[int]) -> list[int]:
     numbers = list(numbersInput)
     length = len(numbers)
     for index_1 in range(length):
@@ -14,7 +13,7 @@ def bubble_sort(numbersInput: List[int]) -> List[int]:
     return numbers
 
 
-numbers: List[int] = []
+numbers: list[int] = []
 for value in sys.stdin:
     numbers.append(int(value.rstrip('\n')))
 

@@ -1,7 +1,6 @@
-from typing import List
 import sys
 
-input_values: List[str] = []
+input_values: list[str] = []
 for value in sys.stdin:
     input_values.append(value.rstrip('\n'))
 

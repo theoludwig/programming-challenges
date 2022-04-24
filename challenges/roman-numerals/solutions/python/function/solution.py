@@ -1,7 +1,13 @@
-from typing import List
+from typing import TypedDict
 import sys
 
-matches_roman_arabic = [
+
+class RomanArabicMatch(TypedDict):
+    arabic: int
+    roman: str
+
+
+matches_roman_arabic: list[RomanArabicMatch] = [
     {'arabic': 1000, 'roman': 'M'},
     {'arabic': 900, 'roman': 'CM'},
     {'arabic': 500, 'roman': 'D'},
@@ -42,7 +48,7 @@ def convert_roman_to_arabic(roman_number: str) -> int:
     return arabic_number
 
 
-input_values: List[str] = []
+input_values: list[str] = []
 for value in sys.stdin:
     input_values.append(value.rstrip('\n'))
 

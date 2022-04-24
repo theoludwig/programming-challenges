@@ -39,7 +39,7 @@ export class Test implements TestOptions {
   public elapsedTimeMilliseconds: number
   static SUCCESS_MESSAGE = `${chalk.bold.green('Success:')} Tests passed! 🎉`
 
-  constructor (options: TestOptions) {
+  constructor(options: TestOptions) {
     this.index = options.index
     this.path = options.path
     this.isSuccess = options.isSuccess
@@ -49,7 +49,7 @@ export class Test implements TestOptions {
     this.elapsedTimeMilliseconds = options.elapsedTimeMilliseconds
   }
 
-  static printResult (tests: Test[]): void {
+  static printResult(tests: Test[]): void {
     const tableResult = [
       [
         chalk.bold('N°'),
@@ -95,11 +95,13 @@ export class Test implements TestOptions {
     }
   }
 
-  static async runAll (solution: Solution): Promise<void> {
+  static async runAll(solution: Solution): Promise<void> {
     const name = `${solution.challenge.name}/${solution.programmingLanguageName}/${solution.name}`
     const testsPath = path.join(solution.challenge.path, 'test')
     const testsFolders = await fs.promises.readdir(testsPath)
-    const testsNumbers = testsFolders.map((test) => Number(test)).sort((a, b) => a - b)
+    const testsNumbers = testsFolders
+      .map((test) => Number(test))
+      .sort((a, b) => a - b)
     const tests: Test[] = []
     console.log(`${chalk.bold('Name:')} ${name}\n`)
     for (const testNumber of testsNumbers) {
@@ -123,7 +125,7 @@ export class Test implements TestOptions {
     Test.printResult(tests)
   }
 
-  static async getInputOutput (testPath: string): Promise<InputOutput> {
+  static async getInputOutput(testPath: string): Promise<InputOutput> {
     const inputPath = path.join(testPath, 'input.txt')
     const outputPath = path.join(testPath, 'output.txt')
     const input = await fs.promises.readFile(inputPath, { encoding: 'utf-8' })
@@ -133,7 +135,7 @@ export class Test implements TestOptions {
     return { input, output }
   }
 
-  static async runManyWithSolutions (solutions: Solution[]): Promise<number> {
+  static async runManyWithSolutions(solutions: Solution[]): Promise<number> {
     for (const solution of solutions) {
       await solution.test()
       console.log('\n------------------------------\n')
@@ -142,7 +144,7 @@ export class Test implements TestOptions {
     return 0
   }
 
-  static async runAllTests (programmingLanguage?: string): Promise<number> {
+  static async runAllTests(programmingLanguage?: string): Promise<number> {
     const solutions = await Solution.getManyByProgrammingLanguages(
       programmingLanguage != null ? [programmingLanguage] : undefined
     )
@@ -150,7 +152,7 @@ export class Test implements TestOptions {
     return 0
   }
 
-  static async run (options: TestRunOptions): Promise<Test> {
+  static async run(options: TestRunOptions): Promise<Test> {
     const { input, output } = await Test.getInputOutput(options.path)
     const start = performance.now()
     const stdout = await docker.run(input)

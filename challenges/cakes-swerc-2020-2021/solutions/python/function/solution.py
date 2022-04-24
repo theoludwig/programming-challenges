@@ -1,4 +1,3 @@
-from typing import List
 import sys
 
 maximum_number_of_cake_possible = None

@@ -1,16 +1,15 @@
-from typing import List
 import sys
 
-input_values: List[str] = []
+input_values: list[str] = []
 for value in sys.stdin:
     input_values.append(value.rstrip('\n'))
 
 
-def consecutive_numbers(numbers: List[int], couple_length: int) -> List[List[int]]:
-    result: List[List[int]] = []
+def consecutive_numbers(numbers: list[int], couple_length: int) -> list[list[int]]:
+    result: list[list[int]] = []
     numbers_length = len(numbers)
     for index in range(numbers_length):
-        consecutive: List[int] = [numbers[index]]
+        consecutive: list[int] = [numbers[index]]
         for couple_index in range(1, couple_length, 1):
             is_last_number = index + couple_index == numbers_length
             if is_last_number:
@@ -23,7 +22,7 @@ def consecutive_numbers(numbers: List[int], couple_length: int) -> List[List[int
     return result
 
 
-numbers: List[int] = []
+numbers: list[int] = []
 for value in input_values[1].split(' ; '):
     numbers.append(int(value))
 

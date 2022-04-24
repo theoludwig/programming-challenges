@@ -35,7 +35,7 @@ export class Solution implements SolutionOptions {
   public name: string
   public path: string
 
-  constructor (options: SolutionOptions) {
+  constructor(options: SolutionOptions) {
     const { programmingLanguageName, challenge, name } = options
     this.programmingLanguageName = programmingLanguageName
     this.challenge = challenge
@@ -48,7 +48,7 @@ export class Solution implements SolutionOptions {
     )
   }
 
-  private async prepareTemporaryFolder (): Promise<void> {
+  private async prepareTemporaryFolder(): Promise<void> {
     await createTemporaryEmptyFolder()
     await copyDirectory(this.path, TEMPORARY_PATH)
     await template.docker({
@@ -58,13 +58,13 @@ export class Solution implements SolutionOptions {
     process.chdir(TEMPORARY_PATH)
   }
 
-  public async test (): Promise<void> {
+  public async test(): Promise<void> {
     await this.prepareTemporaryFolder()
     await docker.build()
     await Test.runAll(this)
   }
 
-  static async generate (options: GenerateSolutionOptions): Promise<Solution> {
+  static async generate(options: GenerateSolutionOptions): Promise<Solution> {
     const { name, challengeName, programmingLanguageName, githubUser } = options
     const challenge = new Challenge({ name: challengeName })
     if (!(await isExistingPath(challenge.path))) {
@@ -88,7 +88,7 @@ export class Solution implements SolutionOptions {
     return solution
   }
 
-  static async get (options: GetSolutionOptions): Promise<Solution> {
+  static async get(options: GetSolutionOptions): Promise<Solution> {
     const { name, challengeName, programmingLanguageName } = options
     const challenge = new Challenge({
       name: challengeName
@@ -104,7 +104,7 @@ export class Solution implements SolutionOptions {
     return solution
   }
 
-  static async getManyByChallenge (challenge: Challenge): Promise<Solution[]> {
+  static async getManyByChallenge(challenge: Challenge): Promise<Solution[]> {
     const solutionsPath = path.join(challenge.path, 'solutions')
     const languagesSolution = (await fs.promises.readdir(solutionsPath)).filter(
       (name) => {
@@ -113,7 +113,9 @@ export class Solution implements SolutionOptions {
     )
     const paths: string[] = []
     for (const language of languagesSolution) {
-      const solutionPath = (await fs.promises.readdir(path.join(solutionsPath, language))).map((solutionName) => {
+      const solutionPath = (
+        await fs.promises.readdir(path.join(solutionsPath, language))
+      ).map((solutionName) => {
         return `challenges/${challenge.name}/solutions/${language}/${solutionName}`
       })
       paths.push(...solutionPath)
@@ -121,20 +123,27 @@ export class Solution implements SolutionOptions {
     return await Solution.getManyByPaths(paths)
   }
 
-  static async getManyByProgrammingLanguages (programmingLanguages?: string[]): Promise<Solution[]> {
-    const languages = programmingLanguages ?? await template.getProgrammingLanguages()
-    const challengesPath = fileURLToPath(new URL('../../challenges', import.meta.url))
+  static async getManyByProgrammingLanguages(
+    programmingLanguages?: string[]
+  ): Promise<Solution[]> {
+    const languages =
+      programmingLanguages ?? (await template.getProgrammingLanguages())
+    const challengesPath = fileURLToPath(
+      new URL('../../challenges', import.meta.url)
+    )
     const challenges = await fs.promises.readdir(challengesPath)
     const paths: string[] = []
     for (const challenge of challenges) {
       const solutionsPath = path.join(challengesPath, challenge, 'solutions')
-      const languagesSolution = (await fs.promises.readdir(solutionsPath)).filter(
-        (name) => {
-          return name !== '.gitkeep' && languages.includes(name)
-        }
-      )
+      const languagesSolution = (
+        await fs.promises.readdir(solutionsPath)
+      ).filter((name) => {
+        return name !== '.gitkeep' && languages.includes(name)
+      })
       for (const language of languagesSolution) {
-        const solutionPath = (await fs.promises.readdir(path.join(solutionsPath, language))).map((solutionName) => {
+        const solutionPath = (
+          await fs.promises.readdir(path.join(solutionsPath, language))
+        ).map((solutionName) => {
           return `challenges/${challenge}/solutions/${language}/${solutionName}`
         })
         paths.push(...solutionPath)
@@ -148,7 +157,7 @@ export class Solution implements SolutionOptions {
    * @param paths relative to `challenges` (e.g: `challenges/hello-world/solutions/c/function`)
    * @returns
    */
-  static async getManyByPaths (paths: string[]): Promise<Solution[]> {
+  static async getManyByPaths(paths: string[]): Promise<Solution[]> {
     const solutions: string[] = []
     for (const path of paths) {
       if (await isExistingPath(path)) {

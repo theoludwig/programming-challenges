@@ -1,8 +1,7 @@
-from typing import List
 import sys
 import math
 
-input_values: List[str] = []
+input_values: list[str] = []
 for value in sys.stdin:
     input_values.append(value.rstrip('\n'))
 
@@ -28,7 +27,7 @@ class Position:
 
 
 class Defibrillator:
-    def __init__(self, strings: List[str], user_position: Position) -> None:
+    def __init__(self, strings: list[str], user_position: Position) -> None:
         self.id = strings[0]
         self.name = strings[1]
         self.address = strings[2]
@@ -41,7 +40,7 @@ class Defibrillator:
 longitude = convert_string_to_float(input_values[0])
 latitude = convert_string_to_float(input_values[1])
 user_position = Position(longitude, latitude)
-defibrillators: List[Defibrillator] = []
+defibrillators: list[Defibrillator] = []
 
 for index in range(3, len(input_values), 1):
     line = input_values[index].split(';')

@@ -1,7 +1,7 @@
-from typing import List, TypedDict
+from typing import TypedDict
 import sys
 
-input_values: List[str] = []
+input_values: list[str] = []
 for value in sys.stdin:
     input_values.append(value.rstrip('\n'))
 
@@ -11,8 +11,8 @@ class ShiftedLetter(TypedDict):
     shifted: str
 
 
-def shift_alphabet(shift: int) -> List[ShiftedLetter]:
-    result: List[ShiftedLetter] = []
+def shift_alphabet(shift: int) -> list[ShiftedLetter]:
+    result: list[ShiftedLetter] = []
     alphabet = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split(' ')
     is_negative_shift = shift < 0
     if is_negative_shift:

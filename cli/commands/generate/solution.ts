@@ -35,7 +35,7 @@ export class GenerateSolutionCommand extends Command {
     validator: typanion.isString()
   })
 
-  async execute (): Promise<number> {
+  async execute(): Promise<number> {
     try {
       const solution = await Solution.generate({
         name: this.solutionName,

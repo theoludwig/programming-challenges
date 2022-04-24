@@ -18,13 +18,15 @@ export class Challenge implements ChallengeOptions {
   public name: string
   public path: string
 
-  constructor (options: ChallengeOptions) {
+  constructor(options: ChallengeOptions) {
     const { name } = options
     this.name = name
-    this.path = fileURLToPath(new URL(`../../challenges/${name}`, import.meta.url))
+    this.path = fileURLToPath(
+      new URL(`../../challenges/${name}`, import.meta.url)
+    )
   }
 
-  static async generate (options: GenerateChallengeOptions): Promise<Challenge> {
+  static async generate(options: GenerateChallengeOptions): Promise<Challenge> {
     const { name, githubUser } = options
     const challenge = new Challenge({ name })
     if (await isExistingPath(challenge.path)) {

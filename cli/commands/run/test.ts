@@ -46,11 +46,13 @@ export class RunTestCommand extends Command {
     description: 'Base of the current branch (usually master)'
   })
 
-  async execute (): Promise<number> {
+  async execute(): Promise<number> {
     console.log()
     try {
       if (this.programmingLanguage != null) {
-        await template.verifySupportedProgrammingLanguage(this.programmingLanguage)
+        await template.verifySupportedProgrammingLanguage(
+          this.programmingLanguage
+        )
       }
       if (this.all) {
         return await Test.runAllTests(this.programmingLanguage)

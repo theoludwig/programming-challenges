@@ -1,13 +1,11 @@
-from typing import List
-
 from Cell import Cell
 
 
 class Grid:
-    def __init__(self, grid: List[List[int]]) -> None:
-        data: List[List[Cell]] = []
+    def __init__(self, grid: list[list[int]]) -> None:
+        data: list[list[Cell]] = []
         for x in range(len(grid)):
-            column: List[Cell] = []
+            column: list[Cell] = []
             for y in range(len(grid[x])):
                 column.append(Cell(grid[x][y], y, x))
             data.append(column)

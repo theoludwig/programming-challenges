@@ -1,13 +1,12 @@
-from typing import List
 import sys
 
-input_values: List[str] = []
+input_values: list[str] = []
 for value in sys.stdin:
     input_values.append(value.rstrip('\n'))
 
 
-def divider_list(number: int) -> List[int]:
-    number_list: List[int] = []
+def divider_list(number: int) -> list[int]:
+    number_list: list[int] = []
     for index in range(1, number + 1):
         if number % index == 0:
             number_list.append(index)

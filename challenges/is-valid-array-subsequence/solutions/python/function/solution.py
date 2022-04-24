@@ -1,12 +1,11 @@
-from typing import List
 import sys
 
-input_values: List[str] = []
+input_values: list[str] = []
 for value in sys.stdin:
     input_values.append(value.rstrip('\n'))
 
 
-def get_is_valid_subsequence(array: List, sequence: List):
+def get_is_valid_subsequence(array: list, sequence: list):
     index_to_check = 0
     for index in range(len(array)):
         if index_to_check < len(sequence) and array[index] == sequence[index_to_check]:

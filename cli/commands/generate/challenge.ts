@@ -23,7 +23,7 @@ export class GenerateChallengeCommand extends Command {
     validator: typanion.isString()
   })
 
-  async execute (): Promise<number> {
+  async execute(): Promise<number> {
     try {
       const challenge = await Challenge.generate({
         name: this.challenge,
