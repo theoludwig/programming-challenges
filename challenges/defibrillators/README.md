@@ -52,7 +52,7 @@ The name of the defibrillator located the closest to the user’s position.
 
 ## Source
 
-- [CodinGame](https://www.codingame.com/ide/puzzle/defibrillators)
+- [CodinGame](https://www.codingame.com/training/easy/defibrillators)
 
 ## Examples
 
