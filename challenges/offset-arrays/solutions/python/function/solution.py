@@ -53,7 +53,7 @@ operations_index = int(nested[last_operation_index])
 current_value = None
 for index in range(len(operation_identifiers) - 1, -1, -1):
     current_identifier = operation_identifiers[index]
-    if current_value == None:
+    if current_value is None:
         current_value = assignments[current_identifier].get_by_index(
             operations_index)
     else:
