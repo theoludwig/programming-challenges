@@ -1,4 +1,4 @@
-FROM gcc:11.3.0
+FROM gcc:12.2.0
 
 WORKDIR /usr/app
 COPY ./ /usr/app
