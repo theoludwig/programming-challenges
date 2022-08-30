@@ -2,6 +2,9 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import fs from 'node:fs'
 
+import chalk from 'chalk'
+import ora from 'ora'
+
 import {
   createTemporaryEmptyFolder,
   TEMPORARY_PATH
@@ -62,6 +65,24 @@ export class Solution implements SolutionOptions {
     await this.prepareTemporaryFolder()
     await docker.build()
     await Test.runAll(this)
+  }
+
+  public async run(input: string, output: boolean = false): Promise<void> {
+    await this.prepareTemporaryFolder()
+    await docker.build()
+    const loader = ora('Running...').start()
+    try {
+      const { stdout, elapsedTimeMilliseconds } = await docker.run(input)
+      loader.succeed(chalk.bold.green('Success!'))
+      Test.printBenchmark(elapsedTimeMilliseconds)
+      if (output) {
+        console.log(`${chalk.bold('Output:')}`)
+        console.log(stdout)
+      }
+    } catch (error) {
+      loader.fail()
+      throw error
+    }
   }
 
   static async generate(options: GenerateSolutionOptions): Promise<Solution> {

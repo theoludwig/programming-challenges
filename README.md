@@ -76,13 +76,16 @@ npm install --global
 programming-challenges --help
 
 # Generate a new challenge
-programming-challenges generate challenge --github-user="YourGitHubName" --challenge="challenge-name"
+programming-challenges generate challenge --github-user="YourGitHubName" --challenge="hello-world"
 
 # Generate a new solution
-programming-challenges generate solution --github-user="YourGitHubName" --challenge="challenge-name" --solution="function" --language="python"
+programming-challenges generate solution --github-user="YourGitHubName" --challenge="hello-world" --solution="function" --language="python"
 
 # Test a solution
-programming-challenges run test --challenge="challenge-name" --solution="function" --language="python"
+programming-challenges run test --challenge="hello-world" --solution="function" --language="python"
+
+# Run a solution with specific `input.txt` file
+programming-challenges run solution --challenge="hello-world" --solution="function" --language="python" --input-path="./challenges/hello-world/test/1/input.txt" --output
 ```
 
 ## 💡 Contributing

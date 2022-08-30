@@ -26,7 +26,7 @@ export class RunTestCommand extends Command {
   })
 
   public solutionName = Option.String('--solution', {
-    description: 'solution',
+    description: 'The solution name to run.',
     validator: typanion.isString()
   })
 

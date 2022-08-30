@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { performance } from 'node:perf_hooks'
 
 import ora from 'ora'
 import chalk from 'chalk'
@@ -84,15 +83,19 @@ export class Test implements TestOptions {
       console.log()
       console.log(table(tableResult))
     }
-    const elapsedTime = totalElapsedTimeMilliseconds / 1000
     const testsResult = isSuccess
       ? chalk.bold.green(`${totalCorrectTests} passed`)
       : chalk.bold.red(`${totalFailedTests} failed`)
     console.log(`${chalk.bold('Tests:')} ${testsResult}, ${tests.length} total`)
-    console.log(`${chalk.bold('Benchmark:')} ${elapsedTime} seconds`)
+    Test.printBenchmark(totalElapsedTimeMilliseconds)
     if (!isSuccess) {
       throw new Error('Tests failed, try again!')
     }
+  }
+
+  static printBenchmark(elapsedTimeMilliseconds: number): void {
+    const elapsedTime = elapsedTimeMilliseconds / 1000
+    console.log(`${chalk.bold('Benchmark:')} ${elapsedTime} seconds`)
   }
 
   static async runAll(solution: Solution): Promise<void> {
@@ -154,9 +157,7 @@ export class Test implements TestOptions {
 
   static async run(options: TestRunOptions): Promise<Test> {
     const { input, output } = await Test.getInputOutput(options.path)
-    const start = performance.now()
-    const stdout = await docker.run(input)
-    const end = performance.now()
+    const { stdout, elapsedTimeMilliseconds } = await docker.run(input)
     const test = new Test({
       path: options.path,
       index: options.index,
@@ -164,7 +165,7 @@ export class Test implements TestOptions {
       output,
       stdout,
       isSuccess: stdout === output,
-      elapsedTimeMilliseconds: end - start
+      elapsedTimeMilliseconds
     })
     return test
   }

@@ -1,6 +1,13 @@
+import { performance } from 'node:perf_hooks'
+
 import { execaCommand } from 'execa'
 import ora from 'ora'
 import ms from 'ms'
+
+export interface DockerRunResult {
+  stdout: string
+  elapsedTimeMilliseconds: number
+}
 
 export class Docker {
   static CONTAINER_TAG = 'programming-challenges'
@@ -19,7 +26,7 @@ export class Docker {
     }
   }
 
-  public async run(input: string): Promise<string> {
+  public async run(input: string): Promise<DockerRunResult> {
     const subprocess = execaCommand(
       `docker run --interactive --rm ${Docker.CONTAINER_TAG}`,
       {
@@ -32,12 +39,17 @@ export class Docker {
       isValid = false
     }, Docker.MAXIMUM_TIMEOUT_MILLISECONDS)
     try {
+      const start = performance.now()
       const { stdout, stderr } = await subprocess
+      const end = performance.now()
       if (stderr.length !== 0) {
         throw new Error(stderr)
       }
       clearTimeout(timeout)
-      return stdout
+      return {
+        stdout,
+        elapsedTimeMilliseconds: end - start
+      }
     } catch (error: any) {
       if (!isValid) {
         throw new Error(
