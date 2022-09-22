@@ -43,4 +43,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 'Test'
-        run: 'programming-challenges run test --affected --ci --base=${{ steps.last_successful_commit.outputs.commit_hash }}'
+        run: 'programming-challenges run test --affected --base=${{ steps.last_successful_commit.outputs.commit_hash }}'
