@@ -22,7 +22,7 @@ await tap.test('programming-challenges generate challenge', async (t) => {
   t.beforeEach(() => {
     fsMock(
       {
-        [process.cwd()]: fsMock.load(process.cwd(), { recursive: true })
+        [process.cwd()]: fsMock.load(process.cwd(), { recursive: true, lazy: true })
       },
       { createCwd: false }
     )

@@ -1,67 +1,78 @@
-import { performance } from 'node:perf_hooks'
-
 import { execaCommand } from 'execa'
-import ora from 'ora'
 import ms from 'ms'
+
+import { parseCommandOutput } from '../utils/parseCommandOutput.js'
 
 export interface DockerRunResult {
   stdout: string
-  elapsedTimeMilliseconds: number
 }
 
 export class Docker {
-  static CONTAINER_TAG = 'programming-challenges'
-  static SIGSEGV_EXIT_CODE = 139
-  static MAXIMUM_TIMEOUT = '1 minute'
-  static MAXIMUM_TIMEOUT_MILLISECONDS = ms(Docker.MAXIMUM_TIMEOUT)
+  public static readonly CONTAINER_BASE_TAG = 'programming-challenges'
+  public static readonly SIGSEGV_EXIT_CODE = 139
+  public static readonly MAXIMUM_TIMEOUT = '1 minute'
+  public static readonly MAXIMUM_TIMEOUT_MILLISECONDS = ms(
+    Docker.MAXIMUM_TIMEOUT
+  )
 
-  public async build(): Promise<void> {
-    const loader = ora('Building the Docker image').start()
+  public getContainerTag(id: string): string {
+    return `${Docker.CONTAINER_BASE_TAG}:${id}`
+  }
+
+  public async getImages(): Promise<string[]> {
     try {
-      await execaCommand(`docker build --tag=${Docker.CONTAINER_TAG} ./`)
-      loader.stop()
-    } catch (error) {
-      loader.fail()
-      throw error
+      const { stdout } = await execaCommand(
+        `docker images -q --filter=reference="${Docker.CONTAINER_BASE_TAG}:*"`,
+        { shell: true }
+      )
+      return parseCommandOutput(stdout)
+    } catch {
+      return []
     }
   }
 
-  public async run(input: string): Promise<DockerRunResult> {
+  public async removeImages(): Promise<void> {
+    try {
+      const images = await this.getImages()
+      if (images.length === 0) {
+        return
+      }
+      await execaCommand(`docker rmi -f ${images.join(' ')}`, {
+        shell: true
+      })
+    } catch {}
+  }
+
+  public async build(id: string): Promise<void> {
+    try {
+      await execaCommand(`docker build --tag=${this.getContainerTag(id)} ./`)
+    } catch (error: any) {
+      throw new Error(`Docker build failed.\n${error.message as string}`)
+    }
+  }
+
+  public async run(input: string, id: string): Promise<DockerRunResult> {
     const subprocess = execaCommand(
-      `docker run --interactive --rm ${Docker.CONTAINER_TAG}`,
+      `docker run --interactive --rm ${this.getContainerTag(id)}`,
       {
         input
       }
     )
-    let isValid = true
-    const timeout = setTimeout(() => {
-      subprocess.kill()
-      isValid = false
-    }, Docker.MAXIMUM_TIMEOUT_MILLISECONDS)
     try {
-      const start = performance.now()
       const { stdout, stderr } = await subprocess
-      const end = performance.now()
       if (stderr.length !== 0) {
         throw new Error(stderr)
       }
-      clearTimeout(timeout)
       return {
-        stdout,
-        elapsedTimeMilliseconds: end - start
+        stdout
       }
     } catch (error: any) {
-      if (!isValid) {
-        throw new Error(
-          `Timeout: time limit exceeded (${Docker.MAXIMUM_TIMEOUT}), try to optimize your solution.`
-        )
-      }
       if (error.exitCode === Docker.SIGSEGV_EXIT_CODE) {
         throw new Error(
-          "Docker run failed: SIGSEGV indicates a segmentation fault (attempts to access a memory location that it's not allowed to access)."
+          "Docker run failed.\nSIGSEGV indicates a segmentation fault (attempts to access a memory location that it's not allowed to access)."
         )
       }
-      throw new Error(`Docker run failed: ${error.message as string}`)
+      throw new Error(`Docker run failed.\n${error.message as string}`)
     }
   }
 }

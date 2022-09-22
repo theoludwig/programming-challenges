@@ -1,12 +1,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { performance } from 'node:perf_hooks'
 
-import ora from 'ora'
-import chalk from 'chalk'
-import { table } from 'table'
-
-import { Solution } from './Solution.js'
+import type { Solution } from './Solution.js'
 import { docker } from './Docker.js'
+import {
+  SolutionTestsResult
+} from './SolutionTestsResult.js'
+import { TemporaryFolder } from './TemporaryFolder.js'
 
 export interface InputOutput {
   input: string
@@ -14,118 +15,53 @@ export interface InputOutput {
 }
 
 export interface TestRunOptions {
-  index: number
+  testNumber: number
   path: string
+  solution: Solution
 }
 
 export interface TestOptions {
-  index: number
+  testNumber: number
   path: string
   isSuccess: boolean
   input: string
   output: string
   stdout: string
-  elapsedTimeMilliseconds: number
 }
 
 export class Test implements TestOptions {
-  public index: number
+  public testNumber: number
   public path: string
   public isSuccess: boolean
   public input: string
   public output: string
   public stdout: string
-  public elapsedTimeMilliseconds: number
-  static SUCCESS_MESSAGE = `${chalk.bold.green('Success:')} Tests passed! 🎉`
 
   constructor(options: TestOptions) {
-    this.index = options.index
+    this.testNumber = options.testNumber
     this.path = options.path
     this.isSuccess = options.isSuccess
     this.input = options.input
     this.output = options.output
     this.stdout = options.stdout
-    this.elapsedTimeMilliseconds = options.elapsedTimeMilliseconds
   }
 
-  static printResult(tests: Test[]): void {
-    const tableResult = [
-      [
-        chalk.bold('N°'),
-        chalk.bold('Input'),
-        chalk.bold('Expected'),
-        chalk.bold('Received')
-      ]
-    ]
-    let totalFailedTests = 0
-    let totalCorrectTests = 0
-    let totalElapsedTimeMilliseconds = 0
-    for (const test of tests) {
-      if (!test.isSuccess) {
-        const expected = test.output.split('\n').join('"\n"')
-        const received = test.stdout.split('\n').join('"\n"')
-        tableResult.push([
-          test.index.toString(),
-          `"${test.input}"`,
-          `"${expected}"`,
-          `"${received}"`
-        ])
-        totalFailedTests += 1
-      } else {
-        totalCorrectTests += 1
-      }
-      totalElapsedTimeMilliseconds += test.elapsedTimeMilliseconds
-    }
-    const isSuccess = totalCorrectTests === tests.length
-    if (isSuccess) {
-      console.log()
-    } else {
-      console.log()
-      console.log(table(tableResult))
-    }
-    const testsResult = isSuccess
-      ? chalk.bold.green(`${totalCorrectTests} passed`)
-      : chalk.bold.red(`${totalFailedTests} failed`)
-    console.log(`${chalk.bold('Tests:')} ${testsResult}, ${tests.length} total`)
-    Test.printBenchmark(totalElapsedTimeMilliseconds)
-    if (!isSuccess) {
-      throw new Error('Tests failed, try again!')
-    }
-  }
-
-  static printBenchmark(elapsedTimeMilliseconds: number): void {
-    const elapsedTime = elapsedTimeMilliseconds / 1000
-    console.log(`${chalk.bold('Benchmark:')} ${elapsedTime} seconds`)
-  }
-
-  static async runAll(solution: Solution): Promise<void> {
-    const name = `${solution.challenge.name}/${solution.programmingLanguageName}/${solution.name}`
+  static async runAll(solution: Solution): Promise<SolutionTestsResult> {
     const testsPath = path.join(solution.challenge.path, 'test')
     const testsFolders = await fs.promises.readdir(testsPath)
-    const testsNumbers = testsFolders
-      .map((test) => Number(test))
-      .sort((a, b) => a - b)
-    const tests: Test[] = []
-    console.log(`${chalk.bold('Name:')} ${name}\n`)
+    const testsNumbers = testsFolders.map((test) => {
+      return Number(test)
+    })
+    const testsPromises: Array<Promise<Test>> = []
+    const start = performance.now()
     for (const testNumber of testsNumbers) {
-      const loader = ora(`Test n°${testNumber}`).start()
-      try {
-        const test = await Test.run({
-          path: path.join(testsPath, testNumber.toString()),
-          index: testNumber
-        })
-        tests.push(test)
-        if (test.isSuccess) {
-          loader.succeed()
-        } else {
-          loader.fail()
-        }
-      } catch (error) {
-        loader.fail()
-        throw error
-      }
+      const testPath = path.join(testsPath, testNumber.toString())
+      testsPromises.push(Test.run({ testNumber, path: testPath, solution }))
     }
-    Test.printResult(tests)
+    const tests = await Promise.all(testsPromises)
+    const end = performance.now()
+    const elapsedTimeMilliseconds = end - start
+    return new SolutionTestsResult({ solution, tests, elapsedTimeMilliseconds })
   }
 
   static async getInputOutput(testPath: string): Promise<InputOutput> {
@@ -138,35 +74,52 @@ export class Test implements TestOptions {
     return { input, output }
   }
 
-  static async runManyWithSolutions(solutions: Solution[]): Promise<number> {
+  static async runManyWithSolutions(
+    solutions: Solution[]
+  ): Promise<number> {
+    const solutionTestsResultsPromises: Array<Promise<SolutionTestsResult>> = []
+    let isSolutionSuccess = true
     for (const solution of solutions) {
-      await solution.test()
-      console.log('\n------------------------------\n')
+      const solutionTestsResultPromise = solution.test()
+      solutionTestsResultsPromises.push(solutionTestsResultPromise)
+      solutionTestsResultPromise
+        .then((solutionTestsResult) => {
+          solutionTestsResult.print()
+          if (!solutionTestsResult.isSuccess) {
+            isSolutionSuccess = false
+          }
+        })
+        .catch(() => {})
     }
-    console.log(Test.SUCCESS_MESSAGE)
-    return 0
-  }
-
-  static async runAllTests(programmingLanguage?: string): Promise<number> {
-    const solutions = await Solution.getManyByProgrammingLanguages(
-      programmingLanguage != null ? [programmingLanguage] : undefined
-    )
-    await Test.runManyWithSolutions(solutions)
-    return 0
+    await Promise.all(solutionTestsResultsPromises)
+    await TemporaryFolder.cleanAll()
+    if (isSolutionSuccess) {
+      console.log(SolutionTestsResult.SUCCESS_MESSAGE)
+      return 0
+    }
+    return 1
   }
 
   static async run(options: TestRunOptions): Promise<Test> {
     const { input, output } = await Test.getInputOutput(options.path)
-    const { stdout, elapsedTimeMilliseconds } = await docker.run(input)
-    const test = new Test({
-      path: options.path,
-      index: options.index,
-      input,
-      output,
-      stdout,
-      isSuccess: stdout === output,
-      elapsedTimeMilliseconds
-    })
-    return test
+    try {
+      const { stdout } = await docker.run(
+        input,
+        options.solution.temporaryFolder.id
+      )
+      const test = new Test({
+        path: options.path,
+        testNumber: options.testNumber,
+        input,
+        output,
+        stdout,
+        isSuccess: stdout === output
+      })
+      return test
+    } catch (error: any) {
+      throw new Error(
+        `solution: ${options.solution.path}\n${error.message as string}\n`
+      )
+    }
   }
 }

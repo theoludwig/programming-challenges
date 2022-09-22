@@ -8,6 +8,7 @@ import chalk from 'chalk'
 import { isExistingPath } from '../../utils/isExistingPath.js'
 import { template } from '../../services/Template.js'
 import { Solution } from '../../services/Solution.js'
+import { TemporaryFolder } from '../../services/TemporaryFolder.js'
 
 export class RunSolutionCommand extends Command {
   static paths = [['run', 'solution']]
@@ -47,6 +48,7 @@ export class RunSolutionCommand extends Command {
   async execute(): Promise<number> {
     console.log()
     try {
+      await TemporaryFolder.cleanAll()
       await template.verifySupportedProgrammingLanguage(
         this.programmingLanguage
       )
@@ -61,11 +63,13 @@ export class RunSolutionCommand extends Command {
       }
       const input = await fs.promises.readFile(inputPath, { encoding: 'utf-8' })
       await solution.run(input, this.output)
+      await TemporaryFolder.cleanAll()
       return 0
     } catch (error) {
       if (error instanceof Error) {
         console.error(`${chalk.bold.red('Error:')} ${error.message}`)
       }
+      await TemporaryFolder.cleanAll()
       return 1
     }
   }

@@ -109,7 +109,7 @@ class Template {
 
   public async getProgrammingLanguages(): Promise<string[]> {
     const languages = await fs.promises.readdir(TEMPLATE_SOLUTION_PATH)
-    return languages.filter((language) => language !== 'base')
+    return languages.filter((language) => {return language !== 'base'})
   }
 
   public async verifySupportedProgrammingLanguage(

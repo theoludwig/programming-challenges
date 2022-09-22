@@ -1,15 +1,29 @@
+import crypto from 'node:crypto'
+
 import tap from 'tap'
+import sinon from 'sinon'
 
 import { Challenge } from '../Challenge.js'
 import { GitAffected } from '../GitAffected.js'
 import { Solution } from '../Solution.js'
+import { parseCommandOutput } from '../../utils/parseCommandOutput.js'
 
-const gitAffected = new GitAffected({ isContinuousIntegration: false })
+const gitAffected = new GitAffected()
 
 await tap.test('services/GitAffected', async (t) => {
-  await t.test('parseGitOutput', async (t) => {
+  t.afterEach(() => {
+    sinon.restore()
+  })
+
+  t.beforeEach(() => {
+    sinon.stub(crypto, 'randomUUID').value(() => {
+      return 'uuid'
+    })
+  })
+
+  await t.test('parseCommandOutput', async (t) => {
     await t.test('returns the right output array', async (t) => {
-      t.same(gitAffected.parseGitOutput('1.txt\n 2.txt '), ['1.txt', '2.txt'])
+      t.same(parseCommandOutput('1.txt\n 2.txt '), ['1.txt', '2.txt'])
     })
   })
 

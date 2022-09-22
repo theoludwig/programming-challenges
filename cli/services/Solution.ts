@@ -1,20 +1,19 @@
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import fs from 'node:fs'
+import { performance } from 'node:perf_hooks'
 
 import chalk from 'chalk'
 import ora from 'ora'
 
-import {
-  createTemporaryEmptyFolder,
-  TEMPORARY_PATH
-} from '../utils/createTemporaryEmptyFolder.js'
 import { isExistingPath } from '../utils/isExistingPath.js'
 import { Challenge } from './Challenge.js'
 import { copyDirectory } from '../utils/copyDirectory.js'
 import { template } from './Template.js'
 import { docker } from './Docker.js'
 import { Test } from './Test.js'
+import { SolutionTestsResult } from './SolutionTestsResult.js'
+import { TemporaryFolder } from './TemporaryFolder.js'
 
 export interface GetSolutionOptions {
   programmingLanguageName: string
@@ -37,6 +36,7 @@ export class Solution implements SolutionOptions {
   public challenge: Challenge
   public name: string
   public path: string
+  public temporaryFolder: TemporaryFolder
 
   constructor(options: SolutionOptions) {
     const { programmingLanguageName, challenge, name } = options
@@ -49,39 +49,50 @@ export class Solution implements SolutionOptions {
       programmingLanguageName,
       name
     )
+    this.temporaryFolder = new TemporaryFolder()
   }
 
-  private async prepareTemporaryFolder(): Promise<void> {
-    await createTemporaryEmptyFolder()
-    await copyDirectory(this.path, TEMPORARY_PATH)
+  private async setup(): Promise<void> {
+    await this.temporaryFolder.create()
+    await copyDirectory(this.path, this.temporaryFolder.path)
     await template.docker({
       programmingLanguage: this.programmingLanguageName,
-      destination: TEMPORARY_PATH
+      destination: this.temporaryFolder.path
     })
-    process.chdir(TEMPORARY_PATH)
+    process.chdir(this.temporaryFolder.path)
+    try {
+      await docker.build(this.temporaryFolder.id)
+    } catch (error: any) {
+      throw new Error(
+        `solution: ${this.path}\n${error.message as string}\n`
+      )
+    }
   }
 
-  public async test(): Promise<void> {
-    await this.prepareTemporaryFolder()
-    await docker.build()
-    await Test.runAll(this)
+  public async test(): Promise<SolutionTestsResult> {
+    await this.setup()
+    return await Test.runAll(this)
   }
 
   public async run(input: string, output: boolean = false): Promise<void> {
-    await this.prepareTemporaryFolder()
-    await docker.build()
+    await this.setup()
     const loader = ora('Running...').start()
     try {
-      const { stdout, elapsedTimeMilliseconds } = await docker.run(input)
+      const start = performance.now()
+      const { stdout } = await docker.run(input, this.temporaryFolder.id)
+      const end = performance.now()
+      const elapsedTimeMilliseconds = end - start
       loader.succeed(chalk.bold.green('Success!'))
-      Test.printBenchmark(elapsedTimeMilliseconds)
+      SolutionTestsResult.printBenchmark(elapsedTimeMilliseconds)
       if (output) {
         console.log(`${chalk.bold('Output:')}`)
         console.log(stdout)
       }
-    } catch (error) {
+    } catch (error: any) {
       loader.fail()
-      throw error
+      throw new Error(
+        `solution: ${this.path}\n${error.message as string}\n`
+      )
     }
   }
 

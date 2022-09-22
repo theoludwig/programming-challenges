@@ -2,6 +2,7 @@ import { execaCommand } from 'execa'
 
 import { Challenge } from './Challenge.js'
 import { Solution } from './Solution.js'
+import { parseCommandOutput } from '../utils/parseCommandOutput.js'
 
 const solutionsRegex =
   /challenges\/[\S\s]*\/solutions\/(c|cpp|cs|dart|java|javascript|python|rust|typescript)\/[\S\s]*\/(.*).(c|cpp|cs|dart|java|js|py|rs|ts)/
@@ -13,24 +14,14 @@ const inputOutputRegex =
   /challenges\/[\S\s]*\/test\/(.*)\/(input.txt|output.txt)/
 
 export interface GitAffectedOptions {
-  isContinuousIntegration: boolean
   base?: string
 }
 
 export class GitAffected implements GitAffectedOptions {
-  public isContinuousIntegration: boolean
   public base?: string
 
-  constructor(options: GitAffectedOptions) {
-    this.isContinuousIntegration = options.isContinuousIntegration
+  constructor(options: GitAffectedOptions = {}) {
     this.base = options.base
-  }
-
-  public parseGitOutput(output: string): string[] {
-    return output
-      .split('\n')
-      .map((line) => line.trim())
-      .filter((line) => line.length > 0)
   }
 
   public async getFilesUsingBaseAndHead(
@@ -41,7 +32,7 @@ export class GitAffected implements GitAffectedOptions {
       const { stdout } = await execaCommand(
         `git diff --name-only --relative ${base} ${head}`
       )
-      return this.parseGitOutput(stdout)
+      return parseCommandOutput(stdout)
     } catch {
       return []
     }
@@ -52,8 +43,7 @@ export class GitAffected implements GitAffectedOptions {
   }
 
   public async getLatestPushedCommit(): Promise<string> {
-    const latestCommit =
-      this.isContinuousIntegration || this.base != null ? '~1' : ''
+    const latestCommit = this.base != null ? '~1' : ''
     const { stdout } = await execaCommand(
       `git rev-parse origin/master${latestCommit}`
     )

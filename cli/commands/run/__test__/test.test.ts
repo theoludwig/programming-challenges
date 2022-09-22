@@ -5,7 +5,7 @@ import sinon from 'sinon'
 import chalk from 'chalk'
 
 import { cli } from '../../../cli.js'
-import { Test } from '../../../services/Test.js'
+import { SolutionTestsResult } from '../../../services/SolutionTestsResult.js'
 
 const input = ['run', 'test']
 const challenge = 'hello-world'
@@ -46,7 +46,7 @@ await tap.test('programming-challenges run test', async (t) => {
       ),
       true
     )
-    t.equal(consoleLogSpy.calledWith(Test.SUCCESS_MESSAGE), true)
+    t.equal(consoleLogSpy.calledWith(SolutionTestsResult.SUCCESS_MESSAGE), true)
   })
 
   await t.test("fails with solution that doesn't exist", async (t) => {

@@ -6,6 +6,8 @@ import { Solution } from '../../services/Solution.js'
 import { GitAffected } from '../../services/GitAffected.js'
 import { template } from '../../services/Template.js'
 import { Test } from '../../services/Test.js'
+import { SolutionTestsResult } from '../../services/SolutionTestsResult.js'
+import { TemporaryFolder } from '../../services/TemporaryFolder.js'
 
 export class RunTestCommand extends Command {
   static paths = [['run', 'test']]
@@ -38,10 +40,6 @@ export class RunTestCommand extends Command {
     description: 'Run the tests for all the solutions.'
   })
 
-  public isContinuousIntegration = Option.Boolean('--ci', false, {
-    description: 'Run the tests for the Continuous Integration (CI).'
-  })
-
   public base = Option.String('--base', {
     description: 'Base of the current branch (usually master)'
   })
@@ -49,17 +47,20 @@ export class RunTestCommand extends Command {
   async execute(): Promise<number> {
     console.log()
     try {
+      await TemporaryFolder.cleanAll()
       if (this.programmingLanguage != null) {
         await template.verifySupportedProgrammingLanguage(
           this.programmingLanguage
         )
       }
       if (this.all) {
-        return await Test.runAllTests(this.programmingLanguage)
+        const solutions = await Solution.getManyByProgrammingLanguages(
+          this.programmingLanguage != null ? [this.programmingLanguage] : undefined
+        )
+        return await Test.runManyWithSolutions(solutions)
       }
       if (this.affected) {
         const gitAffected = new GitAffected({
-          isContinuousIntegration: this.isContinuousIntegration,
           base: this.base
         })
         const solutions = await gitAffected.getAffectedSolutionsFromGit()
@@ -79,13 +80,22 @@ export class RunTestCommand extends Command {
         challengeName: this.challenge,
         programmingLanguageName: this.programmingLanguage
       })
-      await solution.test()
-      console.log(Test.SUCCESS_MESSAGE)
-      return 0
+      const result = await solution.test()
+      result.print({
+        shouldPrintBenchmark: true,
+        shouldPrintTableResult: true
+      })
+      await TemporaryFolder.cleanAll()
+      if (result.isSuccess)  {
+        console.log(SolutionTestsResult.SUCCESS_MESSAGE)
+        return 0
+      }
+      return 1
     } catch (error) {
       if (error instanceof Error) {
         console.error(`${chalk.bold.red('Error:')} ${error.message}`)
       }
+      await TemporaryFolder.cleanAll()
       return 1
     }
   }
