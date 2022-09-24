@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:19
 
 WORKDIR /usr/app
 COPY ./ /usr/app

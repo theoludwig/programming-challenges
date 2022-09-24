@@ -1,7 +1,7 @@
-FROM rust:1.63.0
+FROM rust:1.64.0
 
 WORKDIR /usr/app
 COPY ./ /usr/app
-RUN rustc solution.rs
+RUN rustc -C debuginfo=0 -C opt-level=3 -C target-cpu=native solution.rs
 
 CMD ["./solution"]
