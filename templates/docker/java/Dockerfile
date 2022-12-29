@@ -1,7 +1,10 @@
-FROM openjdk:19
-
-WORKDIR /usr/app
-COPY ./ /usr/app
+FROM openjdk:17 AS builder
+WORKDIR /usr/src/application
+COPY ./ ./
 RUN javac Solution.java
+RUN jar cfe solution.jar Solution *.class
 
-CMD ["java", "Solution"]
+FROM gcr.io/distroless/java17-debian11:latest AS runner
+WORKDIR /usr/src/application
+COPY --from=builder /usr/src/application/solution.jar ./
+CMD ["./solution.jar"]

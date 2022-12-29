@@ -1,7 +1,16 @@
-FROM rust:1.64.0
+FROM rust:1.66.0 AS builder
+WORKDIR /usr/src/rust_application
 
-WORKDIR /usr/app
-COPY ./ /usr/app
-RUN rustc -C debuginfo=0 -C opt-level=3 -C target-cpu=native solution.rs
+# Cache dependencies
+RUN cargo init --bin ./
+COPY ./Cargo.* ./
+RUN cargo build --release && rm --recursive --force ./src ./target/release/deps/rust_application*
 
-CMD ["./solution"]
+# Build application
+COPY ./ ./
+RUN cargo build --release
+
+FROM gcr.io/distroless/cc-debian11:latest AS runner
+WORKDIR /usr/src/rust_application
+COPY --from=builder /usr/src/rust_application/target/release/rust_application ./
+CMD ["./rust_application"]

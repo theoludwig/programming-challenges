@@ -41,7 +41,7 @@ export class RunTestCommand extends Command {
   })
 
   public base = Option.String('--base', {
-    description: 'Base of the current branch (usually master)'
+    description: 'Base of the current branch (usually master).'
   })
 
   async execute(): Promise<number> {

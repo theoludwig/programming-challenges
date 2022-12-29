@@ -1,7 +1,9 @@
-FROM gcc:12.2.0
+FROM gcc:12.2.0 AS builder
+WORKDIR /usr/src/application
+COPY ./ ./
+RUN g++ ./*.cpp* -o solution -Wall -Wextra -Wfloat-equal -Wundef -Werror -std=c++17 -pedantic -pedantic-errors -O3
 
-WORKDIR /usr/app
-COPY ./ /usr/app
-RUN g++ ./*.cpp* -o solution.exe -Wall -Wextra -Wfloat-equal -Wundef -Werror -std=c++17 -pedantic -pedantic-errors -O3
-
-CMD ["./solution.exe"]
+FROM gcr.io/distroless/cc-debian11:latest AS runner
+WORKDIR /usr/src/application
+COPY --from=builder /usr/src/application/solution ./
+CMD ["./solution"]

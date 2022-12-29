@@ -1,6 +1,4 @@
-FROM node:16.17.0
-
-WORKDIR /usr/app
-COPY ./ /usr/app
-
-CMD ["node", "solution.js"]
+FROM gcr.io/distroless/nodejs18-debian11:latest AS runner
+WORKDIR /usr/src/application
+COPY ./ ./
+CMD ["./solution.js"]

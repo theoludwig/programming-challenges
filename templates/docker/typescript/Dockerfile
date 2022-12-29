@@ -1,7 +1,17 @@
-FROM node:16.17.0
+FROM node:18.12.1 AS builder-dependencies
+WORKDIR /usr/src/application
+COPY ./package*.json ./
+RUN npm install
 
-WORKDIR /usr/app
-COPY ./ /usr/app
-RUN npm install && npm run build
+FROM node:18.12.1 AS builder
+WORKDIR /usr/src/application
+COPY --from=builder-dependencies /usr/src/application/node_modules ./node_modules
+COPY ./ ./
+RUN npm run build
 
-CMD ["node", "build/solution.js"]
+FROM gcr.io/distroless/nodejs18-debian11:latest AS runner
+WORKDIR /usr/src/application
+ENV NODE_ENV=production
+COPY --from=builder /usr/src/application/package.json ./package.json
+COPY --from=builder /usr/src/application/build ./build
+CMD ["./build/solution.js"]

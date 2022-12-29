@@ -1,6 +1,10 @@
-FROM dart:2.18.1
+FROM dart:2.18.6 AS builder
+WORKDIR /usr/src/application
+COPY ./ ./
+RUN dart compile exe solution.dart -o solution
 
-WORKDIR /usr/app
-COPY ./ /usr/app
-
-CMD ["dart", "run", "solution.dart"]
+FROM scratch AS runner
+WORKDIR /usr/src/application
+COPY --from=builder /runtime/ /
+COPY --from=builder /usr/src/application/solution ./
+CMD ["./solution"]
