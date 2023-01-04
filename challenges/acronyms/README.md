@@ -10,7 +10,7 @@ Convert a given sentence to its acronym.
 
 ### Example 1
 
-#### Input
+### Input
 
 ```txt
 Programming Challenges is really cool
