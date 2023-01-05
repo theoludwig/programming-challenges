@@ -4,6 +4,7 @@ import { GenerateChallengeCommand } from './commands/generate/challenge.js'
 import { GenerateSolutionCommand } from './commands/generate/solution.js'
 import { RunSolutionCommand } from './commands/run/solution.js'
 import { RunTestCommand } from './commands/run/test.js'
+import { SearchCommand } from './commands/search/index.js'
 
 export const cli = new Cli({
   binaryLabel: 'programming-challenges',
@@ -16,3 +17,4 @@ cli.register(GenerateChallengeCommand)
 cli.register(GenerateSolutionCommand)
 cli.register(RunTestCommand)
 cli.register(RunSolutionCommand)
+cli.register(SearchCommand)

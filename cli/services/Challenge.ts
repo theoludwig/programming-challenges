@@ -15,6 +15,7 @@ export interface GenerateChallengeOptions extends ChallengeOptions {
 }
 
 export class Challenge implements ChallengeOptions {
+  public static BASE_URL = new URL('../../challenges/', import.meta.url)
   public name: string
   public path: string
 
@@ -22,11 +23,18 @@ export class Challenge implements ChallengeOptions {
     const { name } = options
     this.name = name
     this.path = fileURLToPath(
-      new URL(`../../challenges/${name}`, import.meta.url)
+      new URL(`./${name}`, Challenge.BASE_URL)
     )
   }
 
-  static async generate(options: GenerateChallengeOptions): Promise<Challenge> {
+  public static async getChallenges(): Promise<Challenge[]> {
+    const challengeNames = await fs.promises.readdir( Challenge.BASE_URL)
+    return challengeNames.map((challengeName) => {
+      return new Challenge({ name: challengeName })
+    })
+  }
+
+  public static async generate(options: GenerateChallengeOptions): Promise<Challenge> {
     const { name, githubUser } = options
     const challenge = new Challenge({ name })
     if (await isExistingPath(challenge.path)) {
