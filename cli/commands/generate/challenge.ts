@@ -5,9 +5,9 @@ import chalk from 'chalk'
 import { Challenge } from '../../services/Challenge.js'
 
 export class GenerateChallengeCommand extends Command {
-  static paths = [['generate', 'challenge']]
+  public static override paths = [['generate', 'challenge']]
 
-  static usage = {
+  public static override usage = {
     description: 'Create the basic files needed for a new challenge.'
   }
 
@@ -23,7 +23,7 @@ export class GenerateChallengeCommand extends Command {
     validator: typanion.isString()
   })
 
-  async execute(): Promise<number> {
+  public async execute(): Promise<number> {
     try {
       const challenge = await Challenge.generate({
         name: this.challenge,

@@ -70,6 +70,9 @@ export class GitAffected implements GitAffectedOptions {
       const [, , programmingLanguageName] = filePath
         .replaceAll('\\', '/')
         .split('/')
+      if (programmingLanguageName == null) {
+        throw new Error('programmingLanguageName is null')
+      }
       return programmingLanguageName
     })
     const affectedInputOutput = files.filter((filePath) => {
@@ -78,6 +81,9 @@ export class GitAffected implements GitAffectedOptions {
     const affectedChallengesFromInputOutput = affectedInputOutput.map(
       (filePath) => {
         const [, challengeName] = filePath.replaceAll('\\', '/').split('/')
+        if (challengeName == null) {
+          throw new Error('challengeName is null')
+        }
         return new Challenge({ name: challengeName })
       }
     )

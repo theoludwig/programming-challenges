@@ -63,9 +63,7 @@ export class Solution implements SolutionOptions {
     try {
       await docker.build(this.temporaryFolder.id)
     } catch (error: any) {
-      throw new Error(
-        `solution: ${this.path}\n${error.message as string}\n`
-      )
+      throw new Error(`solution: ${this.path}\n${error.message as string}\n`)
     }
   }
 
@@ -90,9 +88,7 @@ export class Solution implements SolutionOptions {
       }
     } catch (error: any) {
       loader.fail()
-      throw new Error(
-        `solution: ${this.path}\n${error.message as string}\n`
-      )
+      throw new Error(`solution: ${this.path}\n${error.message as string}\n`)
     }
   }
 
@@ -199,6 +195,15 @@ export class Solution implements SolutionOptions {
     return solutions.map((solution) => {
       const [, challengeName, , programmingLanguageName, solutionName] =
         solution.replaceAll('\\', '/').split('/')
+
+      if (
+        challengeName == null ||
+        programmingLanguageName == null ||
+        solutionName == null
+      ) {
+        throw new Error(`Invalid solution path: ${solution}`)
+      }
+
       return new Solution({
         challenge: new Challenge({
           name: challengeName

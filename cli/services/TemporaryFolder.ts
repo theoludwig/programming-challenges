@@ -23,7 +23,9 @@ export class TemporaryFolder {
 
   public static async cleanAll(): Promise<void> {
     try {
-      const temporaryPath = fileURLToPath(new URL('../../temp', import.meta.url))
+      const temporaryPath = fileURLToPath(
+        new URL('../../temp', import.meta.url)
+      )
       await fs.promises.rm(temporaryPath, { recursive: true, force: true })
       await docker.removeImages()
     } catch {}

@@ -37,7 +37,8 @@ export class SolutionTestsResult implements SolutionTestsResultOptions {
   }
 
   public print(options: SolutionTestsResultPrintOptions = {}): void {
-    const { shouldPrintBenchmark = false, shouldPrintTableResult = false } = options
+    const { shouldPrintBenchmark = false, shouldPrintTableResult = false } =
+      options
     const name = `${this.solution.challenge.name}/${this.solution.programmingLanguageName}/${this.solution.name}`
     console.log(`${chalk.bold('Name:')} ${name}\n`)
     const tableResult = [

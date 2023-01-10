@@ -10,10 +10,10 @@ jobs:
   lint:
     runs-on: 'ubuntu-latest'
     steps:
-      - uses: 'actions/checkout@v3.0.0'
+      - uses: 'actions/checkout@v3.3.0'
 
       - name: 'Use Node.js'
-        uses: 'actions/setup-node@v3.0.0'
+        uses: 'actions/setup-node@v3.6.0'
         with:
           node-version: 'lts/*'
           cache: 'npm'
@@ -24,15 +24,15 @@ jobs:
       - run: 'npm run lint:commit -- --to "${{ github.sha }}"'
       - run: 'npm run lint:editorconfig'
       - run: 'npm run lint:markdown'
-      - run: 'npm run lint:typescript'
+      - run: 'npm run lint:eslint'
 
   build:
     runs-on: 'ubuntu-latest'
     steps:
-      - uses: 'actions/checkout@v3.0.0'
+      - uses: 'actions/checkout@v3.3.0'
 
       - name: 'Use Node.js'
-        uses: 'actions/setup-node@v3.0.0'
+        uses: 'actions/setup-node@v3.6.0'
         with:
           node-version: 'lts/*'
           cache: 'npm'
@@ -43,10 +43,12 @@ jobs:
       - name: 'Build'
         run: 'npm run build'
 
+      - run: 'npm run build:typescript'
+
   test:
     runs-on: 'ubuntu-latest'
     steps:
-      - uses: 'actions/checkout@v3.0.0'
+      - uses: 'actions/checkout@v3.3.0'
 
       - name: 'Use Docker'
         uses: 'actions-hub/docker/cli@master'
@@ -54,7 +56,7 @@ jobs:
           SKIP_LOGIN: true
 
       - name: 'Use Node.js'
-        uses: 'actions/setup-node@v3.0.0'
+        uses: 'actions/setup-node@v3.6.0'
         with:
           node-version: 'lts/*'
           cache: 'npm'

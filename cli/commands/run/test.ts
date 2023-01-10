@@ -10,9 +10,9 @@ import { SolutionTestsResult } from '../../services/SolutionTestsResult.js'
 import { TemporaryFolder } from '../../services/TemporaryFolder.js'
 
 export class RunTestCommand extends Command {
-  static paths = [['run', 'test']]
+  public static override paths = [['run', 'test']]
 
-  static usage = {
+  public static override usage = {
     description:
       'Test if the solution is correct and display where it succeeds and fails.'
   }
@@ -44,7 +44,7 @@ export class RunTestCommand extends Command {
     description: 'Base of the current branch (usually master).'
   })
 
-  async execute(): Promise<number> {
+  public async execute(): Promise<number> {
     console.log()
     try {
       await TemporaryFolder.cleanAll()

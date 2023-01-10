@@ -4,9 +4,7 @@ import { performance } from 'node:perf_hooks'
 
 import type { Solution } from './Solution.js'
 import { docker } from './Docker.js'
-import {
-  SolutionTestsResult
-} from './SolutionTestsResult.js'
+import { SolutionTestsResult } from './SolutionTestsResult.js'
 import { TemporaryFolder } from './TemporaryFolder.js'
 
 export interface InputOutput {
@@ -74,9 +72,7 @@ export class Test implements TestOptions {
     return { input, output }
   }
 
-  static async runManyWithSolutions(
-    solutions: Solution[]
-  ): Promise<number> {
+  static async runManyWithSolutions(solutions: Solution[]): Promise<number> {
     const solutionTestsResultsPromises: Array<Promise<SolutionTestsResult>> = []
     let isSolutionSuccess = true
     for (const solution of solutions) {

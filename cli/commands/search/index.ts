@@ -9,9 +9,9 @@ import { template } from '../../services/Template.js'
 import { Challenge } from '../../services/Challenge.js'
 
 export class SearchCommand extends Command {
-  static paths = [['search']]
+  public static override paths = [['search']]
 
-  static usage = {
+  public static override usage = {
     description: 'Search challenges in the programming language specified.'
   }
 
@@ -26,7 +26,7 @@ export class SearchCommand extends Command {
     validator: typanion.isString()
   })
 
-  async execute(): Promise<number> {
+  public async execute(): Promise<number> {
     try {
       await template.verifySupportedProgrammingLanguage(
         this.programmingLanguage

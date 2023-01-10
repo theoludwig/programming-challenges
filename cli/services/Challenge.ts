@@ -22,19 +22,19 @@ export class Challenge implements ChallengeOptions {
   constructor(options: ChallengeOptions) {
     const { name } = options
     this.name = name
-    this.path = fileURLToPath(
-      new URL(`./${name}`, Challenge.BASE_URL)
-    )
+    this.path = fileURLToPath(new URL(`./${name}`, Challenge.BASE_URL))
   }
 
   public static async getChallenges(): Promise<Challenge[]> {
-    const challengeNames = await fs.promises.readdir( Challenge.BASE_URL)
+    const challengeNames = await fs.promises.readdir(Challenge.BASE_URL)
     return challengeNames.map((challengeName) => {
       return new Challenge({ name: challengeName })
     })
   }
 
-  public static async generate(options: GenerateChallengeOptions): Promise<Challenge> {
+  public static async generate(
+    options: GenerateChallengeOptions
+  ): Promise<Challenge> {
     const { name, githubUser } = options
     const challenge = new Challenge({ name })
     if (await isExistingPath(challenge.path)) {

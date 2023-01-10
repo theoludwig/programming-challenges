@@ -11,9 +11,9 @@ import { Solution } from '../../services/Solution.js'
 import { TemporaryFolder } from '../../services/TemporaryFolder.js'
 
 export class RunSolutionCommand extends Command {
-  static paths = [['run', 'solution']]
+  public static override paths = [['run', 'solution']]
 
-  static usage = {
+  public static override usage = {
     description: 'Run the solution with the given `input.txt` file.'
   }
 
@@ -45,7 +45,7 @@ export class RunSolutionCommand extends Command {
     description: 'Display the output of the solution.'
   })
 
-  async execute(): Promise<number> {
+  public async execute(): Promise<number> {
     console.log()
     try {
       await TemporaryFolder.cleanAll()

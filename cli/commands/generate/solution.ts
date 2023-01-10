@@ -5,9 +5,9 @@ import chalk from 'chalk'
 import { Solution } from '../../services/Solution.js'
 
 export class GenerateSolutionCommand extends Command {
-  static paths = [['generate', 'solution']]
+  public static override paths = [['generate', 'solution']]
 
-  static usage = {
+  public static override usage = {
     description: 'Create the basic files needed for a new solution.'
   }
 
@@ -35,7 +35,7 @@ export class GenerateSolutionCommand extends Command {
     validator: typanion.isString()
   })
 
-  async execute(): Promise<number> {
+  public async execute(): Promise<number> {
     try {
       const solution = await Solution.generate({
         name: this.solutionName,
