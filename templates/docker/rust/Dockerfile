@@ -1,4 +1,4 @@
-FROM rust:1.66.0 AS builder
+FROM rust:1.68.2 AS builder
 WORKDIR /usr/src/rust_application
 
 # Cache dependencies
