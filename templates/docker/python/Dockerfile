@@ -1,4 +1,4 @@
-FROM pypy:3.9-7
+FROM pypy:3.10
 WORKDIR /usr/src/application
 COPY ./ ./
 CMD ["python", "solution.py"]
