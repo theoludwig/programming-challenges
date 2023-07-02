@@ -1,6 +1,6 @@
 # left-pad
 
-Created by [@Divlo](https://github.com/Divlo) on 21 May 2023.
+Created by [@theoludwig](https://github.com/theoludwig) on 21 May 2023.
 
 ## Instructions
 

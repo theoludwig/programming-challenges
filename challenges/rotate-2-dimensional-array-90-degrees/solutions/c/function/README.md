@@ -1,3 +1,3 @@
 # rotate-2-dimensional-array-90-degrees/c/function
 
-Created by [@Divlo](https://github.com/Divlo) on 5 December 2021.
+Created by [@theoludwig](https://github.com/theoludwig) on 5 December 2021.

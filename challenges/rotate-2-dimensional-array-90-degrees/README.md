@@ -1,6 +1,6 @@
 # rotate-2-dimensional-array-90-degrees
 
-Created by [@Divlo](https://github.com/Divlo) on 3 December 2021.
+Created by [@theoludwig](https://github.com/theoludwig) on 3 December 2021.
 
 ## Instructions
 

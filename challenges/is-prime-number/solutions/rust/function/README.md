@@ -1,3 +1,3 @@
 # is-prime-number/rust/function
 
-Created by [@Divlo](https://github.com/Divlo) on 29 December 2022.
+Created by [@theoludwig](https://github.com/theoludwig) on 29 December 2022.

@@ -13,7 +13,7 @@ import { cli } from '../../../cli.js'
 import { isExistingPath } from '../../../utils/isExistingPath.js'
 
 const input = ['generate', 'challenge']
-const githubUser = 'Divlo'
+const githubUser = 'theoludwig'
 const challenge = 'aaaa-test-jest'
 const inputChallenge = `--challenge=${challenge}`
 const inputGitHubUser = `--github-user=${githubUser}`
@@ -22,7 +22,10 @@ await tap.test('programming-challenges generate challenge', async (t) => {
   t.beforeEach(() => {
     fsMock(
       {
-        [process.cwd()]: fsMock.load(process.cwd(), { recursive: true, lazy: true })
+        [process.cwd()]: fsMock.load(process.cwd(), {
+          recursive: true,
+          lazy: true
+        })
       },
       { createCwd: false }
     )

@@ -1,3 +1,3 @@
 # acronyms/rust/function
 
-Created by [@Divlo](https://github.com/Divlo) on 4 January 2023.
+Created by [@theoludwig](https://github.com/theoludwig) on 4 January 2023.

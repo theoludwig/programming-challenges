@@ -9,11 +9,11 @@
   <a href="./LICENSE"><img src="https://img.shields.io/badge/licence-MIT-blue.svg" alt="Licence MIT"/></a>
   <a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
   <br />
-  <a href="https://github.com/Divlo/programming-challenges/actions/workflows/cli.yml"><img src="https://github.com/Divlo/programming-challenges/actions/workflows/cli.yml/badge.svg?branch=master" /></a>
-  <a href="https://github.com/Divlo/programming-challenges/actions/workflows/challenges.yml"><img src="https://github.com/Divlo/programming-challenges/actions/workflows/challenges.yml/badge.svg?branch=master" /></a>
+  <a href="https://github.com/theoludwig/programming-challenges/actions/workflows/cli.yml"><img src="https://github.com/theoludwig/programming-challenges/actions/workflows/cli.yml/badge.svg?branch=master" /></a>
+  <a href="https://github.com/theoludwig/programming-challenges/actions/workflows/challenges.yml"><img src="https://github.com/theoludwig/programming-challenges/actions/workflows/challenges.yml/badge.svg?branch=master" /></a>
   <a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg" alt="Conventional Commits" /></a>
   <br/>
-  <a href="https://gitpod.io/#https://github.com/Divlo/programming-challenges"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod ready-to-code"/></a>
+  <a href="https://gitpod.io/#https://github.com/theoludwig/programming-challenges"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod ready-to-code"/></a>
   <br/> <br/>
   <img src="./logo.png" width="120" alt="programming-challenges Logo" />
 </p>
@@ -40,7 +40,7 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 
 Gitpod will automatically setup an environment for you.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Divlo/programming-challenges)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/theoludwig/programming-challenges)
 
 ### Locally
 
@@ -54,7 +54,7 @@ Gitpod will automatically setup an environment for you.
 
 ```sh
 # Clone the repository
-git clone https://github.com/Divlo/programming-challenges.git
+git clone git@github.com:theoludwig/programming-challenges.git
 
 # Go to the project root
 cd programming-challenges

@@ -1,3 +1,3 @@
 # triangle-type/c/function
 
-Created by [@Divlo](https://github.com/Divlo) on 30 September 2021.
+Created by [@theoludwig](https://github.com/theoludwig) on 30 September 2021.

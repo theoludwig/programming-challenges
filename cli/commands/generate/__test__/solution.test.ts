@@ -13,7 +13,7 @@ import { cli } from '../../../cli.js'
 import { isExistingPath } from '../../../utils/isExistingPath.js'
 
 const input = ['generate', 'solution']
-const githubUser = 'Divlo'
+const githubUser = 'theoludwig'
 const challenge = 'hello-world'
 const language = 'c'
 const solution = 'new-solution'

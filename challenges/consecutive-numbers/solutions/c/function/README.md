@@ -1,3 +1,3 @@
 # consecutive-numbers/c/function
 
-Created by [@Divlo](https://github.com/Divlo) on 12 October 2021.
+Created by [@theoludwig](https://github.com/theoludwig) on 12 October 2021.

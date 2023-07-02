@@ -1,6 +1,6 @@
 # first-non-repeating-character
 
-Created by [@Divlo](https://github.com/Divlo) on 15 November 2020.
+Created by [@theoludwig](https://github.com/theoludwig) on 15 November 2020.
 
 ## Instructions
 

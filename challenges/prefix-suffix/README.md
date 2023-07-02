@@ -1,6 +1,6 @@
 # prefix-suffix
 
-Created by [@Divlo](https://github.com/Divlo) on 2 December 2021.
+Created by [@theoludwig](https://github.com/theoludwig) on 2 December 2021.
 
 ## Instructions
 

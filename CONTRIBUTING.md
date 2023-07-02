@@ -50,7 +50,7 @@ Before submitting the new programming language, make sure it passes all the test
 
 ## Pull Requests
 
-- **Please first discuss** the change you wish to make via [issue](https://github.com/Divlo/programming-challenges/issues) before making a change. It might avoid a waste of your time.
+- **Please first discuss** the change you wish to make via [issue](https://github.com/theoludwig/programming-challenges/issues) before making a change. It might avoid a waste of your time.
 
 - Make sure your **code passes the tests**.
 

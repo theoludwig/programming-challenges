@@ -1,6 +1,6 @@
 # prime-numbers-decomposition
 
-Created by [@Divlo](https://github.com/Divlo) on 16 October 2021.
+Created by [@theoludwig](https://github.com/theoludwig) on 16 October 2021.
 
 ## Instructions
 
