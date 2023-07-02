@@ -8,7 +8,7 @@
 int main() {
   char* string = input();
   size_t string_length = strlen(string);
-  char* result = malloc(sizeof(char*) * (string_length + 1));
+  char* result = malloc(sizeof(char) * (string_length + 1));
   for (size_t index = 0; index < string_length; index++) {
     unsigned char number_of_appearances = 0;
     char value_to_search = string[index];
@@ -17,7 +17,7 @@ int main() {
       number_of_appearances++;
       iteration++;
     }
-    char* number_of_appearances_string = malloc(sizeof(char*) * (string_length + 1));
+    char* number_of_appearances_string = malloc(sizeof(char) * (string_length + 1));
     snprintf(number_of_appearances_string, sizeof(result), "%hhu", number_of_appearances);
     character_append_many(result, number_of_appearances_string);
     character_append(result, value_to_search);
