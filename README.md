@@ -24,6 +24,8 @@
 
 Each challenge has its **solutions**, its **instructions** and **input/output examples** so you can try to solve them on your own. See [challenges](./challenges) folder.
 
+[Related Blog Post](https://theoludwig.fr/blog/programming-challenges/).
+
 ### ✅ Programming languages available
 
 - [C/C++ (gcc)](https://gcc.gnu.org/)
