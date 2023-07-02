@@ -16,7 +16,7 @@
   "main": "build/index.js",
   "bin": "build/index.js",
   "scripts": {
-    "start": "node build/index.js",
+    "start": "node --enable-source-maps build/index.js",
     "build": "rimraf ./build && swc ./cli --out-dir ./build",
     "build:dev": "swc ./src --out-dir ./build --watch",
     "build:typescript": "tsc",
