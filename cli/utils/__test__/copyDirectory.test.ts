@@ -1,16 +1,17 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
 import fs from 'node:fs'
 
-import tap from 'tap'
 import fsMock from 'mock-fs'
 
 import { copyDirectory } from '../copyDirectory.js'
 
-await tap.test('utils/copyDirectory', async (t) => {
+await test('utils/copyDirectory', async (t) => {
   t.afterEach(() => {
     fsMock.restore()
   })
 
-  await t.test('copy the files', async (t) => {
+  await t.test('copy the files', async () => {
     fsMock({
       '/source': {
         'default.png': '',
@@ -21,19 +22,22 @@ await tap.test('utils/copyDirectory', async (t) => {
 
     let destinationDirectoryContent = await fs.promises.readdir('/destination')
     let sourceDirectoryContent = await fs.promises.readdir('/source')
-    t.equal(destinationDirectoryContent.length, 0)
-    t.equal(sourceDirectoryContent.length, 2)
+    assert.strictEqual(destinationDirectoryContent.length, 0)
+    assert.strictEqual(sourceDirectoryContent.length, 2)
 
     await copyDirectory('/source', '/destination')
     destinationDirectoryContent = await fs.promises.readdir('/destination')
     sourceDirectoryContent = await fs.promises.readdir('/source')
-    t.equal(destinationDirectoryContent.length, 2)
-    t.equal(sourceDirectoryContent.length, 2)
-    t.strictSame(destinationDirectoryContent, ['default.png', 'index.ts'])
-    t.strictSame(sourceDirectoryContent, ['default.png', 'index.ts'])
+    assert.strictEqual(destinationDirectoryContent.length, 2)
+    assert.strictEqual(sourceDirectoryContent.length, 2)
+    assert.deepStrictEqual(destinationDirectoryContent, [
+      'default.png',
+      'index.ts'
+    ])
+    assert.deepStrictEqual(sourceDirectoryContent, ['default.png', 'index.ts'])
   })
 
-  await t.test('copy the files and folders recursively', async (t) => {
+  await t.test('copy the files and folders recursively', async () => {
     fsMock({
       '/source': {
         'random-folder': {
@@ -53,10 +57,10 @@ await tap.test('utils/copyDirectory', async (t) => {
     let secondRandomFolderContent = await fs.promises.readdir(
       '/source/random-folder/second-random-folder'
     )
-    t.equal(randomFolderContent.length, 2)
-    t.equal(secondRandomFolderContent.length, 1)
-    t.equal(destinationDirectoryContent.length, 0)
-    t.equal(sourceDirectoryContent.length, 2)
+    assert.strictEqual(randomFolderContent.length, 2)
+    assert.strictEqual(secondRandomFolderContent.length, 1)
+    assert.strictEqual(destinationDirectoryContent.length, 0)
+    assert.strictEqual(sourceDirectoryContent.length, 2)
 
     await copyDirectory('/source', '/destination')
     destinationDirectoryContent = await fs.promises.readdir('/destination')
@@ -67,13 +71,22 @@ await tap.test('utils/copyDirectory', async (t) => {
     secondRandomFolderContent = await fs.promises.readdir(
       '/destination/random-folder/second-random-folder'
     )
-    t.equal(destinationDirectoryContent.length, 2)
-    t.equal(sourceDirectoryContent.length, 2)
-    t.strictSame(destinationDirectoryContent, ['index.ts', 'random-folder'])
-    t.strictSame(sourceDirectoryContent, ['index.ts', 'random-folder'])
-    t.equal(randomFolderContent.length, 2)
-    t.equal(secondRandomFolderContent.length, 1)
-    t.strictSame(randomFolderContent, ['default.png', 'second-random-folder'])
-    t.strictSame(secondRandomFolderContent, ['mycode.ts'])
+    assert.strictEqual(destinationDirectoryContent.length, 2)
+    assert.strictEqual(sourceDirectoryContent.length, 2)
+    assert.deepStrictEqual(destinationDirectoryContent, [
+      'index.ts',
+      'random-folder'
+    ])
+    assert.deepStrictEqual(sourceDirectoryContent, [
+      'index.ts',
+      'random-folder'
+    ])
+    assert.strictEqual(randomFolderContent.length, 2)
+    assert.strictEqual(secondRandomFolderContent.length, 1)
+    assert.deepStrictEqual(randomFolderContent, [
+      'default.png',
+      'second-random-folder'
+    ])
+    assert.deepStrictEqual(secondRandomFolderContent, ['mycode.ts'])
   })
 })

@@ -1,7 +1,8 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
 import { PassThrough } from 'node:stream'
 import path from 'node:path'
 
-import tap from 'tap'
 import sinon from 'sinon'
 import chalk from 'chalk'
 
@@ -24,12 +25,12 @@ const inputLanguage = `--language=${language}`
 const inputSolution = `--solution=${solution}`
 const inputInputPath = `--input-path=${inputPath}`
 
-await tap.test('programming-challenges run solution', async (t) => {
+await test('programming-challenges run solution', async (t) => {
   t.afterEach(() => {
     sinon.restore()
   })
 
-  await t.test('succeeds', async (t) => {
+  await t.test('succeeds', async () => {
     sinon.stub(console, 'log').value(() => {})
     const consoleLogSpy = sinon.spy(console, 'log')
     const stream = new PassThrough()
@@ -49,11 +50,11 @@ await tap.test('programming-challenges run solution', async (t) => {
       }
     )
     stream.end()
-    t.equal(exitCode, 0)
-    t.equal(consoleLogSpy.calledWith(`Hello, world!`), true)
+    assert.strictEqual(exitCode, 0)
+    assert.strictEqual(consoleLogSpy.calledWith(`Hello, world!`), true)
   })
 
-  await t.test("fails with solution that doesn't exist", async (t) => {
+  await t.test("fails with solution that doesn't exist", async () => {
     sinon.stub(console, 'error').value(() => {})
     const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
@@ -74,8 +75,8 @@ await tap.test('programming-challenges run solution', async (t) => {
       }
     )
     stream.end()
-    t.equal(exitCode, 1)
-    t.equal(
+    assert.strictEqual(exitCode, 1)
+    assert.strictEqual(
       consoleErrorSpy.calledWith(
         chalk.bold.red('Error:') + ' The solution was not found.'
       ),
@@ -83,7 +84,7 @@ await tap.test('programming-challenges run solution', async (t) => {
     )
   })
 
-  await t.test('fails with invalid language', async (t) => {
+  await t.test('fails with invalid language', async () => {
     sinon.stub(console, 'error').value(() => {})
     const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
@@ -104,8 +105,8 @@ await tap.test('programming-challenges run solution', async (t) => {
       }
     )
     stream.end()
-    t.equal(exitCode, 1)
-    t.equal(
+    assert.strictEqual(exitCode, 1)
+    assert.strictEqual(
       consoleErrorSpy.calledWith(
         chalk.bold.red('Error:') +
           ' This programming language is not supported yet.'
@@ -114,7 +115,7 @@ await tap.test('programming-challenges run solution', async (t) => {
     )
   })
 
-  await t.test('fails with invalid `input-path`', async (t) => {
+  await t.test('fails with invalid `input-path`', async () => {
     sinon.stub(console, 'error').value(() => {})
     const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
@@ -136,8 +137,8 @@ await tap.test('programming-challenges run solution', async (t) => {
       }
     )
     stream.end()
-    t.equal(exitCode, 1)
-    t.equal(
+    assert.strictEqual(exitCode, 1)
+    assert.strictEqual(
       consoleErrorSpy.calledWith(
         chalk.bold.red('Error:') +
           ` The \`input-path\` doesn't exist: ${inputPath}.`

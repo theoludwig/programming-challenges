@@ -3,7 +3,7 @@
     "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext"],
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "outDir": "./build",
     "rootDir": "./",
     "strict": true,

@@ -1,8 +1,9 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
 import { PassThrough } from 'node:stream'
 import path from 'node:path'
 import fs from 'node:fs'
 
-import tap from 'tap'
 import sinon from 'sinon'
 import fsMock from 'mock-fs'
 import chalk from 'chalk'
@@ -22,7 +23,7 @@ const inputGitHubUser = `--github-user=${githubUser}`
 const inputLanguage = `--language=${language}`
 const inputSolution = `--solution=${solution}`
 
-await tap.test('programming-challenges generate solution', async (t) => {
+await test('programming-challenges generate solution', async (t) => {
   t.beforeEach(() => {
     fsMock(
       {
@@ -37,7 +38,7 @@ await tap.test('programming-challenges generate solution', async (t) => {
     sinon.restore()
   })
 
-  await t.test('succeeds and generate the new solution', async (t) => {
+  await t.test('succeeds and generate the new solution', async () => {
     sinon.stub(console, 'log').value(() => {})
     const consoleLogSpy = sinon.spy(console, 'log')
     const dateString = date.format(new Date(), 'D MMMM Y', true)
@@ -51,7 +52,7 @@ await tap.test('programming-challenges generate solution', async (t) => {
       }
     )
     stream.end()
-    t.equal(exitCode, 0)
+    assert.strictEqual(exitCode, 0)
     const solutionPath = path.join(
       process.cwd(),
       'challenges',
@@ -67,9 +68,9 @@ await tap.test('programming-challenges generate solution', async (t) => {
     const successMessage = `${chalk.bold.green(
       'Success:'
     )} created the new solution at ${solutionPath}.`
-    t.equal(consoleLogSpy.calledWith(successMessage), true)
-    t.equal(await isExistingPath(solutionPath), true)
-    t.equal(
+    assert.strictEqual(consoleLogSpy.calledWith(successMessage), true)
+    assert.strictEqual(await isExistingPath(solutionPath), true)
+    assert.strictEqual(
       readmeContent,
       `# ${challenge}/${language}/${solution}
 
@@ -78,7 +79,7 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
     )
   })
 
-  await t.test("fails with challenges that doesn't exist", async (t) => {
+  await t.test("fails with challenges that doesn't exist", async () => {
     sinon.stub(console, 'error').value(() => {})
     const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
@@ -99,8 +100,8 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
       }
     )
     stream.end()
-    t.equal(exitCode, 1)
-    t.equal(
+    assert.strictEqual(exitCode, 1)
+    assert.strictEqual(
       consoleErrorSpy.calledWith(
         chalk.bold.red('Error:') +
           ` The challenge doesn't exist yet: ${invalidChallenge}.`
@@ -109,7 +110,7 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
     )
   })
 
-  await t.test('fails with solution that already exist', async (t) => {
+  await t.test('fails with solution that already exist', async () => {
     sinon.stub(console, 'error').value(() => {})
     const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
@@ -130,8 +131,8 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
       }
     )
     stream.end()
-    t.equal(exitCode, 1)
-    t.equal(
+    assert.strictEqual(exitCode, 1)
+    assert.strictEqual(
       consoleErrorSpy.calledWith(
         chalk.bold.red('Error:') +
           ` The solution already exists: ${invalidSolution}.`
@@ -140,7 +141,7 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
     )
   })
 
-  await t.test('fails with invalid language', async (t) => {
+  await t.test('fails with invalid language', async () => {
     sinon.stub(console, 'error').value(() => {})
     const consoleErrorSpy = sinon.spy(console, 'error')
     const stream = new PassThrough()
@@ -161,8 +162,8 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
       }
     )
     stream.end()
-    t.equal(exitCode, 1)
-    t.equal(
+    assert.strictEqual(exitCode, 1)
+    assert.strictEqual(
       consoleErrorSpy.calledWith(
         chalk.bold.red('Error:') +
           ' This programming language is not supported yet.'
@@ -180,8 +181,8 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
       stderr: stream
     })
     stream.end()
-    t.equal(exitCode, 1)
+    assert.strictEqual(exitCode, 1)
     const output = await promise
-    t.match(output, 'Unknown Syntax Error')
+    assert.match(output, /Unknown Syntax Error/)
   })
 })

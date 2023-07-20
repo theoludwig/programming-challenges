@@ -4,12 +4,15 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "env": {
-    "node": true
-  },
   "rules": {
     "import/extensions": ["error", "always"],
     "unicorn/prevent-abbreviations": "error",
     "unicorn/prefer-node-protocol": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser"
+    }
+  ]
 }

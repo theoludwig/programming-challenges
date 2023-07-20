@@ -58,7 +58,7 @@ If you're adding new features to **programming-challenges**, please include test
 
 ## Commits
 
-The commit message guidelines adheres to [Conventional Commits](https://www.conventionalcommits.org/) and [Semantic Versioning](https://semver.org/) for releases.                                                                                   |
+The commit message guidelines adheres to [Conventional Commits](https://www.conventionalcommits.org/).
 
 ### Examples
 

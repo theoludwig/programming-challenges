@@ -60,7 +60,7 @@ export class Docker {
     )
     try {
       const { stdout, stderr } = await subprocess
-      if (stderr.length !== 0) {
+      if (stderr.length > 0) {
         throw new Error(stderr)
       }
       return {
