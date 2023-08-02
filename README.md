@@ -33,7 +33,7 @@ Each challenge has its **solutions**, its **instructions** and **input/output ex
 - [Dart](https://dart.dev/)
 - [Java (OpenJDK)](https://openjdk.java.net/)
 - [JavaScript/TypeScript (Node.js)](https://nodejs.org/)
-- [Python](https://www.python.org/)
+- [Python (PyPy)](https://www.pypy.org/)
 - [Rust](https://www.rust-lang.org/)
 
 ## 🚀 Getting Started
@@ -88,6 +88,9 @@ programming-challenges run test --challenge="hello-world" --solution="function" 
 
 # Run a solution with specific `input.txt` file
 programming-challenges run solution --challenge="hello-world" --solution="function" --language="python" --input-path="./challenges/hello-world/test/1/input.txt" --output
+
+# Search for a challenge not yet solved in a specific programming language
+programming-challenges search --language="rust"
 ```
 
 ## 💡 Contributing
