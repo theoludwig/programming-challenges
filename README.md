@@ -20,7 +20,7 @@
 
 ## 📜 About
 
-**programming-challenges** brings together lots of programming exercises and challenges to improve your algorithmic logic.
+**programming-challenges** brings programming exercises and challenges to improve your algorithmic logic.
 
 Each challenge has its **solutions**, its **instructions** and **input/output examples** so you can try to solve them on your own. See [challenges](./challenges) folder.
 
@@ -48,7 +48,7 @@ Gitpod will automatically setup an environment for you.
 
 #### Prerequisites
 
-- [Node.js](https://nodejs.org/) >= 18.0.0
+- [Node.js](https://nodejs.org/) >= 20.0.0
 - [npm](https://npmjs.com/) >= 9.0.0
 - [Docker](https://www.docker.com/)
 
@@ -62,7 +62,7 @@ git clone git@github.com:theoludwig/programming-challenges.git
 cd programming-challenges
 
 # Install dependencies
-npm install
+npm clean-install
 
 # Build the Command Line Interface (CLI)
 npm run build
