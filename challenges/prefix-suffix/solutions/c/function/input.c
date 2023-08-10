@@ -1,10 +1,5 @@
 #include "input.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "character.h"
-
 char* input() {
   char character;
   size_t length = 1;

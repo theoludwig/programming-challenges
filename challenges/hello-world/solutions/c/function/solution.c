@@ -6,5 +6,6 @@
 int main() {
   char *string = input();
   printf("Hello, %s!\n", string);
+  free(string);
   return EXIT_SUCCESS;
 }

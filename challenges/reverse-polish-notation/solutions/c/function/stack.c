@@ -1,11 +1,9 @@
 #include "stack.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-
-struct Stack *stack_initialization() {
-  struct Stack *stack = malloc(sizeof(*stack));
+struct stack *stack_initialization() {
+  struct stack *stack = malloc(sizeof(struct stack));
   if (stack == NULL) {
+    perror("Error (stack_initialization)");
     exit(EXIT_FAILURE);
   }
   stack->first = NULL;
@@ -13,9 +11,15 @@ struct Stack *stack_initialization() {
   return stack;
 }
 
-void stack_push(struct Stack *stack, void *data) {
-  struct Node *node_new = malloc(sizeof(*node_new));
-  if (stack == NULL || data == NULL) {
+void stack_push(struct stack *stack, void *data) {
+  if (stack == NULL) {
+    errno = EINVAL;
+    perror("Error (stack_push)");
+    exit(EXIT_FAILURE);
+  }
+  struct stack_node *node_new = malloc(sizeof(struct stack_node));
+  if (data == NULL) {
+    perror("Error (stack_push)");
     exit(EXIT_FAILURE);
   }
   node_new->data = data;
@@ -24,11 +28,13 @@ void stack_push(struct Stack *stack, void *data) {
   stack->length = stack->length + 1;
 }
 
-void *stack_pop(struct Stack *stack) {
+void *stack_pop(struct stack *stack) {
   if (stack == NULL) {
+    errno = EINVAL;
+    perror("Error (stack_pop)");
     exit(EXIT_FAILURE);
   }
-  struct Node *node = stack->first;
+  struct stack_node *node = stack->first;
   void *data = NULL;
   if (node != NULL) {
     stack->first = node->next;
@@ -37,4 +43,19 @@ void *stack_pop(struct Stack *stack) {
   }
   stack->length = stack->length - 1;
   return data;
+}
+
+void stack_free(struct stack *stack) {
+  if (stack == NULL) {
+    errno = EINVAL;
+    perror("Error (stack_free)");
+    exit(EXIT_FAILURE);
+  }
+  struct stack_node *node = stack->first;
+  while (node != NULL) {
+    struct stack_node *node_next = node->next;
+    free(node);
+    node = node_next;
+  }
+  free(stack);
 }

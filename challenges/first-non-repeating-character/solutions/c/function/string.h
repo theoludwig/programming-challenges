@@ -1,7 +1,11 @@
 #ifndef __STRING__
 #define __STRING__
 
+#include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "character.h"
 
 /**
  * @brief Returns the total number of occurrences of the given character in the string.

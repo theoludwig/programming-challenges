@@ -7,9 +7,10 @@
 
 int main() {
   char* string = input();
-  string = string_trim(string);
-  string = string_camelCase(string);
-  printf("%s\n", string);
+  string_trim(string, ' ');
+  char* result = string_camelCase(string);
+  printf("%s\n", result);
   free(string);
+  free(result);
   return EXIT_SUCCESS;
 }

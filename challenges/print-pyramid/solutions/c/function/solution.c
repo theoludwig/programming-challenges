@@ -7,10 +7,10 @@
 
 int main() {
   char* type = input();
-  int height;
-  scanf("%d", &height);
+  unsigned long height;
+  scanf("%lu", &height);
 
-  int step = strcmp(type, "normal") == 0 ? 1 : height;
+  unsigned long step = strcmp(type, "normal") == 0 ? 1 : height;
   while ((strcmp(type, "normal") == 0 && step <= height) || (strcmp(type, "reverse") == 0 && step != 0)) {
     size_t numberOfStars = (step * 2) - 1;
     size_t totalNumberOfLocations = (height * 2) - 1;
@@ -23,5 +23,6 @@ int main() {
     step = strcmp(type, "normal") == 0 ? step + 1 : step - 1;
   }
 
+  free(type);
   return EXIT_SUCCESS;
 }

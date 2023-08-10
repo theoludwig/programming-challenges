@@ -1,7 +1,9 @@
 #ifndef __CHARACTER__
 #define __CHARACTER__
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * @brief Append a character to a string, assuming string points to an array

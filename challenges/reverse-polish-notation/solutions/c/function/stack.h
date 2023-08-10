@@ -1,23 +1,54 @@
 #ifndef __STACK__
 #define __STACK__
 
+#include <errno.h>
+#include <stdio.h>
 #include <stdlib.h>
 
-// LIFO = Last In First Out
-struct Stack {
-  struct Node *first;
+/**
+ * @brief Stack structure => LIFO (Last In First Out).
+ */
+struct stack {
+  struct stack_node *first;
   size_t length;
 };
 
-struct Node {
+/**
+ * @brief Stack node structure.
+ */
+struct stack_node {
   void *data;
-  struct Node *next;
+  struct stack_node *next;
 };
 
-struct Stack *stack_initialization();
+/**
+ * @brief Stack initialization.
+ *
+ * @return struct stack*
+ */
+struct stack *stack_initialization();
 
-void stack_push(struct Stack *stack, void *data);
+/**
+ * @brief Push data to stack.
+ *
+ * @param stack
+ * @param data
+ */
+void stack_push(struct stack *stack, void *data);
 
-void *stack_pop(struct Stack *stack);
+/**
+ * @brief Pop data from stack.
+ *
+ * @param stack
+ * @return void*
+ */
+void *stack_pop(struct stack *stack);
+
+/**
+ * @brief Frees the stack.
+ *
+ * @param stack
+ */
+void stack_free(struct stack *stack);
 
 #endif

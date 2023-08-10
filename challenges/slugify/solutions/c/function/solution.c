@@ -7,11 +7,12 @@
 
 int main() {
   char* string = input();
-  string = string_trim(string, ' ');
-  string = string_trim(string, '-');
-  string = string_to_lowercase(string);
-  string = string_slugify(string);
-  printf("%s\n", string);
+  string_trim(string, ' ');
+  string_trim(string, '-');
+  string_to_lowercase(string);
+  char* result = string_slugify(string);
+  printf("%s\n", result);
   free(string);
+  free(result);
   return EXIT_SUCCESS;
 }

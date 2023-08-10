@@ -28,8 +28,10 @@ int* get_dividers_list(int number, int* dividers_length) {
 
 bool is_prime_number(int number) {
   int dividers_length;
-  get_dividers_list(number, &dividers_length);
-  return dividers_length == 2;
+  int* dividers_list = get_dividers_list(number, &dividers_length);
+  bool result = dividers_length == 2;
+  free(dividers_list);
+  return result;
 }
 
 int sum_multiply_numbers(int* numbers, int numbers_length) {

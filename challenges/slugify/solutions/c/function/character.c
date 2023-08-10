@@ -1,9 +1,5 @@
 #include "character.h"
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-
 void character_append(char* string, char character) {
   size_t length = strlen(string);
   string[length] = character;

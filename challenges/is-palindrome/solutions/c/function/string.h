@@ -1,23 +1,57 @@
 #ifndef __STRING__
 #define __STRING__
 
+#include <errno.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "character.h"
+
+/**
+ * @brief Return the length of a string (excluding '\0').
+ *
+ * @param string
+ * @return size_t
+ */
+size_t string_get_length(const char* string);
 
 /**
  * @brief Converts all the alphabetic characters in a string to uppercase.
  *
+ * NOTE: Mutates the string.
+ *
  * @param string
- * @return char*
  */
-char* string_to_upper(const char* string);
+void string_to_uppercase(char* string);
 
 /**
- * @brief Reverse the characters in an array.
+ * @brief Removes all the occurrences of a character in a string.
+ *
+ * NOTE: Mutates the string.
+ *
+ * @param string
+ * @param search A character search value.
+ */
+void string_remove_character(char* string, char search);
+
+/**
+ * @brief Reverse the characters in a string.
+ *
+ * NOTE: Mutates the string.
+ *
+ * @param string
+ */
+void string_reverse(char* string);
+
+/**
+ * @brief Return the copy of a string.
  *
  * @param string
  * @return char*
  */
-char* string_reverse(const char* string);
+char* string_copy(const char* string);
 
 /**
  * @brief Returns true if the string is a palindrome (a palindrome is a word,
@@ -27,17 +61,6 @@ char* string_reverse(const char* string);
  * @param string The string to check.
  * @return true if the string is a palindrome, false otherwise.
  */
-bool string_is_palindrome(const char* string);
-
-/**
- * @brief Replace all the occurrences of search value into replace value in
- * the string.
- *
- * @param string
- * @param search_value A character search value.
- * @param replace_value A character containing the text to replace for match.
- * @return char*
- */
-char* string_replace(const char* string, char search, char replace);
+bool string_is_palindrome(char* string);
 
 #endif

@@ -7,10 +7,11 @@
 
 int main() {
   char* string = input();
-  string = string_replace(string, '"', '\0');
-  string = string_to_upper(string);
-  string = string_acronym(string);
-  printf("%s\n", string);
+  string_remove_character(string, '"');
+  string_to_uppercase(string);
+  char* result = string_acronym(string);
+  printf("%s\n", result);
   free(string);
+  free(result);
   return EXIT_SUCCESS;
 }

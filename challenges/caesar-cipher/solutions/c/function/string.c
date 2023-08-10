@@ -1,24 +1,27 @@
 #include "string.h"
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "character.h"
 
-#define ALPHABET_LENGTH 26
+size_t string_get_length(const char* string) {
+  size_t length = 0;
+  while (string[length] != '\0') {
+    length++;
+  }
+  return length;
+}
 
 char* string_shift_alphabet(int shift) {
   char* result = malloc(sizeof(char) * (ALPHABET_LENGTH + 1));
-  for (char index = 0; index < ALPHABET_LENGTH; index++) {
+  for (size_t index = 0; index < ALPHABET_LENGTH; index++) {
     char letter = 'A' + index + shift;
     if (letter < 'A') {
       letter = 'Z' + shift + index + 1;
     } else if (letter > 'Z') {
       letter = letter - ALPHABET_LENGTH;
     }
-    character_append(result, letter);
+    result[index] = letter;
   }
+  result[ALPHABET_LENGTH] = '\0';
   return result;
 }
 
@@ -28,8 +31,8 @@ char* string_caesar_cipher(char* string, int shift) {
   char* shifted_alphabet = string_shift_alphabet(shift);
   for (size_t index = 0; index < string_length; index++) {
     char letter = string[index];
-    if (letter != ' ') {
-      for (int index_alphabet = 0; index_alphabet < ALPHABET_LENGTH; index_alphabet++) {
+    if (letter != ' ' && (letter >= 'A' && letter <= 'Z')) {
+      for (size_t index_alphabet = 0; index_alphabet < ALPHABET_LENGTH; index_alphabet++) {
         char current_letter = 'A' + index_alphabet;
         if (string[index] == current_letter) {
           letter = shifted_alphabet[index_alphabet];
@@ -37,7 +40,9 @@ char* string_caesar_cipher(char* string, int shift) {
         }
       }
     }
-    character_append(result, letter);
+    result[index] = letter;
   }
+  result[string_length] = '\0';
+  free(shifted_alphabet);
   return result;
 }

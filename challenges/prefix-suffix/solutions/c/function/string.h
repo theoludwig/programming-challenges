@@ -2,6 +2,10 @@
 #define __STRING__
 
 #include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "character.h"
 
 /**
  * @brief Returns true if the string is a prefix of another string.

@@ -1,11 +1,5 @@
 #include "string.h"
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "character.h"
-
 bool string_starts_with(char* string, char* prefix) {
   size_t string_length = strlen(string);
   size_t prefix_length = strlen(prefix);

@@ -1,46 +1,67 @@
 #include "string.h"
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "character.h"
-
-char* string_to_upper(const char* string) {
-  size_t string_length = strlen(string);
-  char* result = malloc(sizeof(char) * (string_length + 1));
-  for (size_t index = 0; index < string_length; index++) {
-    character_append(result, character_to_upper(string[index]));
+size_t string_get_length(const char* string) {
+  size_t length = 0;
+  while (string[length] != '\0') {
+    length++;
   }
-  return result;
+  return length;
 }
 
-char* string_reverse(const char* string) {
-  size_t string_length = strlen(string);
-  char* result = malloc(sizeof(char) * (string_length + 1));
-  for (int index = string_length - 1; index != -1; index--) {
-    character_append(result, string[index]);
-  }
-  return result;
-}
-
-bool string_is_palindrome(const char* string) {
-  char* string_reversed = string_reverse(string);
-  bool is_palindrome = strcmp(string_reversed, string) == 0;
-  free(string_reversed);
-  return is_palindrome;
-}
-
-char* string_replace(const char* string, char search, char replace) {
-  size_t string_length = strlen(string);
-  char* result = malloc(sizeof(char) * (string_length + 1));
+void string_to_uppercase(char* string) {
+  size_t string_length = string_get_length(string);
   for (size_t index = 0; index < string_length; index++) {
-    bool is_search_value = search == string[index];
-    if (is_search_value) {
-      character_append(result, replace);
-    } else {
-      character_append(result, string[index]);
+    string[index] = character_to_upper(string[index]);
+  }
+  string[string_length] = '\0';
+}
+
+void string_remove_character(char* string, char search) {
+  size_t string_length = string_get_length(string);
+  for (size_t index = 0; index < string_length; index++) {
+    if (string[index] == search) {
+      for (size_t index_string = index; index_string < string_length; index_string++) {
+        string[index_string] = string[index_string + 1];
+      }
+      string_length--;
+      index--;
     }
   }
-  return result;
+  string[string_length] = '\0';
+}
+
+char* string_copy(const char* string) {
+  size_t source_length = string_get_length(string);
+  char* copy = malloc(sizeof(char) * (source_length + 1));
+  if (copy == NULL) {
+    perror("Error (string_copy)");
+    exit(EXIT_FAILURE);
+  }
+  size_t index;
+  for (index = 0; index < source_length; index++) {
+    copy[index] = string[index];
+  }
+  copy[index] = '\0';
+  return copy;
+}
+
+void string_reverse(char* string) {
+  size_t string_length = string_get_length(string);
+  size_t index_start = 0;
+  size_t index_end = string_length - 1;
+  while (index_start < index_end) {
+    char temporary = string[index_start];
+    string[index_start] = string[index_end];
+    string[index_end] = temporary;
+    index_start++;
+    index_end--;
+  }
+}
+
+bool string_is_palindrome(char* string) {
+  char* string_reversed = string_copy(string);
+  string_reverse(string_reversed);
+  bool is_palindrome = strcmp(string, string_reversed) == 0;
+  free(string_reversed);
+  return is_palindrome;
 }

@@ -20,7 +20,7 @@ bool is_integer(char* string) {
 
 int main() {
   char* string = input();
-  struct Stack* stack = stack_initialization();
+  struct stack* stack = stack_initialization();
   char* token = strtok(string, " ");
   while (token != NULL) {
     if (is_integer(token)) {
@@ -45,5 +45,7 @@ int main() {
     token = strtok(NULL, " ");
   }
   printf("%ld\n", (intptr_t)stack_pop(stack));
+  free(string);
+  stack_free(stack);
   return EXIT_SUCCESS;
 }

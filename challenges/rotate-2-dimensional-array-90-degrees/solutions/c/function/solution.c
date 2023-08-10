@@ -8,19 +8,20 @@ int main() {
   size_t number_of_rows = 0;
   size_t number_of_columns = 0;
   char *direction = input();
-  int **array = array_2D_int_input(&number_of_rows, &number_of_columns);
+  int **array_input = array_2D_int_input(&number_of_rows, &number_of_columns);
 
+  int **array;
   if (strcmp(direction, "clockwise") == 0) {
-    array = array_2D_int_rotate_90_degrees_clockwise(array, &number_of_rows, &number_of_columns);
+    array = array_2D_int_rotate_90_degrees_clockwise(array_input, &number_of_rows, &number_of_columns);
   } else {
-    array = array_2D_int_rotate_90_degrees_anticlockwise(array, &number_of_rows, &number_of_columns);
+    array = array_2D_int_rotate_90_degrees_anticlockwise(array_input, &number_of_rows, &number_of_columns);
   }
   array_2D_int_print(array, number_of_rows, number_of_columns);
 
-  for (size_t i = 0; i < number_of_rows; i++) {
-    free(array[i]);
+  free(direction);
+  for (size_t row = 0; row < number_of_rows; row++) {
+    free(array[row]);
   }
   free(array);
-  free(direction);
   return EXIT_SUCCESS;
 }

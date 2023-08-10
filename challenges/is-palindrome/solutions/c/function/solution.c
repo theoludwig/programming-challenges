@@ -9,8 +9,8 @@
 
 int main() {
   char* string = input();
-  string = string_to_upper(string);
-  string = string_replace(string, ' ', '\0');
+  string_to_uppercase(string);
+  string_remove_character(string, ' ');
   bool is_palindrome = string_is_palindrome(string);
   free(string);
   printf("%s\n", is_palindrome ? "true" : "false");

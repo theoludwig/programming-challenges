@@ -1,47 +1,55 @@
 #include "string.h"
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "character.h"
 
-char* string_to_upper(const char* string) {
-  size_t string_length = strlen(string);
-  char* result = malloc(sizeof(char) * (string_length + 1));
-  for (size_t index = 0; index < string_length; index++) {
-    character_append(result, character_to_upper(string[index]));
+size_t string_get_length(const char* string) {
+  size_t length = 0;
+  while (string[length] != '\0') {
+    length++;
   }
-  return result;
+  return length;
 }
 
-char* string_replace(const char* string, char search, char replace) {
-  size_t string_length = strlen(string);
-  char* result = malloc(sizeof(char) * (string_length + 1));
+void string_to_uppercase(char* string) {
+  size_t string_length = string_get_length(string);
   for (size_t index = 0; index < string_length; index++) {
-    bool is_search_value = search == string[index];
-    if (is_search_value) {
-      character_append(result, replace);
-    } else {
-      character_append(result, string[index]);
+    string[index] = character_to_upper(string[index]);
+  }
+  string[string_length] = '\0';
+}
+
+void string_remove_character(char* string, char search) {
+  size_t string_length = string_get_length(string);
+  for (size_t index = 0; index < string_length; index++) {
+    if (string[index] == search) {
+      for (size_t index_string = index; index_string < string_length; index_string++) {
+        string[index_string] = string[index_string + 1];
+      }
+      string_length--;
+      index--;
     }
   }
-  return result;
+  string[string_length] = '\0';
 }
 
 char* string_acronym(char* string) {
-  size_t string_length = strlen(string);
+  size_t string_length = string_get_length(string);
   char* result = malloc(sizeof(char) * (string_length + 1));
-  char* current = malloc(sizeof(char) * (string_length + 1));
-  for (size_t index = 0; index < string_length; index++) {
-    if (string[index] == ' ') {
-      character_append(result, current[0]);
-      memset(current, 0, sizeof(char) * (string_length + 1));
-    } else {
-      character_append(current, string[index]);
+  char current = '\0';
+  size_t result_index = 0;
+  bool is_first_character = true;
+  for (size_t string_index = 0; string_index < string_length; string_index++) {
+    if (string[string_index] == ' ') {
+      result[result_index] = current;
+      result_index += 1;
+      is_first_character = true;
+    } else if (is_first_character) {
+      current = string[string_index];
+      is_first_character = false;
     }
   }
-  character_append(result, current[0]);
-  free(current);
+  result[result_index] = current;
+  result_index += 1;
+  result[result_index] = '\0';
   return result;
 }

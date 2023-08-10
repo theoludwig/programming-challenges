@@ -1,16 +1,10 @@
 #include "array_2D_int.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include "character.h"
-
 void array_2D_int_print(int **array, size_t number_of_rows, size_t number_of_columns) {
-  for (size_t i = 0; i < number_of_rows; i++) {
-    for (size_t j = 0; j < number_of_columns; j++) {
-      printf("%d", array[i][j]);
-      if (j != number_of_columns - 1) {
+  for (size_t row = 0; row < number_of_rows; row++) {
+    for (size_t column = 0; column < number_of_columns; column++) {
+      printf("%d", array[row][column]);
+      if (column != number_of_columns - 1) {
         printf(" ");
       }
     }
@@ -19,7 +13,7 @@ void array_2D_int_print(int **array, size_t number_of_rows, size_t number_of_col
 }
 
 int **array_2D_int_input(size_t *number_of_rows, size_t *number_of_columns) {
-  int **array = malloc(sizeof(int *));
+  int **array = malloc(sizeof(int));
   *number_of_rows = 1;
   *number_of_columns = 1;
   array[0] = malloc(*number_of_columns * sizeof(int));
@@ -60,13 +54,13 @@ int **array_2D_int_input(size_t *number_of_rows, size_t *number_of_columns) {
 }
 
 int **array_2D_int_reverse_rows(int **array, size_t *number_of_rows, size_t *number_of_columns) {
-  int **rotated_array = malloc(*number_of_columns * sizeof(int *));
-  for (size_t i = 0; i < *number_of_columns; i++) {
-    rotated_array[i] = malloc(*number_of_rows * sizeof(int));
+  int **rotated_array = malloc(*number_of_rows * sizeof(int));
+  for (size_t row = 0; row < *number_of_rows; row++) {
+    rotated_array[row] = malloc(*number_of_columns * sizeof(int));
   }
-  for (size_t i = 0; i < *number_of_columns; i++) {
-    for (size_t j = 0; j < *number_of_rows; j++) {
-      rotated_array[i][j] = array[*number_of_rows - i - 1][j];
+  for (size_t row = 0; row < *number_of_columns; row++) {
+    for (size_t column = 0; column < *number_of_rows; column++) {
+      rotated_array[row][column] = array[*number_of_rows - row - 1][column];
     }
   }
   return rotated_array;
@@ -74,12 +68,12 @@ int **array_2D_int_reverse_rows(int **array, size_t *number_of_rows, size_t *num
 
 int **array_2D_int_rotate_90_degrees_clockwise(int **array, size_t *number_of_rows, size_t *number_of_columns) {
   int **rotated_array = malloc(*number_of_columns * sizeof(int *));
-  for (size_t i = 0; i < *number_of_columns; i++) {
-    rotated_array[i] = malloc(*number_of_rows * sizeof(int));
+  for (size_t row = 0; row < *number_of_columns; row++) {
+    rotated_array[row] = malloc(*number_of_rows * sizeof(int));
   }
-  for (size_t i = 0; i < *number_of_columns; i++) {
-    for (size_t j = 0; j < *number_of_rows; j++) {
-      rotated_array[i][j] = array[*number_of_rows - j - 1][i];
+  for (size_t row = 0; row < *number_of_columns; row++) {
+    for (size_t column = 0; column < *number_of_rows; column++) {
+      rotated_array[row][column] = array[*number_of_rows - column - 1][row];
     }
   }
   size_t number_of_rows_temp = *number_of_rows;
@@ -89,9 +83,28 @@ int **array_2D_int_rotate_90_degrees_clockwise(int **array, size_t *number_of_ro
 }
 
 int **array_2D_int_rotate_90_degrees_anticlockwise(int **array, size_t *number_of_rows, size_t *number_of_columns) {
-  int **result = array_2D_int_rotate_90_degrees_clockwise(array, number_of_rows, number_of_columns);
-  result = array_2D_int_rotate_90_degrees_clockwise(result, number_of_rows, number_of_columns);
-  result = array_2D_int_rotate_90_degrees_clockwise(result, number_of_rows, number_of_columns);
-  result = array_2D_int_reverse_rows(result, number_of_rows, number_of_columns);
-  return result;
+  int **result_1 = array_2D_int_rotate_90_degrees_clockwise(array, number_of_rows, number_of_columns);
+  size_t number_of_rows_temp = *number_of_rows;
+
+  int **result_2 = array_2D_int_rotate_90_degrees_clockwise(result_1, number_of_rows, number_of_columns);
+  for (size_t row = 0; row < number_of_rows_temp; row++) {
+    free(result_1[row]);
+  }
+  free(result_1);
+  number_of_rows_temp = *number_of_rows;
+
+  int **result_3 = array_2D_int_rotate_90_degrees_clockwise(result_2, number_of_rows, number_of_columns);
+  for (size_t row = 0; row < number_of_rows_temp; row++) {
+    free(result_2[row]);
+  }
+  free(result_2);
+  number_of_rows_temp = *number_of_rows;
+
+  int **result_4 = array_2D_int_reverse_rows(result_3, number_of_rows, number_of_columns);
+  for (size_t row = 0; row < number_of_rows_temp; row++) {
+    free(result_3[row]);
+  }
+  free(result_3);
+
+  return result_4;
 }

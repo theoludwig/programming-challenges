@@ -3,9 +3,9 @@
 #include <stdlib.h>
 
 int main() {
-  int length;
-  scanf("%d", &length);
-  for (int number = 1; number <= length; number++) {
+  unsigned long length;
+  scanf("%lu", &length);
+  for (unsigned long number = 1; number <= length; number++) {
     bool is_divisible_by_3 = number % 3 == 0;
     bool is_divisible_by_5 = number % 5 == 0;
     if (is_divisible_by_3 && is_divisible_by_5) {
@@ -15,7 +15,7 @@ int main() {
     } else if (is_divisible_by_5) {
       printf("Buzz\n");
     } else {
-      printf("%d\n", number);
+      printf("%lu\n", number);
     }
   }
   return EXIT_SUCCESS;

@@ -24,5 +24,7 @@ int main() {
     index += number_of_appearances - 1;
   }
   printf("%s\n", result);
+  free(string);
+  free(result);
   return EXIT_SUCCESS;
 }

@@ -1,7 +1,11 @@
 #ifndef __ARRAY_2D_INT__
 #define __ARRAY_2D_INT__
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "character.h"
 
 /**
  * @brief Prints a 2D array of integers.

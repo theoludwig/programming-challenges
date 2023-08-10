@@ -4,15 +4,11 @@
 
 #include "input.h"
 
-int math_power(int base, int power) {
-  int result = 1;
-  for (int iteration = 0; iteration < power; iteration++) {
-    result = result * base;
-  }
-  return result;
+unsigned long long mathematics_pow(unsigned long long base, unsigned long long exponent) {
+  return exponent == 0 ? 1 : base * mathematics_pow(base, exponent - 1);
 }
 
-char* convert_from_base_10_to_base(unsigned long number, unsigned int base) {
+char* convert_number_from_base_10_to_base(unsigned long long number, unsigned long base) {
   if (number == 0) {
     return "0";
   }
@@ -34,13 +30,14 @@ char* convert_from_base_10_to_base(unsigned long number, unsigned int base) {
     }
     index_result++;
   }
+  result[index_result] = '\0';
   return result;
 }
 
-int convert_from_base_to_base_10(char* number, unsigned int base) {
-  int length = strlen(number);
+unsigned long convert_number_from_base_to_base_10(char* number, unsigned long base) {
+  size_t length = strlen(number);
   int exponent = length - 1;
-  int result = 0;
+  unsigned long result = 0;
   int index = 0;
   while (exponent >= 0) {
     int current_number = (int)(number[index] - '0');
@@ -49,19 +46,26 @@ int convert_from_base_to_base_10(char* number, unsigned int base) {
     } else {
       current_number = (int)(number[index] - '0');
     }
-    result = result + current_number * math_power(base, exponent);
+    result = result + current_number * mathematics_pow(base, exponent);
     exponent--;
     index++;
   }
   return result;
 }
 
+char* convert_number_from_base_to_another(char* number, unsigned long base_from, unsigned long base_target) {
+  return convert_number_from_base_10_to_base(convert_number_from_base_to_base_10(number, base_from), base_target);
+}
+
 int main() {
   char* number = input();
-  int base_from;
-  int base_target;
-  scanf("%d", &base_from);
-  scanf("%d", &base_target);
-  printf("%s\n", convert_from_base_10_to_base(convert_from_base_to_base_10(number, base_from), base_target));
+  unsigned long base_from;
+  unsigned long base_target;
+  scanf("%lu", &base_from);
+  scanf("%lu", &base_target);
+  char* result = convert_number_from_base_to_another(number, base_from, base_target);
+  printf("%s\n", result);
+  free(number);
+  free(result);
   return EXIT_SUCCESS;
 }
