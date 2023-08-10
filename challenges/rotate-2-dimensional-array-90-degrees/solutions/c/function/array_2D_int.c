@@ -13,7 +13,7 @@ void array_2D_int_print(int **array, size_t number_of_rows, size_t number_of_col
 }
 
 int **array_2D_int_input(size_t *number_of_rows, size_t *number_of_columns) {
-  int **array = malloc(sizeof(int));
+  int **array = malloc(sizeof(int) * 2);
   *number_of_rows = 1;
   *number_of_columns = 1;
   array[0] = malloc(*number_of_columns * sizeof(int));
