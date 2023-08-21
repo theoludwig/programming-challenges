@@ -22,12 +22,12 @@ fn main() {
             .get(0)
             .expect("Couldn't get `quantity_per_cake`.")
             .parse()
-            .unwrap();
+            .expect("Failed to convert `quantity_per_cake` as an `u32`.");
         let quantity_available: u32 = line_integers
             .get(1)
             .expect("Couldn't get `quantity_available`.")
             .parse()
-            .unwrap();
+            .expect("Failed to convert `quantity_available` as an `u32`.");
 
         let cake_possible = quantity_available / quantity_per_cake;
         if let Some(value) = maximum_number_of_cake_possible {

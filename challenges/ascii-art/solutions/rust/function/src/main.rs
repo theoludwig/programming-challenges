@@ -55,7 +55,9 @@ fn main() {
                 row_ascii.clear();
                 characters_ascii
                     .get_mut(&characters[character_index])
-                    .unwrap()
+                    .expect(
+                        "Failed to get `characters[character_index]` key from `characters_ascii`.",
+                    )
                     .push(row_ascii_value);
                 character_index += 1;
                 character_ascii_index = 0;
@@ -69,11 +71,20 @@ fn main() {
     let mut characters_needed: Vec<Vec<String>> = vec![];
     for (_, character) in text.char_indices() {
         let mut character = character.to_uppercase();
-        let mut character = character.next().unwrap();
+        let mut character = character
+            .next()
+            .expect("Failed to get `character.next()` value from `character.to_uppercase()`.");
         if !characters_ascii.contains_key(&character) {
             character = '?';
         }
-        characters_needed.push(characters_ascii.get(&character).unwrap().clone());
+        characters_needed.push(
+            characters_ascii
+                .get(&character)
+                .expect(
+                    "Failed to get `characters_ascii.get(&character)` key from `characters_ascii`.",
+                )
+                .clone(),
+        );
     }
 
     let mut text_ascii = String::new();
