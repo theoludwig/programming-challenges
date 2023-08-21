@@ -1,4 +1,4 @@
-FROM dart:3.0.7 AS builder
+FROM dart:3.1.0 AS builder
 WORKDIR /usr/src/application
 COPY ./ ./
 RUN dart compile exe solution.dart -o solution
