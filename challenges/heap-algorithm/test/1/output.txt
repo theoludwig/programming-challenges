@@ -1,6 +1,6 @@
 abc
 bac
-cba
-bca
 cab
 acb
+bca
+cba

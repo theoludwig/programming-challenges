@@ -6,6 +6,8 @@
 #include <string.h>
 
 #include "character.h"
+#include "input.h"
+#include "string.h"
 
 /**
  * @brief Prints a 2D array of integers.

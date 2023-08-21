@@ -9,6 +9,7 @@ int main() {
   size_t number_of_columns = 0;
   char *direction = input();
   int **array_input = array_2D_int_input(&number_of_rows, &number_of_columns);
+  size_t initial_number_of_rows = number_of_rows;
 
   int **array;
   if (strcmp(direction, "clockwise") == 0) {
@@ -19,6 +20,10 @@ int main() {
   array_2D_int_print(array, number_of_rows, number_of_columns);
 
   free(direction);
+  for (size_t row = 0; row < initial_number_of_rows; row++) {
+    free(array_input[row]);
+  }
+  free(array_input);
   for (size_t row = 0; row < number_of_rows; row++) {
     free(array[row]);
   }

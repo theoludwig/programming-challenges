@@ -13,48 +13,29 @@ void array_2D_int_print(int **array, size_t number_of_rows, size_t number_of_col
 }
 
 int **array_2D_int_input(size_t *number_of_rows, size_t *number_of_columns) {
-  int **array = malloc(sizeof(int) * 2);
-  *number_of_rows = 1;
-  *number_of_columns = 1;
-  array[0] = malloc(*number_of_columns * sizeof(int));
-  array[0][0] = 0;
-  char character;
-  size_t length = 1;
-  char *string = malloc(length * sizeof(char));
-  *string = '\0';
-  while ((character = getchar()) != EOF) {
-    if (character == '\n') {
-      int number = atoi(string);
-      array[*number_of_rows - 1][*number_of_columns - 1] = number;
-      length = 1;
-      memset(string, 0, length * sizeof(char));
-      *string = '\0';
-      *number_of_rows = *number_of_rows + 1;
-      *number_of_columns = 1;
-      array = realloc(array, *number_of_rows * sizeof(int *));
-      array[*number_of_rows - 1] = malloc(*number_of_columns * sizeof(int));
-    } else {
-      if (character == ' ') {
-        int number = atoi(string);
-        array[*number_of_rows - 1][*number_of_columns - 1] = number;
-        length = 1;
-        memset(string, 0, length * sizeof(char));
-        *string = '\0';
-        *number_of_columns = *number_of_columns + 1;
-      } else {
-        length++;
-        string = realloc(string, length * sizeof(char));
-        character_append(string, character);
-      }
+  *number_of_rows = 0;
+  *number_of_columns = 0;
+  int **array = malloc(sizeof(int *));
+  char *line = input();
+  while (string_get_length(line) != 0) {
+    char **integers_string = string_split(line, ' ', number_of_columns);
+    array[*number_of_rows] = malloc(*number_of_columns * sizeof(int));
+    for (size_t column = 0; column < *number_of_columns; column++) {
+      array[*number_of_rows][column] = atoi(integers_string[column]);
+      free(integers_string[column]);
     }
+    free(integers_string);
+    free(line);
+    line = input();
+    *number_of_rows += 1;
+    array = realloc(array, (*number_of_rows + 1) * sizeof(int *));
   }
-  int number = atoi(string);
-  array[*number_of_rows - 1][*number_of_columns - 1] = number;
+  free(line);
   return array;
 }
 
 int **array_2D_int_reverse_rows(int **array, size_t *number_of_rows, size_t *number_of_columns) {
-  int **rotated_array = malloc(*number_of_rows * sizeof(int));
+  int **rotated_array = malloc(*number_of_rows * sizeof(int *));
   for (size_t row = 0; row < *number_of_rows; row++) {
     rotated_array[row] = malloc(*number_of_columns * sizeof(int));
   }
