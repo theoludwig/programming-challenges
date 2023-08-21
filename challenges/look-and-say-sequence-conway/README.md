@@ -20,7 +20,7 @@ Write a program that prints the next term of the **look-and-say sequence**.
 
 ## Source
 
-- [Look-and-say sequence - Wikipedia](https://en.wikipedia.org/wiki/Look-and-say_sequence)
+[Look-and-say sequence - Wikipedia](https://en.wikipedia.org/wiki/Look-and-say_sequence)
 
 ## Examples
 

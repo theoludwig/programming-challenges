@@ -27,7 +27,7 @@ Create a function that will return the sentence after shifting the alphabet.
 
 ## Source
 
-- [Wikipedia - Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
+[Wikipedia - Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher)
 
 ## Examples
 

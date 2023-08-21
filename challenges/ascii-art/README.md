@@ -43,13 +43,13 @@ The characters that are not in the intervals `[a-z]` or `[A-Z]` will be shown as
 
 ### Constraints
 
-- 0 < W < 30
-- 0 < H < 30
-- 0 < N < 200
+- $$0 < W < 30$$
+- $$0 < H < 30$$
+- $$0 < N < 200$$
 
 ## Source
 
-- [CodinGame](https://www.codingame.com/training/easy/ascii-art)
+[CodinGame](https://www.codingame.com/training/easy/ascii-art)
 
 ## Examples
 

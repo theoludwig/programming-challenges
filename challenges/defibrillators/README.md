@@ -48,11 +48,11 @@ The name of the defibrillator located the closest to the user’s position.
 
 ### Constraints
 
-- 0 < `N` < 10 000
+- $$0 < N < 10 000$$
 
 ## Source
 
-- [CodinGame](https://www.codingame.com/training/easy/defibrillators)
+[CodinGame](https://www.codingame.com/training/easy/defibrillators)
 
 ## Examples
 

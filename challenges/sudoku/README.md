@@ -20,7 +20,7 @@ The empty cells are represented by 0.
 
 ## Source
 
-- [Wikipedia - Sudoku](https://en.wikipedia.org/wiki/Sudoku)
+[Wikipedia - Sudoku](https://en.wikipedia.org/wiki/Sudoku)
 
 ## Examples
 

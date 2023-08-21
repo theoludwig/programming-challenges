@@ -32,7 +32,7 @@ available ingredients.
 
 ## Source
 
-- [SWERC 2020–2021 - Problem E: Cake](https://swerc.eu/2020/problems/)
+[SWERC 2020–2021 - Problem E: Cake](https://swerc.eu/2020/problems/)
 
 ## Examples
 

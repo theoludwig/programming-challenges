@@ -24,15 +24,15 @@ You are given a list of `n` array definitions and your job is to figure out what
 
 ### Constraints
 
-- 1 <= `n` <= 100
-- Array names consist only of uppercase letters A to Z
-- Array lengths are between 1 and 100 (no empty arrays)
-- Indexing operations have at most 50 levels of nesting
-- Indices are always within bounds in the test cases
+- $$1 <= n <= 100$$
+- Array names consist only of uppercase letters A to Z.
+- Array lengths are between 1 and 100 (no empty arrays).
+- Indexing operations have at most 50 levels of nesting.
+- Indices are always within bounds in the test cases.
 
 ## Source
 
-- [CodinGame](https://www.codingame.com/ide/puzzle/offset-arrays)
+[CodinGame](https://www.codingame.com/ide/puzzle/offset-arrays)
 
 ## Examples
 

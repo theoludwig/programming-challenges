@@ -10,7 +10,7 @@ The order of the generated permutations is important, see the example below.
 
 ## Source
 
-- [Heap's Algorithm - Wikipedia](https://en.wikipedia.org/wiki/Heap%27s_algorithm)
+[Heap's Algorithm - Wikipedia](https://en.wikipedia.org/wiki/Heap%27s_algorithm)
 
 ## Examples
 

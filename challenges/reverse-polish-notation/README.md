@@ -20,7 +20,7 @@ All the numbers are integers; you don't need to worry about floating point numbe
 
 ## Source
 
-- [Reverse polish notation - Codewars](https://www.codewars.com/kata/52f78966747862fc9a0009ae)
+[Reverse polish notation - Codewars](https://www.codewars.com/kata/52f78966747862fc9a0009ae)
 
 ## Examples
 

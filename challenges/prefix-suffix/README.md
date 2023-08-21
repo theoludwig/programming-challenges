@@ -20,7 +20,7 @@ Write a programs that takes 2 strings ("words") and prints if one is a prefix/su
 - **Line 1:** `true` if the second word is a **prefix** of the first, `false` otherwise
 - **Line 1:** `true` if the second word is a **suffix** of the first, `false` otherwise
 
-## Source
+## Sources
 
 - [Wikipedia - Prefix](https://en.wikipedia.org/wiki/Prefix)
 - [Wikipedia - Suffix](https://en.wikipedia.org/wiki/Suffix)

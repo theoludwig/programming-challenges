@@ -20,7 +20,7 @@ Write a function that takes a list of integers and sort them in ascending order.
 
 ## Source
 
-- [Wikipedia - Sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm)
+[Wikipedia - Sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm)
 
 ## Examples
 
