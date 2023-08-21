@@ -6,13 +6,13 @@ bool is_odd(int number) {
   return number % 2 == 1;
 }
 
-int find_outlier_number(int* numbers, size_t length) {
+int find_outlier_number(int* numbers, size_t numbers_size) {
   int outlier_number;
-  int* odd_numbers = malloc(length * sizeof(int));
-  int* even_numbers = malloc(length * sizeof(int));
+  int* odd_numbers = malloc(numbers_size * sizeof(int));
+  int* even_numbers = malloc(numbers_size * sizeof(int));
   size_t odd_length = 0;
   size_t even_length = 0;
-  for (size_t index = 0; index < length; index++) {
+  for (size_t index = 0; index < numbers_size; index++) {
     if (is_odd(numbers[index])) {
       odd_numbers[odd_length] = numbers[index];
       odd_length++;
@@ -32,16 +32,16 @@ int find_outlier_number(int* numbers, size_t length) {
 }
 
 int main() {
-  size_t length = 0;
+  size_t numbers_size = 0;
   int number;
   int* numbers = malloc(sizeof(int));
   do {
     scanf("%d", &number);
-    numbers = realloc(numbers, sizeof(int) * (length + 1));
-    numbers[length] = number;
-    length++;
+    numbers = realloc(numbers, sizeof(int) * (numbers_size + 1));
+    numbers[numbers_size] = number;
+    numbers_size++;
   } while (fgetc(stdin) != EOF);
-  printf("%d\n", find_outlier_number(numbers, length));
+  printf("%d\n", find_outlier_number(numbers, numbers_size));
   free(numbers);
   return EXIT_SUCCESS;
 }
