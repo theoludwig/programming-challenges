@@ -25,10 +25,10 @@ this ingredient you have in your kitchen.
 The output should contain a single integer: the maximum number of cakes you can make using the
 available ingredients.
 
-### Limits
+### Constraints
 
-- 1 <= `N` <= 10
-- All ingredient quantities will be integers between 1 and 10 000
+- $$1 <= N <= 10$$
+- All ingredient quantities will be integers between 1 and 10 000.
 
 ## Source
 
