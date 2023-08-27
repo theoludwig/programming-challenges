@@ -24,7 +24,7 @@ You are given a list of `n` array definitions and your job is to figure out what
 
 ### Constraints
 
-- $$1 <= n <= 100$$
+- $$1 \leq n \leq 100$$
 - Array names consist only of uppercase letters A to Z.
 - Array lengths are between 1 and 100 (no empty arrays).
 - Indexing operations have at most 50 levels of nesting.

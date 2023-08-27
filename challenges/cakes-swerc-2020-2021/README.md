@@ -27,7 +27,7 @@ available ingredients.
 
 ### Constraints
 
-- $$1 <= N <= 10$$
+- $$1 \leq N \leq 10$$
 - All ingredient quantities will be integers between 1 and 10 000.
 
 ## Source

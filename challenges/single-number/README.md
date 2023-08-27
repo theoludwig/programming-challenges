@@ -10,8 +10,8 @@ You must implement a solution with a linear runtime complexity and use only cons
 
 ### Constraints
 
-- $$1 <= numbers.length <= 3 \times 10^4$$
-- $$-3 \times 10^4 <= numbers[index] <= 3 \times 10^4$$
+- $$1 \leq numbers.length \leq 3 \times 10^4$$
+- $$-3 \times 10^4 \leq numbers[index] \leq 3 \times 10^4$$
 - Each element in the array appears twice except for one element which appears only once.
 
 ## Source
