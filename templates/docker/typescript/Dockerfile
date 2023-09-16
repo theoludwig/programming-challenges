@@ -1,9 +1,9 @@
-FROM node:20.5.1 AS builder-dependencies
+FROM node:20.6.1 AS builder-dependencies
 WORKDIR /usr/src/application
 COPY ./package*.json ./
 RUN npm install
 
-FROM node:20.5.1 AS builder
+FROM node:20.6.1 AS builder
 WORKDIR /usr/src/application
 COPY --from=builder-dependencies /usr/src/application/node_modules ./node_modules
 COPY ./ ./

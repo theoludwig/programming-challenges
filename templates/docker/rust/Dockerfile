@@ -1,4 +1,4 @@
-FROM rust:1.71.1 AS builder
+FROM rust:1.72.0 AS builder
 WORKDIR /usr/src/rust_application
 
 # Cache dependencies
@@ -10,7 +10,7 @@ RUN cargo build --release && rm --recursive --force ./src ./target/release/deps/
 COPY ./ ./
 RUN cargo build --release
 
-FROM gcr.io/distroless/cc-debian11:latest AS runner
+FROM gcr.io/distroless/cc-debian12:latest AS runner
 WORKDIR /usr/src/rust_application
 COPY --from=builder /usr/src/rust_application/target/release/rust_application ./
 CMD ["./rust_application"]
