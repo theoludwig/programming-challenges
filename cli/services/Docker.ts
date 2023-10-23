@@ -1,18 +1,18 @@
-import { execaCommand } from 'execa'
-import ms from 'ms'
+import { execaCommand } from "execa"
+import ms from "ms"
 
-import { parseCommandOutput } from '../utils/parseCommandOutput.js'
+import { parseCommandOutput } from "../utils/parseCommandOutput.js"
 
 export interface DockerRunResult {
   stdout: string
 }
 
 export class Docker {
-  public static readonly CONTAINER_BASE_TAG = 'programming-challenges'
+  public static readonly CONTAINER_BASE_TAG = "programming-challenges"
   public static readonly SIGSEGV_EXIT_CODE = 139
-  public static readonly MAXIMUM_TIMEOUT = '1 minute'
+  public static readonly MAXIMUM_TIMEOUT = "1 minute"
   public static readonly MAXIMUM_TIMEOUT_MILLISECONDS = ms(
-    Docker.MAXIMUM_TIMEOUT
+    Docker.MAXIMUM_TIMEOUT,
   )
 
   public getContainerTag(id: string): string {
@@ -23,7 +23,7 @@ export class Docker {
     try {
       const { stdout } = await execaCommand(
         `docker images -q --filter=reference="${Docker.CONTAINER_BASE_TAG}:*"`,
-        { shell: true }
+        { shell: true },
       )
       return parseCommandOutput(stdout)
     } catch {
@@ -37,8 +37,8 @@ export class Docker {
       if (images.length === 0) {
         return
       }
-      await execaCommand(`docker rmi -f ${images.join(' ')}`, {
-        shell: true
+      await execaCommand(`docker rmi -f ${images.join(" ")}`, {
+        shell: true,
       })
     } catch {}
   }
@@ -55,8 +55,8 @@ export class Docker {
     const subprocess = execaCommand(
       `docker run --interactive --rm ${this.getContainerTag(id)}`,
       {
-        input
-      }
+        input,
+      },
     )
     try {
       const { stdout, stderr } = await subprocess
@@ -64,12 +64,12 @@ export class Docker {
         throw new Error(stderr)
       }
       return {
-        stdout
+        stdout,
       }
     } catch (error: any) {
       if (error.exitCode === Docker.SIGSEGV_EXIT_CODE) {
         throw new Error(
-          "Docker run failed.\nSIGSEGV indicates a segmentation fault (attempts to access a memory location that it's not allowed to access)."
+          "Docker run failed.\nSIGSEGV indicates a segmentation fault (attempts to access a memory location that it's not allowed to access).",
         )
       }
       throw new Error(`Docker run failed.\n${error.message as string}`)

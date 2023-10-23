@@ -1,35 +1,35 @@
-import test from 'node:test'
-import assert from 'node:assert/strict'
-import { PassThrough } from 'node:stream'
-import path from 'node:path'
-import fs from 'node:fs'
+import test from "node:test"
+import assert from "node:assert/strict"
+import { PassThrough } from "node:stream"
+import path from "node:path"
+import fs from "node:fs"
 
-import sinon from 'sinon'
-import fsMock from 'mock-fs'
-import chalk from 'chalk'
-import getStream from 'get-stream'
-import date from 'date-and-time'
+import sinon from "sinon"
+import fsMock from "mock-fs"
+import chalk from "chalk"
+import getStream from "get-stream"
+import date from "date-and-time"
 
-import { cli } from '../../../cli.js'
-import { isExistingPath } from '../../../utils/isExistingPath.js'
+import { cli } from "../../../cli.js"
+import { isExistingPath } from "../../../utils/isExistingPath.js"
 
-const input = ['generate', 'solution']
-const githubUser = 'theoludwig'
-const challenge = 'hello-world'
-const language = 'c'
-const solution = 'new-solution'
+const input = ["generate", "solution"]
+const githubUser = "theoludwig"
+const challenge = "hello-world"
+const language = "c"
+const solution = "new-solution"
 const inputChallenge = `--challenge=${challenge}`
 const inputGitHubUser = `--github-user=${githubUser}`
 const inputLanguage = `--language=${language}`
 const inputSolution = `--solution=${solution}`
 
-await test('programming-challenges generate solution', async (t) => {
+await test("programming-challenges generate solution", async (t) => {
   t.beforeEach(() => {
     fsMock(
       {
-        [process.cwd()]: fsMock.load(process.cwd(), { recursive: true })
+        [process.cwd()]: fsMock.load(process.cwd(), { recursive: true }),
       },
-      { createCwd: false }
+      { createCwd: false },
     )
   })
 
@@ -38,35 +38,35 @@ await test('programming-challenges generate solution', async (t) => {
     sinon.restore()
   })
 
-  await t.test('succeeds and generate the new solution', async () => {
-    sinon.stub(console, 'log').value(() => {})
-    const consoleLogSpy = sinon.spy(console, 'log')
-    const dateString = date.format(new Date(), 'D MMMM Y', true)
+  await t.test("succeeds and generate the new solution", async () => {
+    sinon.stub(console, "log").value(() => {})
+    const consoleLogSpy = sinon.spy(console, "log")
+    const dateString = date.format(new Date(), "D MMMM Y", true)
     const stream = new PassThrough()
     const exitCode = await cli.run(
       [...input, inputChallenge, inputGitHubUser, inputLanguage, inputSolution],
       {
         stdin: process.stdin,
         stdout: stream,
-        stderr: stream
-      }
+        stderr: stream,
+      },
     )
     stream.end()
     assert.strictEqual(exitCode, 0)
     const solutionPath = path.join(
       process.cwd(),
-      'challenges',
+      "challenges",
       challenge,
-      'solutions',
+      "solutions",
       language,
-      solution
+      solution,
     )
-    const readmePath = path.join(solutionPath, 'README.md')
+    const readmePath = path.join(solutionPath, "README.md")
     const readmeContent = await fs.promises.readFile(readmePath, {
-      encoding: 'utf-8'
+      encoding: "utf-8",
     })
     const successMessage = `${chalk.bold.green(
-      'Success:'
+      "Success:",
     )} created the new solution at ${solutionPath}.`
     assert.strictEqual(consoleLogSpy.calledWith(successMessage), true)
     assert.strictEqual(await isExistingPath(solutionPath), true)
@@ -75,15 +75,15 @@ await test('programming-challenges generate solution', async (t) => {
       `# ${challenge}/${language}/${solution}
 
 Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
-`
+`,
     )
   })
 
   await t.test("fails with challenges that doesn't exist", async () => {
-    sinon.stub(console, 'error').value(() => {})
-    const consoleErrorSpy = sinon.spy(console, 'error')
+    sinon.stub(console, "error").value(() => {})
+    const consoleErrorSpy = sinon.spy(console, "error")
     const stream = new PassThrough()
-    const invalidChallenge = 'aaa-jest-challenge'
+    const invalidChallenge = "aaa-jest-challenge"
     const inputInvalidChallenge = `--challenge=${invalidChallenge}`
     const exitCode = await cli.run(
       [
@@ -91,30 +91,30 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
         inputInvalidChallenge,
         inputGitHubUser,
         inputLanguage,
-        inputSolution
+        inputSolution,
       ],
       {
         stdin: process.stdin,
         stdout: stream,
-        stderr: stream
-      }
+        stderr: stream,
+      },
     )
     stream.end()
     assert.strictEqual(exitCode, 1)
     assert.strictEqual(
       consoleErrorSpy.calledWith(
-        chalk.bold.red('Error:') +
-          ` The challenge doesn't exist yet: ${invalidChallenge}.`
+        chalk.bold.red("Error:") +
+          ` The challenge doesn't exist yet: ${invalidChallenge}.`,
       ),
-      true
+      true,
     )
   })
 
-  await t.test('fails with solution that already exist', async () => {
-    sinon.stub(console, 'error').value(() => {})
-    const consoleErrorSpy = sinon.spy(console, 'error')
+  await t.test("fails with solution that already exist", async () => {
+    sinon.stub(console, "error").value(() => {})
+    const consoleErrorSpy = sinon.spy(console, "error")
     const stream = new PassThrough()
-    const invalidSolution = 'function'
+    const invalidSolution = "function"
     const inputInvalidSolution = `--solution=${invalidSolution}`
     const exitCode = await cli.run(
       [
@@ -122,30 +122,30 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
         inputChallenge,
         inputGitHubUser,
         inputLanguage,
-        inputInvalidSolution
+        inputInvalidSolution,
       ],
       {
         stdin: process.stdin,
         stdout: stream,
-        stderr: stream
-      }
+        stderr: stream,
+      },
     )
     stream.end()
     assert.strictEqual(exitCode, 1)
     assert.strictEqual(
       consoleErrorSpy.calledWith(
-        chalk.bold.red('Error:') +
-          ` The solution already exists: ${invalidSolution}.`
+        chalk.bold.red("Error:") +
+          ` The solution already exists: ${invalidSolution}.`,
       ),
-      true
+      true,
     )
   })
 
-  await t.test('fails with invalid language', async () => {
-    sinon.stub(console, 'error').value(() => {})
-    const consoleErrorSpy = sinon.spy(console, 'error')
+  await t.test("fails with invalid language", async () => {
+    sinon.stub(console, "error").value(() => {})
+    const consoleErrorSpy = sinon.spy(console, "error")
     const stream = new PassThrough()
-    const invalidLanguage = 'invalid'
+    const invalidLanguage = "invalid"
     const inputInvalidLanguage = `--language=${invalidLanguage}`
     const exitCode = await cli.run(
       [
@@ -153,32 +153,32 @@ Created by [@${githubUser}](https://github.com/${githubUser}) on ${dateString}.
         inputChallenge,
         inputGitHubUser,
         inputSolution,
-        inputInvalidLanguage
+        inputInvalidLanguage,
       ],
       {
         stdin: process.stdin,
         stdout: stream,
-        stderr: stream
-      }
+        stderr: stream,
+      },
     )
     stream.end()
     assert.strictEqual(exitCode, 1)
     assert.strictEqual(
       consoleErrorSpy.calledWith(
-        chalk.bold.red('Error:') +
-          ' This programming language is not supported yet.'
+        chalk.bold.red("Error:") +
+          " This programming language is not supported yet.",
       ),
-      true
+      true,
     )
   })
 
-  await t.test('fails without options', async () => {
+  await t.test("fails without options", async () => {
     const stream = new PassThrough()
     const promise = getStream(stream)
     const exitCode = await cli.run(input, {
       stdin: process.stdin,
       stdout: stream,
-      stderr: stream
+      stderr: stream,
     })
     stream.end()
     assert.strictEqual(exitCode, 1)

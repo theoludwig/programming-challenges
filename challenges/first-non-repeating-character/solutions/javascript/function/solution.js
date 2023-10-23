@@ -1,14 +1,14 @@
-import readline from 'node:readline'
+import readline from "node:readline"
 
 const input = []
 const readlineInterface = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 })
-readlineInterface.on('line', (value) => {
+readlineInterface.on("line", (value) => {
   input.push(value)
 })
-readlineInterface.on('close', solution)
+readlineInterface.on("close", solution)
 
 const firstNonRepeatingCharacter = (string) => {
   const lettersCount = {}
@@ -18,7 +18,7 @@ const firstNonRepeatingCharacter = (string) => {
       lettersCount[character] = {
         total: 1,
         firstIndex: index,
-        value: character
+        value: character,
       }
     } else {
       lettersCount[character].total += 1
@@ -36,7 +36,7 @@ const firstNonRepeatingCharacter = (string) => {
     }
   }
   if (result == null) {
-    return ''
+    return ""
   }
   return result.value
 }

@@ -1,40 +1,40 @@
-import path from 'node:path'
-import fs from 'node:fs'
+import path from "node:path"
+import fs from "node:fs"
 
-import { Command, Option } from 'clipanion'
-import * as typanion from 'typanion'
-import chalk from 'chalk'
+import { Command, Option } from "clipanion"
+import * as typanion from "typanion"
+import chalk from "chalk"
 
-import { template } from '../../services/Template.js'
-import { Challenge } from '../../services/Challenge.js'
+import { template } from "../../services/Template.js"
+import { Challenge } from "../../services/Challenge.js"
 
 export class SearchCommand extends Command {
-  public static override paths = [['search']]
+  public static override paths = [["search"]]
 
   public static override usage = {
-    description: 'Search challenges in the programming language specified.'
+    description: "Search challenges in the programming language specified.",
   }
 
-  public solved = Option.Boolean('--solved', false, {
+  public solved = Option.Boolean("--solved", false, {
     description:
-      'Challenges which have already been solved (at least with one solution).'
+      "Challenges which have already been solved (at least with one solution).",
   })
 
-  public programmingLanguage = Option.String('--language', {
-    description: 'The programming language used to solve the challenge.',
+  public programmingLanguage = Option.String("--language", {
+    description: "The programming language used to solve the challenge.",
     required: true,
-    validator: typanion.isString()
+    validator: typanion.isString(),
   })
 
   public async execute(): Promise<number> {
     try {
       await template.verifySupportedProgrammingLanguage(
-        this.programmingLanguage
+        this.programmingLanguage,
       )
       const challenges = await Challenge.getChallenges()
       const challengesResult: Challenge[] = []
       for (const challenge of challenges) {
-        const solutionsPath = path.join(challenge.path, 'solutions')
+        const solutionsPath = path.join(challenge.path, "solutions")
         const solutions = await fs.promises.readdir(solutionsPath)
         if (
           (!this.solved && !solutions.includes(this.programmingLanguage)) ||
@@ -44,8 +44,8 @@ export class SearchCommand extends Command {
         }
       }
       const message = this.solved
-        ? 'Challenges already solved'
-        : 'Challenges not yet solved'
+        ? "Challenges already solved"
+        : "Challenges not yet solved"
       console.log(`${message} in ${chalk.bold(this.programmingLanguage)}:`)
       for (const challenge of challengesResult) {
         console.log(`  - ${challenge.name}`)
@@ -53,7 +53,7 @@ export class SearchCommand extends Command {
       return 0
     } catch (error) {
       if (error instanceof Error) {
-        console.error(`${chalk.bold.red('Error:')} ${error.message}`)
+        console.error(`${chalk.bold.red("Error:")} ${error.message}`)
       }
       return 1
     }

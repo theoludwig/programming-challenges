@@ -1,8 +1,8 @@
-import { fileURLToPath } from 'node:url'
-import fs from 'node:fs'
-import crypto from 'node:crypto'
+import { fileURLToPath } from "node:url"
+import fs from "node:fs"
+import crypto from "node:crypto"
 
-import { docker } from './Docker.js'
+import { docker } from "./Docker.js"
 
 export class TemporaryFolder {
   public readonly id: string
@@ -24,7 +24,7 @@ export class TemporaryFolder {
   public static async cleanAll(): Promise<void> {
     try {
       const temporaryPath = fileURLToPath(
-        new URL('../../temp', import.meta.url)
+        new URL("../../temp", import.meta.url),
       )
       await fs.promises.rm(temporaryPath, { recursive: true, force: true })
       await docker.removeImages()

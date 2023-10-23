@@ -1,14 +1,14 @@
-import readline from 'node:readline'
+import readline from "node:readline"
 
 const numbers = []
 const readlineInterface = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 })
-readlineInterface.on('line', (value) => {
+readlineInterface.on("line", (value) => {
   numbers.push(Number(value))
 })
-readlineInterface.on('close', solution)
+readlineInterface.on("close", solution)
 
 function solution() {
   const sortedNumbers = bubbleSort(numbers.slice(1))
@@ -17,7 +17,7 @@ function solution() {
   })
 }
 
-function bubbleSort (numbersInput) {
+function bubbleSort(numbersInput) {
   const numbers = [...numbersInput]
   for (let index1 = 0; index1 < numbers.length; index1++) {
     for (let index2 = 0; index2 < numbers.length - index1 - 1; index2++) {

@@ -1,9 +1,9 @@
-import logSymbols from 'log-symbols'
-import chalk from 'chalk'
-import { table } from 'table'
+import logSymbols from "log-symbols"
+import chalk from "chalk"
+import { table } from "table"
 
-import type { Solution } from './Solution.js'
-import type { Test } from './Test.js'
+import type { Solution } from "./Solution.js"
+import type { Test } from "./Test.js"
 
 export interface SolutionTestsResultOptions {
   tests: Test[]
@@ -22,7 +22,7 @@ export class SolutionTestsResult implements SolutionTestsResultOptions {
   public isSuccess: boolean
   public elapsedTimeMilliseconds: number
   public static readonly SUCCESS_MESSAGE = `${chalk.bold.green(
-    'Success:'
+    "Success:",
   )} Tests passed! 🎉`
 
   constructor(options: SolutionTestsResultOptions) {
@@ -40,14 +40,14 @@ export class SolutionTestsResult implements SolutionTestsResultOptions {
     const { shouldPrintBenchmark = false, shouldPrintTableResult = false } =
       options
     const name = `${this.solution.challenge.name}/${this.solution.programmingLanguageName}/${this.solution.name}`
-    console.log(`${chalk.bold('Name:')} ${name}\n`)
+    console.log(`${chalk.bold("Name:")} ${name}\n`)
     const tableResult = [
       [
-        chalk.bold('N°'),
-        chalk.bold('Input'),
-        chalk.bold('Expected'),
-        chalk.bold('Received')
-      ]
+        chalk.bold("N°"),
+        chalk.bold("Input"),
+        chalk.bold("Expected"),
+        chalk.bold("Received"),
+      ],
     ]
     let totalFailedTests = 0
     let totalCorrectTests = 0
@@ -58,13 +58,13 @@ export class SolutionTestsResult implements SolutionTestsResultOptions {
         totalCorrectTests += 1
       } else {
         console.log(logSymbols.error, testLabel)
-        const expected = test.output.split('\n').join('\n')
-        const received = test.stdout.split('\n').join('\n')
+        const expected = test.output.split("\n").join("\n")
+        const received = test.stdout.split("\n").join("\n")
         tableResult.push([
           test.testNumber.toString(),
           `"${test.input}"`,
           `"${expected}"`,
-          `"${received}"`
+          `"${received}"`,
         ])
         totalFailedTests += 1
       }
@@ -78,19 +78,19 @@ export class SolutionTestsResult implements SolutionTestsResultOptions {
       ? chalk.bold.green(`${totalCorrectTests} passed`)
       : chalk.bold.red(`${totalFailedTests} failed`)
     console.log(
-      `${chalk.bold('Tests:')} ${testsResult}, ${this.tests.length} total`
+      `${chalk.bold("Tests:")} ${testsResult}, ${this.tests.length} total`,
     )
     if (shouldPrintBenchmark) {
       SolutionTestsResult.printBenchmark(this.elapsedTimeMilliseconds)
     }
     if (!isSuccess) {
-      throw new Error('Tests failed, try again!')
+      throw new Error("Tests failed, try again!")
     }
-    console.log('\n------------------------------\n')
+    console.log("\n------------------------------\n")
   }
 
   public static printBenchmark(elapsedTimeMilliseconds: number): void {
     const elapsedTime = elapsedTimeMilliseconds / 1000
-    console.log(`${chalk.bold('Benchmark:')} ${elapsedTime} seconds`)
+    console.log(`${chalk.bold("Benchmark:")} ${elapsedTime} seconds`)
   }
 }

@@ -1,20 +1,20 @@
-import readline from 'node:readline'
+import readline from "node:readline"
 
 const input = []
 const readlineInterface = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 })
-readlineInterface.on('line', (value) => {
+readlineInterface.on("line", (value) => {
   input.push(value)
 })
-readlineInterface.on('close', solution)
+readlineInterface.on("close", solution)
 
 function solution() {
   const string = input[0]
   const output = string
     .trim()
-    .split(' ')
+    .split(" ")
     .map((word, index) => {
       const isFirstElement = index === 0
       if (isFirstElement) {
@@ -22,6 +22,6 @@ function solution() {
       }
       return word[0].toUpperCase() + word.slice(1)
     })
-    .join('')
+    .join("")
   console.log(output)
 }

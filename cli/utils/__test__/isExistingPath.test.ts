@@ -1,26 +1,26 @@
-import test from 'node:test'
-import assert from 'node:assert/strict'
+import test from "node:test"
+import assert from "node:assert/strict"
 
-import fsMock from 'mock-fs'
+import fsMock from "mock-fs"
 
-import { isExistingPath } from '../isExistingPath.js'
+import { isExistingPath } from "../isExistingPath.js"
 
-await test('utils/isExistingPath', async (t) => {
+await test("utils/isExistingPath", async (t) => {
   t.afterEach(() => {
     fsMock.restore()
   })
 
-  await t.test('should return true if the file exists', async () => {
+  await t.test("should return true if the file exists", async () => {
     fsMock({
-      '/file.txt': ''
+      "/file.txt": "",
     })
-    assert.strictEqual(await isExistingPath('/file.txt'), true)
+    assert.strictEqual(await isExistingPath("/file.txt"), true)
   })
 
   await t.test("should return false if the file doesn't exists", async () => {
     fsMock({
-      '/file.txt': ''
+      "/file.txt": "",
     })
-    assert.strictEqual(await isExistingPath('/randomfile.txt'), false)
+    assert.strictEqual(await isExistingPath("/randomfile.txt"), false)
   })
 })

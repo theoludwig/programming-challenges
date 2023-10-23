@@ -1,14 +1,14 @@
-import readline from 'node:readline'
+import readline from "node:readline"
 
 const numbers = []
 const readlineInterface = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 })
-readlineInterface.on('line', (value) => {
+readlineInterface.on("line", (value) => {
   numbers.push(Number(value))
 })
-readlineInterface.on('close', solution)
+readlineInterface.on("close", solution)
 
 function solution() {
   const sortedNumbers = nativeSort(numbers.slice(1))
@@ -17,6 +17,6 @@ function solution() {
   })
 }
 
-function nativeSort (numbers) {
+function nativeSort(numbers) {
   return numbers.sort((number1, number2) => number1 - number2)
 }

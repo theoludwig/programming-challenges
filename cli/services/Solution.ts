@@ -1,19 +1,19 @@
-import { fileURLToPath } from 'node:url'
-import path from 'node:path'
-import fs from 'node:fs'
-import { performance } from 'node:perf_hooks'
+import { fileURLToPath } from "node:url"
+import path from "node:path"
+import fs from "node:fs"
+import { performance } from "node:perf_hooks"
 
-import chalk from 'chalk'
-import ora from 'ora'
+import chalk from "chalk"
+import ora from "ora"
 
-import { isExistingPath } from '../utils/isExistingPath.js'
-import { Challenge } from './Challenge.js'
-import { copyDirectory } from '../utils/copyDirectory.js'
-import { template } from './Template.js'
-import { docker } from './Docker.js'
-import { Test } from './Test.js'
-import { SolutionTestsResult } from './SolutionTestsResult.js'
-import { TemporaryFolder } from './TemporaryFolder.js'
+import { isExistingPath } from "../utils/isExistingPath.js"
+import { Challenge } from "./Challenge.js"
+import { copyDirectory } from "../utils/copyDirectory.js"
+import { template } from "./Template.js"
+import { docker } from "./Docker.js"
+import { Test } from "./Test.js"
+import { SolutionTestsResult } from "./SolutionTestsResult.js"
+import { TemporaryFolder } from "./TemporaryFolder.js"
 
 export interface GetSolutionOptions {
   programmingLanguageName: string
@@ -45,9 +45,9 @@ export class Solution implements SolutionOptions {
     this.name = name
     this.path = path.join(
       challenge.path,
-      'solutions',
+      "solutions",
       programmingLanguageName,
-      name
+      name,
     )
     this.temporaryFolder = new TemporaryFolder()
   }
@@ -57,7 +57,7 @@ export class Solution implements SolutionOptions {
     await copyDirectory(this.path, this.temporaryFolder.path)
     await template.docker({
       programmingLanguage: this.programmingLanguageName,
-      destination: this.temporaryFolder.path
+      destination: this.temporaryFolder.path,
     })
     process.chdir(this.temporaryFolder.path)
     try {
@@ -74,16 +74,16 @@ export class Solution implements SolutionOptions {
 
   public async run(input: string, output: boolean = false): Promise<void> {
     await this.setup()
-    const loader = ora('Running...').start()
+    const loader = ora("Running...").start()
     try {
       const start = performance.now()
       const { stdout } = await docker.run(input, this.temporaryFolder.id)
       const end = performance.now()
       const elapsedTimeMilliseconds = end - start
-      loader.succeed(chalk.bold.green('Success!'))
+      loader.succeed(chalk.bold.green("Success!"))
       SolutionTestsResult.printBenchmark(elapsedTimeMilliseconds)
       if (output) {
-        console.log(`${chalk.bold('Output:')}`)
+        console.log(`${chalk.bold("Output:")}`)
         console.log(stdout)
       }
     } catch (error: any) {
@@ -101,7 +101,7 @@ export class Solution implements SolutionOptions {
     const solution = new Solution({
       name,
       challenge,
-      programmingLanguageName
+      programmingLanguageName,
     })
     if (await isExistingPath(solution.path)) {
       throw new Error(`The solution already exists: ${name}.`)
@@ -111,7 +111,7 @@ export class Solution implements SolutionOptions {
       destination: solution.path,
       githubUser,
       programmingLanguageName: solution.programmingLanguageName,
-      name: solution.name
+      name: solution.name,
     })
     return solution
   }
@@ -119,25 +119,25 @@ export class Solution implements SolutionOptions {
   static async get(options: GetSolutionOptions): Promise<Solution> {
     const { name, challengeName, programmingLanguageName } = options
     const challenge = new Challenge({
-      name: challengeName
+      name: challengeName,
     })
     const solution = new Solution({
       name,
       challenge,
-      programmingLanguageName
+      programmingLanguageName,
     })
     if (!(await isExistingPath(solution.path))) {
-      throw new Error('The solution was not found.')
+      throw new Error("The solution was not found.")
     }
     return solution
   }
 
   static async getManyByChallenge(challenge: Challenge): Promise<Solution[]> {
-    const solutionsPath = path.join(challenge.path, 'solutions')
+    const solutionsPath = path.join(challenge.path, "solutions")
     const languagesSolution = (await fs.promises.readdir(solutionsPath)).filter(
       (name) => {
-        return name !== '.gitkeep'
-      }
+        return name !== ".gitkeep"
+      },
     )
     const paths: string[] = []
     for (const language of languagesSolution) {
@@ -152,21 +152,21 @@ export class Solution implements SolutionOptions {
   }
 
   static async getManyByProgrammingLanguages(
-    programmingLanguages?: string[]
+    programmingLanguages?: string[],
   ): Promise<Solution[]> {
     const languages =
       programmingLanguages ?? (await template.getProgrammingLanguages())
     const challengesPath = fileURLToPath(
-      new URL('../../challenges', import.meta.url)
+      new URL("../../challenges", import.meta.url),
     )
     const challenges = await fs.promises.readdir(challengesPath)
     const paths: string[] = []
     for (const challenge of challenges) {
-      const solutionsPath = path.join(challengesPath, challenge, 'solutions')
+      const solutionsPath = path.join(challengesPath, challenge, "solutions")
       const languagesSolution = (
         await fs.promises.readdir(solutionsPath)
       ).filter((name) => {
-        return name !== '.gitkeep' && languages.includes(name)
+        return name !== ".gitkeep" && languages.includes(name)
       })
       for (const language of languagesSolution) {
         const solutionPath = (
@@ -194,7 +194,7 @@ export class Solution implements SolutionOptions {
     }
     return solutions.map((solution) => {
       const [, challengeName, , programmingLanguageName, solutionName] =
-        solution.replaceAll('\\', '/').split('/')
+        solution.replaceAll("\\", "/").split("/")
 
       if (
         challengeName == null ||
@@ -206,10 +206,10 @@ export class Solution implements SolutionOptions {
 
       return new Solution({
         challenge: new Challenge({
-          name: challengeName
+          name: challengeName,
         }),
         name: solutionName,
-        programmingLanguageName
+        programmingLanguageName,
       })
     })
   }

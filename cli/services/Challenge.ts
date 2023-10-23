@@ -1,10 +1,10 @@
-import fs from 'node:fs'
-import { fileURLToPath } from 'node:url'
+import fs from "node:fs"
+import { fileURLToPath } from "node:url"
 
-import validateProjectName from 'validate-npm-package-name'
+import validateProjectName from "validate-npm-package-name"
 
-import { isExistingPath } from '../utils/isExistingPath.js'
-import { template } from './Template.js'
+import { isExistingPath } from "../utils/isExistingPath.js"
+import { template } from "./Template.js"
 
 export interface ChallengeOptions {
   name: string
@@ -15,7 +15,7 @@ export interface GenerateChallengeOptions extends ChallengeOptions {
 }
 
 export class Challenge implements ChallengeOptions {
-  public static BASE_URL = new URL('../../challenges/', import.meta.url)
+  public static BASE_URL = new URL("../../challenges/", import.meta.url)
   public name: string
   public path: string
 
@@ -33,7 +33,7 @@ export class Challenge implements ChallengeOptions {
   }
 
   public static async generate(
-    options: GenerateChallengeOptions
+    options: GenerateChallengeOptions,
   ): Promise<Challenge> {
     const { name, githubUser } = options
     const challenge = new Challenge({ name })
@@ -42,13 +42,13 @@ export class Challenge implements ChallengeOptions {
     }
     const isValidName = validateProjectName(name).validForNewPackages
     if (!isValidName) {
-      throw new Error('Invalid challenge name.')
+      throw new Error("Invalid challenge name.")
     }
     await fs.promises.mkdir(challenge.path)
     await template.challenge({
       destination: challenge.path,
       githubUser,
-      name
+      name,
     })
     return challenge
   }

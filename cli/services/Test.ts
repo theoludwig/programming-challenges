@@ -1,11 +1,11 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import { performance } from 'node:perf_hooks'
+import fs from "node:fs"
+import path from "node:path"
+import { performance } from "node:perf_hooks"
 
-import type { Solution } from './Solution.js'
-import { docker } from './Docker.js'
-import { SolutionTestsResult } from './SolutionTestsResult.js'
-import { TemporaryFolder } from './TemporaryFolder.js'
+import type { Solution } from "./Solution.js"
+import { docker } from "./Docker.js"
+import { SolutionTestsResult } from "./SolutionTestsResult.js"
+import { TemporaryFolder } from "./TemporaryFolder.js"
 
 export interface InputOutput {
   input: string
@@ -45,7 +45,7 @@ export class Test implements TestOptions {
   }
 
   static async runAll(solution: Solution): Promise<SolutionTestsResult> {
-    const testsPath = path.join(solution.challenge.path, 'test')
+    const testsPath = path.join(solution.challenge.path, "test")
     const testsFolders = await fs.promises.readdir(testsPath)
     const testsNumbers = testsFolders.map((test) => {
       return Number(test)
@@ -63,11 +63,11 @@ export class Test implements TestOptions {
   }
 
   static async getInputOutput(testPath: string): Promise<InputOutput> {
-    const inputPath = path.join(testPath, 'input.txt')
-    const outputPath = path.join(testPath, 'output.txt')
-    const input = await fs.promises.readFile(inputPath, { encoding: 'utf-8' })
+    const inputPath = path.join(testPath, "input.txt")
+    const outputPath = path.join(testPath, "output.txt")
+    const input = await fs.promises.readFile(inputPath, { encoding: "utf-8" })
     const output = await fs.promises.readFile(outputPath, {
-      encoding: 'utf-8'
+      encoding: "utf-8",
     })
     return { input, output }
   }
@@ -101,7 +101,7 @@ export class Test implements TestOptions {
     try {
       const { stdout } = await docker.run(
         input,
-        options.solution.temporaryFolder.id
+        options.solution.temporaryFolder.id,
       )
       const test = new Test({
         path: options.path,
@@ -109,12 +109,12 @@ export class Test implements TestOptions {
         input,
         output,
         stdout,
-        isSuccess: stdout === output
+        isSuccess: stdout === output,
       })
       return test
     } catch (error: any) {
       throw new Error(
-        `solution: ${options.solution.path}\n${error.message as string}\n`
+        `solution: ${options.solution.path}\n${error.message as string}\n`,
       )
     }
   }

@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import fs from "node:fs"
 
 export const isExistingPath = async (path: string): Promise<boolean> => {
   try {

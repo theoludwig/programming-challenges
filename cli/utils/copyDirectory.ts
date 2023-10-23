@@ -1,9 +1,9 @@
-import fs from 'node:fs'
-import path from 'node:path'
+import fs from "node:fs"
+import path from "node:path"
 
 export const copyDirectory = async (
   source: string,
-  destination: string
+  destination: string,
 ): Promise<void> => {
   const filesToCreate = await fs.promises.readdir(source)
   for (const file of filesToCreate) {

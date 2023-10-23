@@ -26,9 +26,9 @@ Here are the rules for building a Roman numeral:
   - `42` is written as `XLII`
   - `2448` is written as `MMCDXLVIII`.
 
-| Symbol | I | V | X  | L  | C   | D   | M    |
-|--------|---|---|----|----|-----|-----|------|
-| Value  | 1 | 5 | 10 | 50 | 100 | 500 | 1000 |
+| Symbol | I   | V   | X   | L   | C   | D   | M    |
+| ------ | --- | --- | --- | --- | --- | --- | ---- |
+| Value  | 1   | 5   | 10  | 50  | 100 | 500 | 1000 |
 
 ### Input
 

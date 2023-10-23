@@ -7,7 +7,7 @@ export const getMaximumFrequencyDeviation = (string) => {
   /** @type {string[]} */
   const subStrings = []
   for (let index = 0; index < string.length; index++) {
-    let subString = ''
+    let subString = ""
     for (let subIndex = index; subIndex < string.length; subIndex++) {
       subString += string[subIndex]
       subStrings.push(subString)

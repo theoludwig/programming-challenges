@@ -1,4 +1,4 @@
-name: 'challenges'
+name: "challenges"
 
 on:
   push:
@@ -8,39 +8,39 @@ on:
 
 jobs:
   test-solutions:
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
     timeout-minutes: 30
     steps:
-      - uses: 'actions/checkout@v4.0.0'
+      - uses: "actions/checkout@v4.0.0"
         with:
           fetch-depth: 0
 
-      - name: 'Setup Docker'
-        uses: 'actions-hub/docker/cli@master'
+      - name: "Setup Docker"
+        uses: "actions-hub/docker/cli@master"
         env:
           SKIP_LOGIN: true
 
-      - name: 'Setup Node.js'
-        uses: 'actions/setup-node@v3.8.1'
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v3.8.1"
         with:
-          node-version: 'lts/*'
-          cache: 'npm'
+          node-version: "lts/*"
+          cache: "npm"
 
-      - name: 'Install dependencies'
-        run: 'npm clean-install'
+      - name: "Install dependencies"
+        run: "npm clean-install"
 
-      - name: 'Build'
-        run: 'npm run build'
+      - name: "Build"
+        run: "npm run build"
 
-      - name: 'Install programming-challenges'
-        run: 'npm install --global'
+      - name: "Install programming-challenges"
+        run: "npm install --global"
 
-      - uses: 'nrwl/last-successful-commit-action@v1'
-        id: 'last_successful_commit'
+      - uses: "nrwl/last-successful-commit-action@v1"
+        id: "last_successful_commit"
         with:
-          branch: 'master'
-          workflow_id: 'challenges.yml'
+          branch: "master"
+          workflow_id: "challenges.yml"
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 'Test'
-        run: 'programming-challenges run test --affected --base=${{ steps.last_successful_commit.outputs.commit_hash }}'
+      - name: "Test"
+        run: "programming-challenges run test --affected --base=${{ steps.last_successful_commit.outputs.commit_hash }}"

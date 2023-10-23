@@ -1,4 +1,4 @@
-import readline from 'node:readline'
+import readline from "node:readline"
 
 /**
  *
@@ -12,7 +12,7 @@ const leftPad = (string, resultLength, padString) => {
   if (resultLength <= 0) {
     return string
   }
-  let pad = ''
+  let pad = ""
   while (resultLength !== 0) {
     if (resultLength & 1) {
       pad += padString
@@ -32,9 +32,9 @@ const solution = () => {
 const input = []
 const readlineInterface = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 })
-readlineInterface.on('line', (value) => {
+readlineInterface.on("line", (value) => {
   input.push(value)
 })
-readlineInterface.on('close', solution)
+readlineInterface.on("close", solution)

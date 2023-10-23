@@ -1,14 +1,14 @@
-import readline from 'node:readline'
+import readline from "node:readline"
 
 const numbers = []
 const readlineInterface = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 })
-readlineInterface.on('line', (value) => {
+readlineInterface.on("line", (value) => {
   numbers.push(Number(value))
 })
-readlineInterface.on('close', solution)
+readlineInterface.on("close", solution)
 
 function solution() {
   const sortedNumbers = mergeSort(numbers.slice(1))
@@ -17,14 +17,14 @@ function solution() {
   })
 }
 
-function divideArray (numbers) {
+function divideArray(numbers) {
   const middle = Math.round(numbers.length / 2)
   const left = numbers.slice(0, middle)
   const right = numbers.slice(middle)
   return [left, right]
 }
 
-function merge (numbers1, numbers2) {
+function merge(numbers1, numbers2) {
   let indexNumbers1 = 0
   let indexNumbers2 = 0
   const result = []
@@ -46,7 +46,7 @@ function merge (numbers1, numbers2) {
   return result
 }
 
-function mergeSort (numbers) {
+function mergeSort(numbers) {
   if (numbers.length <= 1) {
     return numbers
   }

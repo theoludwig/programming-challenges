@@ -1,10 +1,10 @@
-image: 'gitpod/workspace-full'
+image: "gitpod/workspace-full"
 
 tasks:
-  - name: 'programming-challenges'
-    before: 'npm clean-install'
-    init: 'npm run build'
-    command: 'npm install --global && programming-challenges'
+  - name: "programming-challenges"
+    before: "npm clean-install"
+    init: "npm run build"
+    command: "npm install --global && programming-challenges"
 
 github:
   prebuilds:

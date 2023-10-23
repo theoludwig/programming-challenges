@@ -1,6 +1,6 @@
 export const parseCommandOutput = (output: string): string[] => {
   return output
-    .split('\n')
+    .split("\n")
     .map((line) => {
       return line.trim()
     })

@@ -17,8 +17,8 @@ make?
 
 - **Line 1:** Single integer `N` for the number of ingredients.
 - **`N` next lines:** One for each ingredient. Each of these lines contains two positive integers:
-the first one is the required quantity of this ingredient per cake, the second one is the quantity of
-this ingredient you have in your kitchen.
+  the first one is the required quantity of this ingredient per cake, the second one is the quantity of
+  this ingredient you have in your kitchen.
 
 ### Output
 

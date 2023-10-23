@@ -1,4 +1,4 @@
-name: 'cli'
+name: "cli"
 
 on:
   push:
@@ -8,64 +8,64 @@ on:
 
 jobs:
   lint:
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
     steps:
-      - uses: 'actions/checkout@v4.0.0'
+      - uses: "actions/checkout@v4.0.0"
 
-      - name: 'Setup Node.js'
-        uses: 'actions/setup-node@v3.8.1'
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v3.8.1"
         with:
-          node-version: 'lts/*'
-          cache: 'npm'
+          node-version: "lts/*"
+          cache: "npm"
 
-      - name: 'Install dependencies'
-        run: 'npm clean-install'
+      - name: "Install dependencies"
+        run: "npm clean-install"
 
       - run: 'npm run lint:commit -- --to "${{ github.sha }}"'
-      - run: 'npm run lint:editorconfig'
-      - run: 'npm run lint:markdown'
-      - run: 'npm run lint:eslint'
+      - run: "npm run lint:editorconfig"
+      - run: "npm run lint:markdown"
+      - run: "npm run lint:eslint"
 
   build:
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
     steps:
-      - uses: 'actions/checkout@v4.0.0'
+      - uses: "actions/checkout@v4.0.0"
 
-      - name: 'Setup Node.js'
-        uses: 'actions/setup-node@v3.8.1'
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v3.8.1"
         with:
-          node-version: 'lts/*'
-          cache: 'npm'
+          node-version: "lts/*"
+          cache: "npm"
 
-      - name: 'Install dependencies'
-        run: 'npm clean-install'
+      - name: "Install dependencies"
+        run: "npm clean-install"
 
-      - name: 'Build'
-        run: 'npm run build'
+      - name: "Build"
+        run: "npm run build"
 
-      - run: 'npm run build:typescript'
+      - run: "npm run build:typescript"
 
   test:
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
     steps:
-      - uses: 'actions/checkout@v4.0.0'
+      - uses: "actions/checkout@v4.0.0"
 
-      - name: 'Setup Docker'
-        uses: 'actions-hub/docker/cli@master'
+      - name: "Setup Docker"
+        uses: "actions-hub/docker/cli@master"
         env:
           SKIP_LOGIN: true
 
-      - name: 'Setup Node.js'
-        uses: 'actions/setup-node@v3.8.1'
+      - name: "Setup Node.js"
+        uses: "actions/setup-node@v3.8.1"
         with:
-          node-version: 'lts/*'
-          cache: 'npm'
+          node-version: "lts/*"
+          cache: "npm"
 
-      - name: 'Install dependencies'
-        run: 'npm clean-install'
+      - name: "Install dependencies"
+        run: "npm clean-install"
 
-      - name: 'Build'
-        run: 'npm run build'
+      - name: "Build"
+        run: "npm run build"
 
-      - name: 'Test'
-        run: 'npm run test'
+      - name: "Test"
+        run: "npm run test"

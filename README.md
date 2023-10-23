@@ -49,7 +49,7 @@ Gitpod will automatically setup an environment for you.
 #### Prerequisites
 
 - [Node.js](https://nodejs.org/) >= 20.0.0
-- [npm](https://npmjs.com/) >= 9.0.0
+- [npm](https://npmjs.com/) >= 10.0.0
 - [Docker](https://www.docker.com/)
 
 #### Installation
