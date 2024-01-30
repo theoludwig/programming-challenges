@@ -18,7 +18,7 @@
   "scripts": {
     "start": "node --enable-source-maps build/index.js",
     "build": "swc ./cli --out-dir ./build --strip-leading-paths --delete-dir-on-start",
-    "build:dev": "swc ./cli --out-dir ./build --watch",
+    "build:dev": "swc ./cli --out-dir ./build --strip-leading-paths --delete-dir-on-start --watch",
     "build:typescript": "tsc",
     "lint:commit": "commitlint",
     "lint:editorconfig": "editorconfig-checker",
