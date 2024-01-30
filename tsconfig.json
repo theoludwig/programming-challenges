@@ -9,7 +9,7 @@
     "rootDir": "./cli",
     "noEmit": true,
     "checkJs": false,
-    "exactOptionalPropertyTypes": false
+    "exactOptionalPropertyTypes": false,
   },
-  "exclude": ["node_modules", "challenges", "templates", "temp", "tmp"]
+  "exclude": ["node_modules", "challenges", "templates", "temp", "tmp"],
 }
