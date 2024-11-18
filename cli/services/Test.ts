@@ -85,7 +85,9 @@ export class Test implements TestOptions {
             isSolutionSuccess = false
           }
         })
-        .catch(() => {})
+        .catch(() => {
+          isSolutionSuccess = false
+        })
     }
     await Promise.all(solutionTestsResultsPromises)
     await TemporaryFolder.cleanAll()
