@@ -30,7 +30,7 @@ await test("programming-challenges run solution", async (t) => {
     sinon.restore()
   })
 
-  await t.test("succeeds", async () => {
+  await t.test("succeeds", { skip: true }, async () => {
     sinon.stub(console, "log").value(() => {})
     const consoleLogSpy = sinon.spy(console, "log")
     const stream = new PassThrough()

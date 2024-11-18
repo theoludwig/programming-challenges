@@ -15,5 +15,5 @@ export default typescriptESLint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-  }
+  },
 )

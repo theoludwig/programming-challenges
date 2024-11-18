@@ -24,6 +24,7 @@ jobs:
       - run: "npm run lint:editorconfig"
       - run: "npm run lint:markdown"
       - run: "npm run lint:eslint"
+      - run: "npm run lint:prettier"
 
   build:
     runs-on: "ubuntu-latest"

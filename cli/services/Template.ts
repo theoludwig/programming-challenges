@@ -50,7 +50,7 @@ class Template {
   }
 
   private async replaceInDestination(
-    options: ReplaceInDestinationOptions
+    options: ReplaceInDestinationOptions,
   ): Promise<void> {
     const { name, description, destination } = options
     const readmePath = path.join(destination, "README.md")
@@ -82,7 +82,7 @@ class Template {
     } = options
     const templateLanguagePath = path.join(
       TEMPLATE_SOLUTION_PATH,
-      programmingLanguageName
+      programmingLanguageName,
     )
     await this.verifySupportedProgrammingLanguage(programmingLanguageName)
     await fs.promises.mkdir(destination, { recursive: true })
@@ -113,7 +113,7 @@ class Template {
   }
 
   public async verifySupportedProgrammingLanguage(
-    language: string
+    language: string,
   ): Promise<void> {
     const languages = await this.getProgrammingLanguages()
     if (!languages.includes(language)) {
