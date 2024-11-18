@@ -47,7 +47,7 @@ export class Solution implements SolutionOptions {
       challenge.path,
       "solutions",
       programmingLanguageName,
-      name,
+      name
     )
     this.temporaryFolder = new TemporaryFolder()
   }
@@ -83,7 +83,7 @@ export class Solution implements SolutionOptions {
       loader.succeed(chalk.bold.green("Success!"))
       SolutionTestsResult.printBenchmark(elapsedTimeMilliseconds)
       if (output) {
-        console.log(`${chalk.bold("Output:")}`)
+        console.log(chalk.bold("Output:"))
         console.log(stdout)
       }
     } catch (error: any) {
@@ -137,7 +137,7 @@ export class Solution implements SolutionOptions {
     const languagesSolution = (await fs.promises.readdir(solutionsPath)).filter(
       (name) => {
         return name !== ".gitkeep"
-      },
+      }
     )
     const paths: string[] = []
     for (const language of languagesSolution) {
@@ -152,12 +152,12 @@ export class Solution implements SolutionOptions {
   }
 
   static async getManyByProgrammingLanguages(
-    programmingLanguages?: string[],
+    programmingLanguages?: string[]
   ): Promise<Solution[]> {
     const languages =
       programmingLanguages ?? (await template.getProgrammingLanguages())
     const challengesPath = fileURLToPath(
-      new URL("../../challenges", import.meta.url),
+      new URL("../../challenges", import.meta.url)
     )
     const challenges = await fs.promises.readdir(challengesPath)
     const paths: string[] = []

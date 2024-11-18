@@ -1,4 +1,4 @@
-FROM gcc:12.3.0-bookworm AS builder
+FROM gcc:12.4.0-bookworm AS builder
 WORKDIR /usr/src/application
 COPY ./ ./
 RUN g++ ./*.cpp* -o solution -Wall -Wextra -Wfloat-equal -Wundef -Werror -std=c++17 -pedantic -pedantic-errors -O3
