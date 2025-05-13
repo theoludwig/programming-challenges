@@ -25,7 +25,7 @@ export class SolutionTestsResult implements SolutionTestsResultOptions {
     "Success:",
   )} Tests passed! 🎉`
 
-  constructor(options: SolutionTestsResultOptions) {
+  public constructor(options: SolutionTestsResultOptions) {
     this.tests = options.tests.sort((a, b) => {
       return a.testNumber - b.testNumber
     })

@@ -35,7 +35,7 @@ export class Test implements TestOptions {
   public output: string
   public stdout: string
 
-  constructor(options: TestOptions) {
+  public constructor(options: TestOptions) {
     this.testNumber = options.testNumber
     this.path = options.path
     this.isSuccess = options.isSuccess
@@ -44,7 +44,7 @@ export class Test implements TestOptions {
     this.stdout = options.stdout
   }
 
-  static async runAll(solution: Solution): Promise<SolutionTestsResult> {
+  public static async runAll(solution: Solution): Promise<SolutionTestsResult> {
     const testsPath = path.join(solution.challenge.path, "test")
     const testsFolders = await fs.promises.readdir(testsPath)
     const testsNumbers = testsFolders.map((test) => {
@@ -62,7 +62,7 @@ export class Test implements TestOptions {
     return new SolutionTestsResult({ solution, tests, elapsedTimeMilliseconds })
   }
 
-  static async getInputOutput(testPath: string): Promise<InputOutput> {
+  public static async getInputOutput(testPath: string): Promise<InputOutput> {
     const inputPath = path.join(testPath, "input.txt")
     const outputPath = path.join(testPath, "output.txt")
     const input = await fs.promises.readFile(inputPath, { encoding: "utf-8" })
@@ -72,7 +72,9 @@ export class Test implements TestOptions {
     return { input, output }
   }
 
-  static async runManyWithSolutions(solutions: Solution[]): Promise<number> {
+  public static async runManyWithSolutions(
+    solutions: Solution[],
+  ): Promise<number> {
     const solutionTestsResultsPromises: Array<Promise<SolutionTestsResult>> = []
     let isSolutionSuccess = true
     for (const solution of solutions) {
@@ -98,7 +100,7 @@ export class Test implements TestOptions {
     return 1
   }
 
-  static async run(options: TestRunOptions): Promise<Test> {
+  public static async run(options: TestRunOptions): Promise<Test> {
     const { input, output } = await Test.getInputOutput(options.path)
     try {
       const { stdout } = await docker.run(

@@ -38,7 +38,7 @@ export class Solution implements SolutionOptions {
   public path: string
   public temporaryFolder: TemporaryFolder
 
-  constructor(options: SolutionOptions) {
+  public constructor(options: SolutionOptions) {
     const { programmingLanguageName, challenge, name } = options
     this.programmingLanguageName = programmingLanguageName
     this.challenge = challenge
@@ -92,7 +92,9 @@ export class Solution implements SolutionOptions {
     }
   }
 
-  static async generate(options: GenerateSolutionOptions): Promise<Solution> {
+  public static async generate(
+    options: GenerateSolutionOptions,
+  ): Promise<Solution> {
     const { name, challengeName, programmingLanguageName, githubUser } = options
     const challenge = new Challenge({ name: challengeName })
     if (!(await isExistingPath(challenge.path))) {
@@ -116,7 +118,7 @@ export class Solution implements SolutionOptions {
     return solution
   }
 
-  static async get(options: GetSolutionOptions): Promise<Solution> {
+  public static async get(options: GetSolutionOptions): Promise<Solution> {
     const { name, challengeName, programmingLanguageName } = options
     const challenge = new Challenge({
       name: challengeName,
@@ -132,7 +134,9 @@ export class Solution implements SolutionOptions {
     return solution
   }
 
-  static async getManyByChallenge(challenge: Challenge): Promise<Solution[]> {
+  public static async getManyByChallenge(
+    challenge: Challenge,
+  ): Promise<Solution[]> {
     const solutionsPath = path.join(challenge.path, "solutions")
     const languagesSolution = (await fs.promises.readdir(solutionsPath)).filter(
       (name) => {
@@ -151,7 +155,7 @@ export class Solution implements SolutionOptions {
     return await Solution.getManyByPaths(paths)
   }
 
-  static async getManyByProgrammingLanguages(
+  public static async getManyByProgrammingLanguages(
     programmingLanguages?: string[],
   ): Promise<Solution[]> {
     const languages =
@@ -185,7 +189,7 @@ export class Solution implements SolutionOptions {
    * @param paths relative to `challenges` (e.g: `challenges/hello-world/solutions/c/function`)
    * @returns
    */
-  static async getManyByPaths(paths: string[]): Promise<Solution[]> {
+  public static async getManyByPaths(paths: string[]): Promise<Solution[]> {
     const solutions: string[] = []
     for (const path of paths) {
       if (await isExistingPath(path)) {

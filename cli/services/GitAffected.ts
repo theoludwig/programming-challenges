@@ -20,7 +20,7 @@ export interface GitAffectedOptions {
 export class GitAffected implements GitAffectedOptions {
   public base?: string
 
-  constructor(options: GitAffectedOptions = {}) {
+  public constructor(options: GitAffectedOptions = {}) {
     this.base = options.base
   }
 

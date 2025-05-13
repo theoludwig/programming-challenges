@@ -21,7 +21,8 @@ This data is comprised of lines, each of which represents a defibrillator. Each 
 - Contact Phone number
 - Longitude (degrees)
 - Latitude (degrees)
-  These fields are separated by a semicolon (`;`).
+
+These fields are separated by a semicolon (`;`).
 
 **Beware:** the decimal numbers use the comma (,) as decimal separator. Remember to turn the comma (,) into dot (.) if necessary in order to use the data in your program.
 

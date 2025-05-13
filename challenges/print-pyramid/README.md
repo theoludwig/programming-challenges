@@ -14,37 +14,3 @@ Display a pyramid of stars (`*`) whose height is given and in the right order (`
 ## Examples
 
 See the `test` folder for examples of input/output.
-
-### Example 1
-
-#### Input
-
-```txt
-normal
-3
-```
-
-#### Output
-
-```txt
-  *
- ***
-*****
-```
-
-### Example 2
-
-#### Input
-
-```txt
-reverse
-3
-```
-
-#### Output
-
-```txt
-*****
- ***
-  *
-```

@@ -19,7 +19,7 @@ export class Challenge implements ChallengeOptions {
   public name: string
   public path: string
 
-  constructor(options: ChallengeOptions) {
+  public constructor(options: ChallengeOptions) {
     const { name } = options
     this.name = name
     this.path = fileURLToPath(new URL(`./${name}`, Challenge.BASE_URL))

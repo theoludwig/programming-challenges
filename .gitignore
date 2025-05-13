@@ -28,3 +28,6 @@ coverage
 .DS_Store
 temp
 tmp
+
+# typescript
+*.tsbuildinfo

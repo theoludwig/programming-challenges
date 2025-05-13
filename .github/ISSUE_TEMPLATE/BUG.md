@@ -6,8 +6,8 @@ labels: "bug"
 ---
 
 <!--
-  Please provide a clear and concise description of what the bug is. Include
-  screenshots if needed. Please make sure your issue has not already been fixed.
+Please provide a clear and concise description of what the bug is. Include
+screenshots if needed. Please make sure your issue has not already been fixed.
 -->
 
 ## Steps To Reproduce

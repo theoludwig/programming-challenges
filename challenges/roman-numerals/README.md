@@ -22,9 +22,9 @@ Here are the rules for building a Roman numeral:
 - Subtractions of values ​​are limited to 2 letters only. For example we **cannot** write `8` while doing `IIX`. We must use the addition of letters like this `VIII`.
 - Therefore, the first ten numbers are written as `I`, `II`, `III`, `IV`, `V`, `VI`, `VII`, `VIII`, `IX`, `X` . Larger numbers follow the same pattern.
 - You can associate as many symbols as you want to write larger numbers, for example:
-  - `36` is written as `XXXVI`
-  - `42` is written as `XLII`
-  - `2448` is written as `MMCDXLVIII`.
+    - `36` is written as `XXXVI`
+    - `42` is written as `XLII`
+    - `2448` is written as `MMCDXLVIII`.
 
 | Symbol | I   | V   | X   | L   | C   | D   | M    |
 | ------ | --- | --- | --- | --- | --- | --- | ---- |

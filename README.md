@@ -1,21 +1,21 @@
 <h1 align="center">programming-challenges</h1>
 
 <p align="center">
-  <strong>Programming exercises and challenges to improve your algorithmic logic.</strong>
+    <strong>Programming exercises and challenges to improve your algorithmic logic.</strong>
 </p>
 
 <p align="center">
-  <a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="CONTRIBUTING" /></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/licence-MIT-blue.svg" alt="Licence MIT"/></a>
-  <a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
-  <br />
-  <a href="https://github.com/theoludwig/programming-challenges/actions/workflows/cli.yml"><img src="https://github.com/theoludwig/programming-challenges/actions/workflows/cli.yml/badge.svg?branch=master" alt="CLI" /></a>
-  <a href="https://github.com/theoludwig/programming-challenges/actions/workflows/challenges.yml"><img src="https://github.com/theoludwig/programming-challenges/actions/workflows/challenges.yml/badge.svg?branch=master" alt="Challenges" /></a>
-  <a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg" alt="Conventional Commits" /></a>
-  <br/>
-  <a href="https://gitpod.io/#https://github.com/theoludwig/programming-challenges"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod ready-to-code"/></a>
-  <br/> <br/>
-  <img src="./logo.png" width="120" alt="programming-challenges Logo" />
+    <a href="./CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="CONTRIBUTING" /></a>
+    <a href="./LICENSE"><img src="https://img.shields.io/badge/licence-MIT-blue.svg" alt="Licence MIT"/></a>
+    <a href="./CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant" /></a>
+    <br />
+    <a href="https://github.com/theoludwig/programming-challenges/actions/workflows/cli.yml"><img src="https://github.com/theoludwig/programming-challenges/actions/workflows/cli.yml/badge.svg?branch=master" alt="CLI" /></a>
+    <a href="https://github.com/theoludwig/programming-challenges/actions/workflows/challenges.yml"><img src="https://github.com/theoludwig/programming-challenges/actions/workflows/challenges.yml/badge.svg?branch=master" alt="Challenges" /></a>
+    <a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg" alt="Conventional Commits" /></a>
+    <br/>
+    <a href="https://gitpod.io/#https://github.com/theoludwig/programming-challenges"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod ready-to-code"/></a>
+    <br/> <br/>
+    <img src="./logo.png" width="120" alt="programming-challenges Logo" />
 </p>
 
 ## 📜 About
@@ -80,17 +80,20 @@ programming-challenges --help
 # Generate a new challenge
 programming-challenges generate challenge --github-user="YourGitHubName" --challenge="hello-world"
 
+# Search for a challenge not yet solved in a specific programming language
+programming-challenges search --language="rust"
+
 # Generate a new solution
 programming-challenges generate solution --github-user="YourGitHubName" --challenge="hello-world" --solution="function" --language="python"
-
-# Test a solution
-programming-challenges run test --challenge="hello-world" --solution="function" --language="python"
 
 # Run a solution with specific `input.txt` file
 programming-challenges run solution --challenge="hello-world" --solution="function" --language="python" --input-path="./challenges/hello-world/test/1/input.txt" --output
 
-# Search for a challenge not yet solved in a specific programming language
-programming-challenges search --language="rust"
+# Test a solution
+programming-challenges run test --challenge="hello-world" --solution="function" --language="python"
+
+# Test all the solutions in all the challenges
+programming-challenges run test --all
 ```
 
 ## 💡 Contributing

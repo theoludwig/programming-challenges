@@ -1,15 +1,37 @@
 {
-  "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
     "lib": ["ESNext"],
-    "moduleResolution": "NodeNext",
     "outDir": "./build",
     "rootDir": "./cli",
-    "noEmit": true,
     "checkJs": false,
-    "exactOptionalPropertyTypes": false
+    "exactOptionalPropertyTypes": false,
+
+    "strict": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": false,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "noEmit": true,
+
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "challenges", "templates", "temp", "tmp"]
 }
